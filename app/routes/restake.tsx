@@ -1,8 +1,9 @@
+import { Outlet } from '@remix-run/react'
 import { Tabs } from '~/components/Tabs'
 
 export default function Index() {
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
       <Tabs
         small
         tabs={[
@@ -11,6 +12,7 @@ export default function Index() {
           { label: 'Withdraw', href: '/restake/withdraw' }
         ]}
       />
+      <Outlet />
     </div>
   )
 }
