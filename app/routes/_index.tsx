@@ -1,4 +1,6 @@
 import type { MetaFunction } from '@remix-run/cloudflare'
+// import { useAccount } from 'wagmi'
+// import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,9 +10,6 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
-  return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
-      <h1>OEigen! test - test</h1>
-    </div>
-  )
+  // const { address } = useAccount()
+  return <>Dashboard</>
 }
