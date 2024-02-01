@@ -1,5 +1,4 @@
 import type { LinksFunction } from '@remix-run/cloudflare'
-import { cssBundleHref } from '@remix-run/css-bundle'
 import {
   Links,
   LiveReload,
@@ -48,7 +47,7 @@ export default function App() {
         </WagmiProvider>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
+        {/* <LiveReload /> */}
       </body>
     </html>
   )

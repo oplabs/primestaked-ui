@@ -12,12 +12,13 @@ interface TabsProps {
     href: string
   }[]
   className?: string
+  small?: boolean
 }
 
 export const Tabs = (props: TabsProps) => {
   const location = useLocation()
-  const activeTab = props.tabs.findIndex(
-    (tab) => tab.href === location.pathname
+  const activeTab = props.tabs.findIndex((tab) =>
+    location.pathname.startsWith(tab.href)
   )
 
   const ref = useRef<HTMLDivElement>(null)
@@ -50,13 +51,17 @@ export const Tabs = (props: TabsProps) => {
   return (
     <div
       ref={ref}
-      className={`${props.className || 'flex'} items-center gap-10 relative`}
+      className={`${props.className || 'flex'} items-center ${
+        props.small ? 'gap-12' : 'gap-10'
+      } relative`}
     >
       {props.tabs.map((tab, idx) => (
         <Link
           key={idx}
           to={tab.href}
-          className={`py-6 relative transition-all duration-200 ease-in-out group${
+          className={`${
+            props.small ? 'py-3 text-xs font-medium' : 'py-6'
+          } relative transition-all duration-200 ease-in-out group${
             activeTab === idx ? '' : ' text-gray-500 hover:text-off-white'
           }`}
           onClick={() => setActive(idx)}

@@ -12,14 +12,14 @@ export const Nav = () => {
   const { openAccountModal } = useAccountModal()
 
   return (
-    <div className="border-b border-b-gray-900 mb-8 sm:mb-16">
+    <div className="border-b border-b-gray-900 mb-8 sm:mb-10">
       <div className="px-3 sm:px-6 mx-auto flex items-center gap-12 py-6 sm:py-0">
         <img src={Logo} alt="logo" className="w-[125px] sm:w-[175px]" />
         <NavTabs className="hidden sm:flex justify-between" />
         <div className="hidden sm:flex items-center justify-between gap-4 ml-auto">
-          <button className="btn-secondary px-6 py-3">
+          {/* <button className="btn-secondary px-6 py-3">
             <span className="hidden sm:inline">{'View on '}</span>IPFS
-          </button>
+          </button> */}
 
           {isConnected ? (
             <button

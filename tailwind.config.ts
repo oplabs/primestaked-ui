@@ -1,22 +1,20 @@
-import type { Config } from 'tailwindcss'
-
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
         gray: {
-          500: '#BABDCC',
-          900: '#1E1F25'
-        },
-        purple: {
-          500: '#5C3BFF'
+          bg1: '#19191d', // Table Header
+          bg2: '#141214', // Table body 1
+          bg3: '#1e1f25', // Table body 2
+          bg4: '#171619', // Table footer
+          border: '#282a32', // Table border
+          500: '#b5beca' // Gray Text
         },
         blue: {
-          500: '#0274f1',
-          600: '#8C66FC'
+          500: '#0074f0' // Button
         },
-        'off-black': '#02080d',
+        'off-black': '#101113',
         'off-white': '#fafbfb'
       }
     },
@@ -29,4 +27,4 @@ export default {
     }
   },
   plugins: []
-} satisfies Config
+}
