@@ -4,15 +4,15 @@ export default {
     extend: {
       colors: {
         gray: {
-          bg1: '#19191d', // Table Header
-          bg2: '#141214', // Table body 1
-          bg3: '#1e1f25', // Table body 2
-          bg4: '#171619', // Table footer
-          border: '#282a32', // Table border
+          bg1: '#f7faff', // Table
+          border: '#d8dee5', // Table border
           500: '#b5beca' // Gray Text
         },
         blue: {
           500: '#0074f0' // Button
+        },
+        red: {
+          500: '#ff4e4e'
         },
         'off-black': '#101113',
         'off-white': '#fafbfb'

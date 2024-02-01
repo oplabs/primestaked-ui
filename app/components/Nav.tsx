@@ -1,7 +1,7 @@
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
-import Logo from '~/assets/logo.svg'
+import Logo from '~/assets/prime-staked.svg'
 import { ProfileIcon, SyncIcon } from '~/components/Icons'
 import { Tabs } from '~/components/Tabs'
 import { truncateAddress } from '~/utils/string'
@@ -12,7 +12,7 @@ export const Nav = () => {
   const { openAccountModal } = useAccountModal()
 
   return (
-    <div className="border-b border-b-gray-900 mb-8 sm:mb-10">
+    <div className="mb-8 sm:mb-10">
       <div className="px-3 sm:px-6 mx-auto flex items-center gap-12 py-6 sm:py-0">
         <img src={Logo} alt="logo" className="w-[125px] sm:w-[175px]" />
         <NavTabs className="hidden sm:flex justify-between" />

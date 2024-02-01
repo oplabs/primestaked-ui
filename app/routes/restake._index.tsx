@@ -12,16 +12,14 @@ import {
   lrtConfigAbi
 } from '~/utils/abis'
 
-// LRT Oracle: 0x349A73444b1a310BAe67ef67973022020d70020d
-// LRT Deposit Pool: 0x036676389e48133B63a802f8635AD39E752D375D
-// LRT Config: 0x947Cb49334e6571ccBFEF1f1f1178d8469D65ec7
-
-const assetAddresses = {
+const contracts = {
   rsETH: '0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7',
   ETHx: '0xa35b1b31ce002fbf2058d22f30f95d405200a15b',
   sfrxETH: '0xac3E018457B222d93114458476f3E3416Abbe38F',
   stETH: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
-  lrtDepositPool: '0x036676389e48133B63a802f8635AD39E752D375D'
+  lrtOracle: '0x349A73444b1a310BAe67ef67973022020d70020d',
+  lrtDepositPool: '0x036676389e48133B63a802f8635AD39E752D375D',
+  lrtConfig: '0x947Cb49334e6571ccBFEF1f1f1178d8469D65ec7'
 }
 
 export default function Index() {
@@ -36,12 +34,12 @@ export default function Index() {
     contracts: [
       {
         abi: lrtOracleAbi,
-        address: '0x349A73444b1a310BAe67ef67973022020d70020d',
+        address: contracts.lrtOracle,
         functionName: 'rsETHPrice'
       },
       {
         abi: rsETHABI,
-        address: '0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7',
+        address: contracts.rsETH,
         functionName: 'totalSupply'
       },
       {
@@ -51,49 +49,49 @@ export default function Index() {
       },
       {
         abi: lrtDepositPoolAbi,
-        address: '0x036676389e48133B63a802f8635AD39E752D375D',
+        address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: ['0xa35b1b31ce002fbf2058d22f30f95d405200a15b'] // ETHx
+        args: [contracts.ETHx]
       },
       {
         abi: lrtDepositPoolAbi,
-        address: '0x036676389e48133B63a802f8635AD39E752D375D',
+        address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: ['0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'] // STETH
+        args: [contracts.stETH]
       },
       {
         abi: lrtDepositPoolAbi,
-        address: '0x036676389e48133B63a802f8635AD39E752D375D',
+        address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: ['0xac3E018457B222d93114458476f3E3416Abbe38F'] // sfrxETH
+        args: [contracts.sfrxETH]
       },
       {
         abi: rsETHABI,
-        address: '0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7',
+        address: contracts.rsETH,
         functionName: 'balanceOf',
         args: [address || zeroAddress]
       },
       {
         abi: lrtOracleAbi,
-        address: '0x349A73444b1a310BAe67ef67973022020d70020d',
+        address: contracts.lrtOracle,
         functionName: 'getAssetPrice',
-        args: [assetAddresses[asset]]
+        args: [contracts[asset]]
       },
       {
         abi: lrtConfigAbi,
-        address: '0x947Cb49334e6571ccBFEF1f1f1178d8469D65ec7',
+        address: contracts.lrtConfig,
         functionName: 'depositLimitByAsset',
-        args: [assetAddresses[asset]]
+        args: [contracts[asset]]
       },
       {
         abi: rsETHABI,
-        address: assetAddresses[asset],
+        address: contracts[asset],
         functionName: 'allowance',
-        args: [address || zeroAddress, assetAddresses.lrtDepositPool]
+        args: [address || zeroAddress, contracts.lrtDepositPool]
       },
       {
         abi: rsETHABI,
-        address: assetAddresses[asset],
+        address: contracts[asset],
         functionName: 'balanceOf',
         args: [address || zeroAddress]
       }
@@ -105,6 +103,15 @@ export default function Index() {
     const rsETHPrice = data[0].result
     const tvl = (rsETHPrice * data[1].result) / 10n ** 18n
     const tvlUsd = (tvl * data[2].result) / 10n ** 8n
+
+    const assetAllowance = data[9].result
+    const assetBalance = data[10].result
+    let depositAmountBI
+    try {
+      depositAmountBI = parseEther(depositAmount)
+    } catch (e) {
+      /* Ignore */
+    }
 
     return (
       <>
@@ -176,15 +183,16 @@ export default function Index() {
           })}`}
         </div>
         <div>
-          {`My ${asset} balance: ${bigintToFloat(
-            data[10].result
-          ).toLocaleString(undefined, {
-            maximumFractionDigits: 4
-          })}`}
+          {`My ${asset} balance: ${bigintToFloat(assetBalance).toLocaleString(
+            undefined,
+            {
+              maximumFractionDigits: 4
+            }
+          )}`}
         </div>
         <div>
           {`My ${asset} allowance: ${bigintToFloat(
-            data[9].result
+            assetAllowance
           ).toLocaleString(undefined, {
             maximumFractionDigits: 4
           })}`}
@@ -202,10 +210,10 @@ export default function Index() {
             onClick={() =>
               deposit.writeContract({
                 abi: lrtDepositPoolAbi,
-                address: '0x036676389e48133B63a802f8635AD39E752D375D',
+                address: contracts.lrtDepositPool,
                 functionName: 'depositAsset',
                 args: [
-                  assetAddresses[asset],
+                  contracts[asset],
                   parseEther(depositAmount),
                   0n,
                   'Origin'
@@ -216,7 +224,12 @@ export default function Index() {
             Deposit
           </button>
         </div>
-        {deposit.error ? <div className="mt-4 text-xs break-all">{deposit.error.message}</div> : null}
+        {depositAmountBI && depositAmountBI > assetBalance ? (
+          <div className="mt-4 text-xs break-all">Not enough balance</div>
+        ) : null}
+        {deposit.error ? (
+          <div className="mt-4 text-xs break-all">{deposit.error.message}</div>
+        ) : null}
       </>
     )
   }
