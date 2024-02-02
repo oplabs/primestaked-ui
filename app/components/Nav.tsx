@@ -3,7 +3,7 @@ import { Link } from '@remix-run/react'
 import { useAccount } from 'wagmi'
 
 import Logo from '~/assets/prime-staked.svg'
-import { ProfileIcon, SyncIcon } from '~/components/Icons'
+import { ProfileIcon, ArrowUpRight } from '~/components/Icons'
 import { truncateAddress } from '~/utils/string'
 
 export const Nav = () => {
@@ -22,10 +22,19 @@ export const Nav = () => {
           {/* <button className="btn-secondary px-6 py-3">
             <span className="hidden sm:inline">{'View on '}</span>IPFS
           </button> */}
+          <a
+            href="https://docs.primestaked.com"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-secondary px-4 py-1.5 text-sm flex items-center gap-2 font-medium self-stretch text-gray-500"
+          >
+            Docs
+            <ArrowUpRight size={11} />
+          </a>
 
           {isConnected ? (
             <button
-              className="btn-secondary px-4 py-2 flex items-center gap-3 font-medium self-stretch"
+              className="btn-secondary pl-1.5 pr-4 py-1.5 text-sm flex items-center gap-3 font-medium self-stretch text-gray-500"
               onClick={openAccountModal}
             >
               <div className="rounded-full overflow-hidden">
@@ -38,9 +47,6 @@ export const Nav = () => {
               Connect
             </button>
           )}
-          {/* <button className="btn-secondary p-2 text-red-500">
-            <SyncIcon />
-          </button> */}
         </div>
       </div>
     </div>

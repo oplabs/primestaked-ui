@@ -22,6 +22,7 @@ import {
   lrtDepositPoolAbi,
   lrtConfigAbi
 } from '~/utils/abis'
+import { LargeBox } from '~/components/LargeBox'
 
 export default function Index() {
   const { openConnectModal } = useConnectModal()
@@ -164,8 +165,7 @@ export default function Index() {
           setTokenChooserIsOpen(false)
         }}
       />
-      <div className="border border-gray-border rounded-2xl bg-gray-bg1 w-full max-w-[540px] mt-12">
-        <div className="py-6 px-6 border-b border-gray-border">Restake LST</div>
+      <LargeBox title="Restake LST">
         <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border relative">
           <div className="flex items-center justify-between">
             <button
@@ -275,7 +275,7 @@ export default function Index() {
           ) : null}
         </div>
 
-        <div className="p-6 bg-white rounded-b-2xl flex flex-col gap-2">
+        <div className="p-6 bg-white rounded-b-3xl flex flex-col gap-2">
           <div className="flex items-center justify-between text-sm">
             <div>Restaking limit</div>
             <div className="text-gray-500">
@@ -291,7 +291,7 @@ export default function Index() {
             />
           </div>
         </div>
-      </div>
+      </LargeBox>
     </>
   )
 }

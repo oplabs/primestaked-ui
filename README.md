@@ -57,10 +57,8 @@ output directory" should be set to `public`.
 ## TODO
 
 - USD amounts in swap component
-- Docs header link
 
 - Add balance to token chooser
-- Unstake / Withdraw styling
 - Dashboard components
 - Stats: Tooltips
 - Connected wallet styling in header

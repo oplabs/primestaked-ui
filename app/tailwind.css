@@ -14,7 +14,7 @@ body {
   @apply rounded-full leading-tight font-medium text-white bg-red-500/60 pointer-events-none;
 }
 .btn-secondary {
-  @apply rounded-full leading-tight font-medium bg-gray-200 hover:bg-gray-100 transition-all duration-200 ease-in-out;
+  @apply rounded-full leading-tight font-medium bg-white hover:bg-gray-100 transition-all duration-200 ease-in-out border border-gray-border;
 }
 .btn-secondary-disabled {
   @apply rounded-full leading-tight font-medium bg-gray-200 opacity-50 pointer-events-none;
