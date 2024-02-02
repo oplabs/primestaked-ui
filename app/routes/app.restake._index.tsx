@@ -26,7 +26,7 @@ import {
 export default function Index() {
   const { openConnectModal } = useConnectModal()
   const [isOpen, setIsOpen] = useState(false)
-  const [tokenChooserIsOpen, setTokenChooserIsOpen] = useState(true)
+  const [tokenChooserIsOpen, setTokenChooserIsOpen] = useState(false)
   const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
