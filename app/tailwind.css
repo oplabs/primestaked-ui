@@ -8,7 +8,7 @@ body {
 }
 
 .btn {
-  @apply rounded-full leading-tight font-medium bg-blue-gradient hover:bg-blue-gradient-light;
+  @apply rounded-full leading-tight font-medium bg-red-500 hover:bg-red-500/75 text-white;
 }
 .btn-disabled {
   @apply rounded-full leading-tight font-medium bg-blue-gradient opacity-50 pointer-events-none;
@@ -20,8 +20,8 @@ body {
   @apply rounded-full leading-tight font-medium bg-gray-200 opacity-50 pointer-events-none;
 }
 .btn-outline {
-  @apply rounded-full leading-tight font-medium border-blue-600 border hover:bg-blue-600 hover:text-off-black transition-all duration-200 ease-in-out cursor-pointer;
+  @apply rounded-full leading-tight font-medium border-red-500 border hover:bg-blue-600 hover:text-off-black transition-all duration-200 ease-in-out cursor-pointer;
 }
 .btn-outline-disabled {
-  @apply rounded-full leading-tight font-medium border-blue-600/50 border text-off-white/30;
+  @apply rounded-full leading-tight font-medium border-red-500/50 border text-off-white/30;
 }

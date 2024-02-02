@@ -7,7 +7,7 @@ export const ExternalLink = ({ size = 14 }: { size?: number }) => (
   >
     <path d="M676.413-613.239 247.348-184.174Q234.674-171.5 215.522-171.5t-31.826-12.674Q171.022-196.848 171.022-216t12.674-31.826l429.065-429.065H401.913q-19.152 0-32.326-13.174t-13.174-32.326q0-19.153 13.174-32.327 13.174-13.173 32.326-13.173h320q19.152 0 32.326 13.173 13.174 13.174 13.174 32.327v320q0 19.152-13.174 32.326t-32.326 13.174q-19.152 0-32.326-13.174t-13.174-32.326v-210.848Z" />
   </svg>
-);
+)
 
 export const SyncIcon = ({ size = 28 }: { size?: number }) => (
   <svg
@@ -18,7 +18,7 @@ export const SyncIcon = ({ size = 28 }: { size?: number }) => (
   >
     <path d="M292.308-147.692 120-320l172.308-172.308L320.846-464l-124 124H800v40H196.846l124 124-28.538 28.308Zm375.384-320L639.154-496l124-124H160v-40h603.154l-124-124 28.538-28.308L840-640 667.692-467.692Z" />
   </svg>
-);
+)
 
 export const CheckCircle = ({ size = 24 }: { size?: number }) => (
   <svg
@@ -29,7 +29,7 @@ export const CheckCircle = ({ size = 24 }: { size?: number }) => (
   >
     <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
   </svg>
-);
+)
 
 export const Close = ({ size = 24 }: { size?: number }) => (
   <svg
@@ -40,7 +40,7 @@ export const Close = ({ size = 24 }: { size?: number }) => (
   >
     <path d="M256-213.847 213.847-256l224-224-224-224L256-746.153l224 224 224-224L746.153-704l-224 224 224 224L704-213.847l-224-224-224 224Z" />
   </svg>
-);
+)
 
 export const Info = ({ size = 24 }: { size?: number }) => (
   <svg
@@ -51,14 +51,14 @@ export const Info = ({ size = 24 }: { size?: number }) => (
   >
     <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
   </svg>
-);
+)
 
 export const CaretDown = ({
   size = 28,
-  className,
+  className
 }: {
-  size?: number;
-  className?: string;
+  size?: number
+  className?: string
 }) => (
   <svg
     height={size}
@@ -68,14 +68,14 @@ export const CaretDown = ({
   >
     <path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
   </svg>
-);
+)
 
 export const ArrowDropUp = ({
   size = 24,
-  className,
+  className
 }: {
-  size?: number;
-  className?: string;
+  size?: number
+  className?: string
 }) => (
   <svg
     height={size}
@@ -85,7 +85,24 @@ export const ArrowDropUp = ({
   >
     <path d="m280-400 200-200 200 200H280Z" />
   </svg>
-);
+)
+
+export const ArrowDown = ({
+  size = 16,
+  className
+}: {
+  size?: number
+  className?: string
+}) => (
+  <svg
+    height={size}
+    width={size}
+    viewBox="0 0 16 16"
+    className={`fill-current${className ? ` ${className}` : ''}`}
+  >
+    <path d="M7.37563 15.7357C7.53634 15.9036 7.76134 16 7.99706 16C8.23277 16 8.4542 15.9036 8.61848 15.7357L14.6185 9.45C14.9471 9.10714 14.9328 8.56429 14.5899 8.23929C14.2471 7.91429 13.7042 7.925 13.3792 8.26786L8.8542 13.0036V0.857143C8.8542 0.382143 8.47206 0 7.99706 0C7.52206 0 7.13991 0.382143 7.13991 0.857143V13.0036L2.61849 8.26429C2.28991 7.92143 1.75063 7.91071 1.40777 8.23571C1.06491 8.56071 1.0542 9.10357 1.3792 9.44643L7.3792 15.7321L7.37563 15.7357Z" />
+  </svg>
+)
 
 export const ProfileIcon = ({ size = 28 }: { size?: number }) => (
   <svg height={size} width={size}>
@@ -130,7 +147,7 @@ export const ProfileIcon = ({ size = 28 }: { size?: number }) => (
       fill="#15c6f2"
     />
   </svg>
-);
+)
 
 export const Spinner = ({ size = 20 }: { size?: number }) => (
   <svg
@@ -151,4 +168,4 @@ export const Spinner = ({ size = 20 }: { size?: number }) => (
       />
     </g>
   </svg>
-);
+)
