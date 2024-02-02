@@ -10,11 +10,11 @@ import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 // })
 
 export const config = getDefaultConfig({
-  appName: 'OEigen',
+  appName: 'PrimeStakedETH',
   projectId: 'b6187205b37dc9d704772f16dca5b71e',
   chains: [mainnet],
 
-  transports: {
-    [mainnet.id]: http('http://localhost:8545')
-  }
+  // transports: {
+  //   [mainnet.id]: http('http://localhost:8545')
+  // }
 })

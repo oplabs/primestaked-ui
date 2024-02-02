@@ -12,7 +12,7 @@ export LUCKY_USER=0x09fDdBBAf37b19Ca477649Aeef6f4bB46B3Dfb7B
 # sfrxETH
 export WHALE=0x41dda7be30130cebd867f439a759b9e7ab2569e9
 export STETH=0xac3e018457b222d93114458476f3e3416abbe38f
-export LUCKY_USER=0x09fDdBBAf37b19Ca477649Aeef6f4bB46B3Dfb7B
+export LUCKY_USER=0xd7Df465c5223e4EDAC8fdE5B3dcD97A107659a94
 
 cast call $STETH "balanceOf(address)(uint256)" $WHALE
 cast call $STETH "balanceOf(address)(uint256)" $LUCKY_USER

@@ -1,10 +1,16 @@
-import { useState } from 'react'
-import { useAccount, useReadContracts, useWriteContract } from 'wagmi'
+import { useState, useEffect } from 'react'
+import {
+  useAccount,
+  useReadContracts,
+  useWriteContract,
+  useWaitForTransactionReceipt
+} from 'wagmi'
 import { zeroAddress, parseEther } from 'viem'
 
 import { formatEth } from '~/utils/bigint'
-import { contracts } from '~/utils/constants'
+import { contracts, assets } from '~/utils/constants'
 import { ArrowDown } from '~/components/Icons'
+import { Modal } from '~/components/Modal'
 
 import primeEthSVG from '~/assets/prime-eth-token.svg'
 
@@ -16,12 +22,13 @@ import {
 } from '~/utils/abis'
 
 export default function Index() {
+  const [isOpen, setIsOpen] = useState(false)
   const deposit = useWriteContract()
   const { address } = useAccount()
 
-  const [asset, setAsset] = useState<keyof typeof contracts>('ETHx')
+  const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
   const [depositAmount, setDepositAmount] = useState('')
-  const { data } = useReadContracts({
+  const { data, refetch } = useReadContracts({
     contracts: [
       {
         abi: lrtOracleAbi,
@@ -61,24 +68,78 @@ export default function Index() {
     ]
   })
 
-  if (!data) {
-    return <div>Loading...</div>
+  const txReceipt = useWaitForTransactionReceipt({ hash: deposit.data })
+
+  useEffect(() => {
+    if (deposit.status === 'pending') {
+      setIsOpen(true)
+    } else if (deposit.status === 'error') {
+      setIsOpen(false)
+    }
+  }, [deposit.status, txReceipt.data, refetch])
+
+  let rsETHPrice = 0n
+
+  let assetAllowance = 0n
+  let assetBalance = 0n
+  let assetPrice = 0n
+  let rawAssetPrice = 0n
+  let lrtBalance = 0n
+  let depositLimit = 0n
+
+  if (data) {
+    rsETHPrice = data[0].result
+    lrtBalance = data[1].result
+    rawAssetPrice = data[2].result
+    depositLimit = data[3].result
+
+    assetAllowance = data[4].result
+    assetBalance = data[5].result
+    assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
   }
 
-  const rsETHPrice = data[0].result
-
-  const assetAllowance = data[4].result
-  const assetBalance = data[5].result
-  const assetPrice = (10n ** 18n * rsETHPrice) / data[2].result
-  let depositAmountBI
+  let depositAmountBI = 0n
+  let youWillGet = 0n
   try {
     depositAmountBI = parseEther(depositAmount)
+    youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
   } catch (e) {
     /* Ignore */
   }
 
+  let btnDisabled = false
+  let btnText = 'Swap'
+  if (!depositAmountBI || depositAmountBI <= 0n) {
+    btnDisabled = true
+    btnText = 'Enter an amount'
+  } else if (depositAmountBI > assetBalance) {
+    btnDisabled = true
+    btnText = 'Not enough balance'
+  } else if (depositAmountBI > assetAllowance) {
+    btnText = `Approve ${asset}`
+  }
+
+  let modalStatus = 'loading'
+  let modalTitle = 'Transaction in process'
+  if (deposit.status === 'pending') {
+    modalTitle = 'Please check your wallet'
+  } else if (deposit.status === 'success' && txReceipt.data) {
+    modalTitle = 'Transaction successful'
+    modalStatus = 'success'
+  }
+
   return (
     <>
+      <Modal
+        status={modalStatus}
+        txLink={deposit.data ? `https://etherscan.io/tx/${deposit.data}` : ''}
+        title={modalTitle}
+        isOpen={isOpen}
+        setIsOpen={() => {
+          setIsOpen(false)
+          refetch()
+        }}
+      />
       <div className="border border-gray-border rounded-2xl bg-gray-bg1 w-full max-w-[540px] mt-12">
         <div className="py-6 px-6 border-b border-gray-border">Restake LST</div>
         <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border relative">
@@ -88,14 +149,17 @@ export default function Index() {
               value={asset}
               onChange={(e) => setAsset(e.currentTarget.value)}
             >
-              <option>ETHx</option>
-              <option>stETH</option>
-              <option>sfrxETH</option>
+              {assets.map(({ symbol }) => (
+                <option key={symbol}>{symbol}</option>
+              ))}
             </select>
 
             <div className="text-sm text-gray-500 flex items-center gap-3">
               {`Balance: ${formatEth(assetBalance)}`}
-              <button className="border border-gray-500 px-1 text-xs rounded-full hover:bg-gray-500 hover:text-white">
+              <button
+                onClick={() => setDepositAmount(formatEth(assetBalance))}
+                className="border border-gray-500 px-1 text-xs rounded-full hover:bg-gray-500 hover:text-white"
+              >
                 max
               </button>
             </div>
@@ -121,11 +185,13 @@ export default function Index() {
               primeETH
             </div>
             <div className="text-sm text-gray-500 flex items-center gap-3">
-              {`Balance: ${formatEth(data[1].result)}`}
+              {`Balance: ${formatEth(lrtBalance)}`}
             </div>
           </div>
           <div className="flex items-end justify-between">
-            <div className="flex-1 text-2xl font-bold">{'9'}</div>
+            <div className="flex-1 text-2xl font-bold">
+              {formatEth(youWillGet || '0')}
+            </div>
             <div className="text-sm text-gray-500">$100,000</div>
           </div>
         </div>
@@ -139,8 +205,13 @@ export default function Index() {
         </div>
         <div className="p-6 flex flex-col gap-6 bg-white rounded-b-2xl">
           <button
-            className="btn px-3 py-4 text-xl"
+            className={`${
+              btnDisabled ? 'btn-disabled' : 'btn'
+            } px-3 py-4 text-xl`}
             onClick={() => {
+              if (btnDisabled) {
+                return
+              }
               if (depositAmountBI < assetAllowance) {
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
@@ -163,16 +234,9 @@ export default function Index() {
               }
             }}
           >
-            {depositAmountBI && depositAmountBI > assetAllowance
-              ? 'Set allowance'
-              : 'Swap'}
+            {btnText}
           </button>
 
-          {!depositAmountBI ? null : depositAmountBI > assetBalance ? (
-            <div className="text-center text-xs break-all">
-              Not enough balance
-            </div>
-          ) : null}
           {deposit.error ? (
             <div className="text-center text-xs break-all">
               {deposit.error.message}
@@ -182,7 +246,7 @@ export default function Index() {
       </div>
 
       <div className="text-xs text-gray-500 mt-6">
-        {`${asset} restaking limit: ${formatEth(data[3].result)}`}
+        {`${asset} restaking limit: ${formatEth(depositLimit)}`}
       </div>
       <div className="text-xs text-gray-500">
         {`My ${asset} allowance: ${formatEth(assetAllowance)}`}

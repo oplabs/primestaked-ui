@@ -2,8 +2,8 @@ import type { MetaFunction } from '@remix-run/cloudflare'
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'OEigen' },
-    { name: 'description', content: 'Welcome to OEigen!' }
+    { title: 'Prime Staked ETH' },
+    { name: 'description', content: 'Welcome to Prime Staked ETH!' }
   ]
 }
 
@@ -27,10 +27,18 @@ export default function Index() {
           </div>
         </div>
         <div className="bg-gray-bg4 py-2 px-4 mt-8 grid grid-cols-[auto,auto,auto,auto]">
-          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">Restaked Asset</div>
-          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">Total Deposited</div>
-          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">USD Value</div>
-          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">Points Earned</div>
+          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">
+            Restaked Asset
+          </div>
+          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">
+            Total Deposited
+          </div>
+          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">
+            USD Value
+          </div>
+          <div className="p-2 border-b-2 border-off-black text-xs text-gray-500">
+            Points Earned
+          </div>
 
           <div className="p-2 text-sm">stETH</div>
           <div className="p-2 text-sm">100 ETH</div>

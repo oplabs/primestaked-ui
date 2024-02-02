@@ -21,7 +21,8 @@ const queryClient = new QueryClient()
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
-  { rel: 'stylesheet', href: rainbowStyles }
+  { rel: 'stylesheet', href: rainbowStyles },
+  { rel: 'icon', href: '/favicon.png', type: 'image/png' }
 ]
 
 export default function App() {

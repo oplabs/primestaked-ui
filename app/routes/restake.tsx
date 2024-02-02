@@ -1,3 +1,4 @@
+import type { MetaFunction } from '@remix-run/cloudflare'
 import { Outlet } from '@remix-run/react'
 import { useReadContracts } from 'wagmi'
 
@@ -7,11 +8,18 @@ import {
   oracleAbi,
   lrtDepositPoolAbi
 } from '~/utils/abis'
-import { contracts } from '~/utils/constants'
+import { contracts, assets } from '~/utils/constants'
 import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { Toggle } from '~/components/Toggle'
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'Prime Staked ETH' },
+    { name: 'description', content: 'Welcome to Prime Staked ETH!' }
+  ]
+}
 
 export default function Index() {
   const { data } = useReadContracts({
@@ -31,24 +39,12 @@ export default function Index() {
         address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         functionName: 'latestAnswer'
       },
-      {
+      ...assets.map(({ symbol }) => ({
         abi: lrtDepositPoolAbi,
         address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: [contracts.ETHx]
-      },
-      {
-        abi: lrtDepositPoolAbi,
-        address: contracts.lrtDepositPool,
-        functionName: 'getTotalAssetDeposits',
-        args: [contracts.stETH]
-      },
-      {
-        abi: lrtDepositPoolAbi,
-        address: contracts.lrtDepositPool,
-        functionName: 'getTotalAssetDeposits',
-        args: [contracts.sfrxETH]
-      }
+        args: [contracts[symbol]]
+      }))
     ]
   })
 
@@ -87,9 +83,13 @@ export default function Index() {
           <StatBoxItem label="PrimeStaked Points" value="-" />
         </StatBox>
         <StatBox title="Assets Deposited">
-          <StatBoxItem label="ETHx" value={formatEth(data[3].result)} />
-          <StatBoxItem label="stETH" value={formatEth(data[4].result)} />
-          <StatBoxItem label="sfrxETH" value={formatEth(data[5].result)} />
+          {assets.map(({ symbol }, i) => (
+            <StatBoxItem
+              key={i}
+              label={symbol}
+              value={formatEth(data[i + 3].result)}
+            />
+          ))}
         </StatBox>
       </div>
     </div>

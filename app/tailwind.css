@@ -8,10 +8,10 @@ body {
 }
 
 .btn {
-  @apply rounded-full leading-tight font-medium bg-red-500 hover:bg-red-500/75 text-white;
+  @apply rounded-full leading-tight font-medium text-white bg-red-500 hover:bg-red-500/75;
 }
 .btn-disabled {
-  @apply rounded-full leading-tight font-medium bg-blue-gradient opacity-50 pointer-events-none;
+  @apply rounded-full leading-tight font-medium text-white bg-red-500/60 pointer-events-none;
 }
 .btn-secondary {
   @apply rounded-full leading-tight font-medium bg-gray-200 hover:bg-gray-100 transition-all duration-200 ease-in-out;
