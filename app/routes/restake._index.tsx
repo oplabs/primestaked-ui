@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useAccount, useReadContracts, useWriteContract } from 'wagmi'
 import { zeroAddress, parseEther } from 'viem'
 
-import { bigintToFloat } from '~/utils/bigint'
+import { formatEth } from '~/utils/bigint'
+import { contracts } from '~/utils/constants'
 
 import {
   lrtOracleAbi,
@@ -12,23 +13,13 @@ import {
   lrtConfigAbi
 } from '~/utils/abis'
 
-const contracts = {
-  rsETH: '0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7',
-  ETHx: '0xa35b1b31ce002fbf2058d22f30f95d405200a15b',
-  sfrxETH: '0xac3E018457B222d93114458476f3E3416Abbe38F',
-  stETH: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
-  lrtOracle: '0x349A73444b1a310BAe67ef67973022020d70020d',
-  lrtDepositPool: '0x036676389e48133B63a802f8635AD39E752D375D',
-  lrtConfig: '0x947Cb49334e6571ccBFEF1f1f1178d8469D65ec7'
-}
-
 export default function Index() {
   const deposit = useWriteContract()
   const { address } = useAccount()
 
   console.log(deposit)
 
-  const [asset, setAsset] = useState('ETHx') // ['ETHX', 'stETH', 'sfrxETH'
+  const [asset, setAsset] = useState<keyof typeof contracts>('ETHx')
   const [depositAmount, setDepositAmount] = useState('')
   const { data } = useReadContracts({
     contracts: [
@@ -36,34 +27,6 @@ export default function Index() {
         abi: lrtOracleAbi,
         address: contracts.lrtOracle,
         functionName: 'rsETHPrice'
-      },
-      {
-        abi: rsETHABI,
-        address: contracts.rsETH,
-        functionName: 'totalSupply'
-      },
-      {
-        abi: oracleAbi,
-        address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
-        functionName: 'latestAnswer'
-      },
-      {
-        abi: lrtDepositPoolAbi,
-        address: contracts.lrtDepositPool,
-        functionName: 'getTotalAssetDeposits',
-        args: [contracts.ETHx]
-      },
-      {
-        abi: lrtDepositPoolAbi,
-        address: contracts.lrtDepositPool,
-        functionName: 'getTotalAssetDeposits',
-        args: [contracts.stETH]
-      },
-      {
-        abi: lrtDepositPoolAbi,
-        address: contracts.lrtDepositPool,
-        functionName: 'getTotalAssetDeposits',
-        args: [contracts.sfrxETH]
       },
       {
         abi: rsETHABI,
@@ -101,11 +64,10 @@ export default function Index() {
   if (data) {
     console.log(data)
     const rsETHPrice = data[0].result
-    const tvl = (rsETHPrice * data[1].result) / 10n ** 18n
-    const tvlUsd = (tvl * data[2].result) / 10n ** 8n
 
-    const assetAllowance = data[9].result
-    const assetBalance = data[10].result
+    const assetAllowance = data[4].result
+    const assetBalance = data[5].result
+    const assetPrice = (10n ** 18n * rsETHPrice) / data[2].result
     let depositAmountBI
     try {
       depositAmountBI = parseEther(depositAmount)
@@ -115,49 +77,7 @@ export default function Index() {
 
     return (
       <>
-        <div className="mt-6">
-          {`TVL: ${bigintToFloat(tvl).toLocaleString(undefined, {
-            maximumFractionDigits: 4
-          })} ETH`}
-        </div>
-        <div>
-          {`TVL USD: $${bigintToFloat(tvlUsd).toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          })}`}
-        </div>
-        <div className="mt-4">
-          {`Restaked ETHx: ${bigintToFloat(data[3].result).toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 4
-            }
-          )}`}
-        </div>
-        <div>
-          {`Restaked stETH: ${bigintToFloat(data[4].result).toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 4
-            }
-          )}`}
-        </div>
-        <div>
-          {`Restaked sfrxETH: ${bigintToFloat(data[5].result).toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 4
-            }
-          )}`}
-        </div>
-        <div className="mt-4">
-          {`My rsETH: ${bigintToFloat(data[6].result).toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 4
-            }
-          )}`}
-        </div>
+        <div className="mt-4">{`My rsETH: ${formatEth(data[1].result)}`}</div>
         <div className="flex items-center gap-2 mt-4">
           Select asset:
           <select
@@ -170,33 +90,12 @@ export default function Index() {
             <option>sfrxETH</option>
           </select>
         </div>
-        <div className="mt-4">{`1 rsETH = ${bigintToFloat(
-          (10n ** 18n * rsETHPrice) / data[7].result
-        ).toLocaleString(undefined, {
-          maximumFractionDigits: 4
-        })} ${asset}`}</div>
-        <div>
-          {`${asset} restaking limit: ${bigintToFloat(
-            data[8].result
-          ).toLocaleString(undefined, {
-            maximumFractionDigits: 4
-          })}`}
+        <div className="mt-4">
+          {`1 rsETH = ${formatEth(assetPrice)} ${asset}`}
         </div>
-        <div>
-          {`My ${asset} balance: ${bigintToFloat(assetBalance).toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 4
-            }
-          )}`}
-        </div>
-        <div>
-          {`My ${asset} allowance: ${bigintToFloat(
-            assetAllowance
-          ).toLocaleString(undefined, {
-            maximumFractionDigits: 4
-          })}`}
-        </div>
+        <div>{`${asset} restaking limit: ${formatEth(data[3].result)}`}</div>
+        <div>{`My ${asset} balance: ${formatEth(assetBalance)}`}</div>
+        <div>{`My ${asset} allowance: ${formatEth(assetAllowance)}`}</div>
         <div className="flex items-center gap-2 mt-4">
           {`Deposit ${asset}: `}
           <input
@@ -207,24 +106,35 @@ export default function Index() {
           />
           <button
             className="btn px-3 py-1 text-sm"
-            onClick={() =>
-              deposit.writeContract({
-                abi: lrtDepositPoolAbi,
-                address: contracts.lrtDepositPool,
-                functionName: 'depositAsset',
-                args: [
-                  contracts[asset],
-                  parseEther(depositAmount),
-                  0n,
-                  'Origin'
-                ]
-              })
-            }
+            onClick={() => {
+              if (depositAmountBI < assetAllowance) {
+                deposit.writeContract({
+                  abi: lrtDepositPoolAbi,
+                  address: contracts.lrtDepositPool,
+                  functionName: 'depositAsset',
+                  args: [
+                    contracts[asset],
+                    parseEther(depositAmount),
+                    0n,
+                    'Origin'
+                  ]
+                })
+              } else {
+                deposit.writeContract({
+                  abi: rsETHABI,
+                  address: contracts[asset],
+                  functionName: 'approve',
+                  args: [contracts.lrtDepositPool, 10n ** 32n]
+                })
+              }
+            }}
           >
-            Deposit
+            {depositAmountBI && depositAmountBI > assetAllowance
+              ? 'Set allowance'
+              : 'Deposit'}
           </button>
         </div>
-        {depositAmountBI && depositAmountBI > assetBalance ? (
+        {!depositAmountBI ? null : depositAmountBI > assetBalance ? (
           <div className="mt-4 text-xs break-all">Not enough balance</div>
         ) : null}
         {deposit.error ? (
@@ -236,3 +146,4 @@ export default function Index() {
 
   return <div>Loading...</div>
 }
+

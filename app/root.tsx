@@ -1,7 +1,7 @@
 import type { LinksFunction } from '@remix-run/cloudflare'
 import {
   Links,
-  LiveReload,
+  // LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -39,9 +39,7 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
               <Nav />
-              <div className="container mx-auto max-w-6xl px-3 sm:px-6">
-                <Outlet />
-              </div>
+              <Outlet />
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>

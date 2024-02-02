@@ -8,3 +8,16 @@ export function bigintToFloat(value: string, decimals: number = 18): number {
   // Combine integral and fractional parts and convert to a floating-point number
   return parseFloat(integralPart.toString() + '.' + fractionalAsString)
 }
+
+export function formatEth(value: string) {
+  return bigintToFloat(value).toLocaleString(undefined, {
+    maximumFractionDigits: 4
+  })
+}
+
+export function formatUSD(value: string) {
+  return bigintToFloat(value).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+}

@@ -6,9 +6,10 @@ export default {
         gray: {
           bg1: '#f7faff', // Table
           border: '#d8dee5', // Table border
-          500: '#b5beca' // Gray Text
+          500: '#828699' // Gray Text
         },
         blue: {
+          100: '#EAF0F9',
           500: '#0074f0' // Button
         },
         red: {

@@ -13,9 +13,9 @@ export const Nav = () => {
 
   return (
     <div className="mb-8 sm:mb-10">
-      <div className="px-3 sm:px-6 mx-auto flex items-center gap-12 py-6 sm:py-0">
+      <div className="px-3 sm:px-6 mx-auto flex items-center gap-12 py-6">
         <img src={Logo} alt="logo" className="w-[125px] sm:w-[175px]" />
-        <NavTabs className="hidden sm:flex justify-between" />
+        {/* <NavTabs className="hidden sm:flex justify-between" /> */}
         <div className="hidden sm:flex items-center justify-between gap-4 ml-auto">
           {/* <button className="btn-secondary px-6 py-3">
             <span className="hidden sm:inline">{'View on '}</span>IPFS
