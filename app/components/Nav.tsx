@@ -1,9 +1,9 @@
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit'
+import { Link } from '@remix-run/react'
 import { useAccount } from 'wagmi'
 
 import Logo from '~/assets/prime-staked.svg'
 import { ProfileIcon, SyncIcon } from '~/components/Icons'
-import { Tabs } from '~/components/Tabs'
 import { truncateAddress } from '~/utils/string'
 
 export const Nav = () => {
@@ -14,7 +14,9 @@ export const Nav = () => {
   return (
     <div className="mb-8 sm:mb-10">
       <div className="px-3 sm:px-6 mx-auto flex items-center gap-12 py-6">
-        <img src={Logo} alt="logo" className="w-[125px] sm:w-[175px]" />
+        <Link to="/">
+          <img src={Logo} alt="logo" className="w-[125px] sm:w-[175px]" />
+        </Link>
         {/* <NavTabs className="hidden sm:flex justify-between" /> */}
         <div className="hidden sm:flex items-center justify-between gap-4 ml-auto">
           {/* <button className="btn-secondary px-6 py-3">
@@ -41,19 +43,6 @@ export const Nav = () => {
           </button>
         </div>
       </div>
-      <NavTabs className="flex sm:hidden justify-center" />
     </div>
-  )
-}
-
-const NavTabs = (props: { className?: string }) => {
-  return (
-    <Tabs
-      className={props.className}
-      tabs={[
-        { label: 'Restake', href: '/restake' },
-        { label: 'Dashboard', href: '/' }
-      ]}
-    />
   )
 }
