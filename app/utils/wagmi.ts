@@ -14,7 +14,8 @@ export const config = getDefaultConfig({
   projectId: 'b6187205b37dc9d704772f16dca5b71e',
   chains: [mainnet],
 
-  // transports: {
-  //   [mainnet.id]: http('http://localhost:8545')
-  // }
+  transports: {
+    [mainnet.id]: http('https://eth-mainnet.g.alchemy.com/v2/EP6A_NXNsgvvMTKyz2DWegRdJTliwLT_')
+    // [mainnet.id]: http('http://localhost:8545')
+  }
 })

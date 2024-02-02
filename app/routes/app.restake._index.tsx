@@ -10,8 +10,9 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets } from '~/utils/constants'
-import { ArrowDown } from '~/components/Icons'
+import { ArrowDown, CaretDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
+import { TokenChooser } from '~/components/TokenChooser'
 
 import primeEthSVG from '~/assets/prime-eth-token.svg'
 
@@ -25,10 +26,12 @@ import {
 export default function Index() {
   const { openConnectModal } = useConnectModal()
   const [isOpen, setIsOpen] = useState(false)
+  const [tokenChooserIsOpen, setTokenChooserIsOpen] = useState(true)
   const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
+  const activeAsset = assets.find((a) => a.symbol === asset)
   const [depositAmount, setDepositAmount] = useState('0')
   const { data, refetch } = useReadContracts({
     contracts: [
@@ -154,19 +157,31 @@ export default function Index() {
           refetch()
         }}
       />
+      <TokenChooser
+        isOpen={tokenChooserIsOpen}
+        onChange={(newAsset) => setAsset(newAsset)}
+        setIsOpen={() => {
+          setTokenChooserIsOpen(false)
+        }}
+      />
       <div className="border border-gray-border rounded-2xl bg-gray-bg1 w-full max-w-[540px] mt-12">
         <div className="py-6 px-6 border-b border-gray-border">Restake LST</div>
         <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border relative">
           <div className="flex items-center justify-between">
-            <select
-              className="border border-gray-border text-xl px-3 py-1 rounded-full"
-              value={asset}
-              onChange={(e) => setAsset(e.currentTarget.value)}
+            <button
+              className="border border-gray-border bg-off-white hover:bg-white text-lg font-medium pl-1 pr-3 py-1 rounded-full flex items-center gap-2 shadow-[0px_8px_10px_0px_#00000012]                "
+              onClick={() => setTokenChooserIsOpen(true)}
             >
-              {assets.map(({ symbol }) => (
-                <option key={symbol}>{symbol}</option>
-              ))}
-            </select>
+              <img
+                src={activeAsset.src}
+                alt={asset}
+                className="w-[28px] h-[28px]"
+              />
+              {asset}
+              <div className="text-red-500 pr-1">
+                <CaretDown />
+              </div>
+            </button>
 
             <div className="text-sm text-gray-500 flex items-center gap-3">
               {`Balance: ${formatEth(assetBalance)}`}
@@ -186,7 +201,7 @@ export default function Index() {
               value={depositAmount}
               onChange={(e) => setDepositAmount(e.currentTarget.value)}
             />
-            <div className="text-sm text-gray-500">$100,000</div>
+            <div className="text-sm text-gray-500">$-</div>
           </div>
           <div className="rounded-full w-12 h-12 border bg-gray-bg1 absolute -bottom-px border-[#B5BECA] left-1/2 -translate-x-1/2 translate-y-1/2 text-red-500 flex items-center justify-center">
             <ArrowDown />
@@ -206,7 +221,7 @@ export default function Index() {
             <div className="flex-1 text-2xl font-bold">
               {formatEth(youWillGet || '0')}
             </div>
-            <div className="text-sm text-gray-500">$100,000</div>
+            <div className="text-sm text-gray-500">$-</div>
           </div>
         </div>
         <div className="p-6 flex flex-col gap-6 border-b border-gray-border">

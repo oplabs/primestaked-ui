@@ -38,9 +38,9 @@ export const Nav = () => {
               Connect
             </button>
           )}
-          <button className="btn-secondary p-2 text-red-500">
+          {/* <button className="btn-secondary p-2 text-red-500">
             <SyncIcon />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

@@ -56,12 +56,13 @@ output directory" should be set to `public`.
 
 ## TODO
 
-- Token chooser
 - USD amounts in swap component
 
+- Add balance to token chooser
 - Unstake / Withdraw styling
 - Dashboard components
 - Stats: Tooltips
 - Connected wallet styling in header
 - Landing page
 - Mobile views
+- Dapp Footer?
