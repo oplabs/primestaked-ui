@@ -57,6 +57,7 @@ output directory" should be set to `public`.
 ## TODO
 
 - USD amounts in swap component
+- Docs header link
 
 - Add balance to token chooser
 - Unstake / Withdraw styling
