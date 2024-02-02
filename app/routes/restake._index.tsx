@@ -6,6 +6,7 @@ import {
   useWaitForTransactionReceipt
 } from 'wagmi'
 import { zeroAddress, parseEther } from 'viem'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { formatEth } from '~/utils/bigint'
 import { contracts, assets } from '~/utils/constants'
@@ -22,12 +23,13 @@ import {
 } from '~/utils/abis'
 
 export default function Index() {
+  const { openConnectModal } = useConnectModal()
   const [isOpen, setIsOpen] = useState(false)
   const deposit = useWriteContract()
-  const { address } = useAccount()
+  const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
-  const [depositAmount, setDepositAmount] = useState('')
+  const [depositAmount, setDepositAmount] = useState('0')
   const { data, refetch } = useReadContracts({
     contracts: [
       {
@@ -109,7 +111,9 @@ export default function Index() {
 
   let btnDisabled = false
   let btnText = 'Swap'
-  if (!depositAmountBI || depositAmountBI <= 0n) {
+  if (!isConnected) {
+    btnText = 'Connect wallet'
+  } else if (!depositAmountBI || depositAmountBI <= 0n) {
     btnDisabled = true
     btnText = 'Enter an amount'
   } else if (depositAmountBI > assetBalance) {
@@ -212,7 +216,9 @@ export default function Index() {
               if (btnDisabled) {
                 return
               }
-              if (depositAmountBI < assetAllowance) {
+              if (!isConnected) {
+                openConnectModal?.()
+              } else if (depositAmountBI < assetAllowance) {
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
                   address: contracts.lrtDepositPool,
