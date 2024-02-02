@@ -4,30 +4,25 @@
 
 ```sh
 
+# Change LUCKY_USER to your own account.
+
 # stETH
+export TOKEN=0xae7ab96520de3a18e5e111b5eaab095312d7fe84
 export WHALE=0xd8d041705735cd770408ad31f883448851f2c39d
-export STETH=0xae7ab96520de3a18e5e111b5eaab095312d7fe84
 export LUCKY_USER=0x09fDdBBAf37b19Ca477649Aeef6f4bB46B3Dfb7B
 
 # sfrxETH
+export TOKEN=0xac3e018457b222d93114458476f3e3416abbe38f
 export WHALE=0x41dda7be30130cebd867f439a759b9e7ab2569e9
-export STETH=0xac3e018457b222d93114458476f3e3416abbe38f
 export LUCKY_USER=0xd7Df465c5223e4EDAC8fdE5B3dcD97A107659a94
 
-cast call $STETH "balanceOf(address)(uint256)" $WHALE
-cast call $STETH "balanceOf(address)(uint256)" $LUCKY_USER
-
 cast rpc anvil_impersonateAccount $WHALE
-cast send $STETH --from $WHALE "transfer(address,uint256)(bool)" $LUCKY_USER 10000000000000000000 --unlocked
-
-cast call $STETH "balanceOf(address)(uint256)" $WHALE
-cast call $STETH "balanceOf(address)(uint256)" $LUCKY_USER
-
+cast send $TOKEN --from $WHALE "transfer(address,uint256)(bool)" $LUCKY_USER 10000000000000000000 --unlocked
 cast rpc anvil_stopImpersonatingAccount $WHALE
 
-KELP=0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84
-
-cast call $KELP "approve(address,uint256)" $LUCKY_USER 10000000000000000000
+# Below is optional to check balances
+cast call $TOKEN "balanceOf(address)(uint256)" $WHALE
+cast call $TOKEN "balanceOf(address)(uint256)" $LUCKY_USER
 ```
 
 - [Remix Docs](https://remix.run/docs)
@@ -58,3 +53,15 @@ follow the
 
 Configure the "Build command" should be set to `npm run build`, and the "Build
 output directory" should be set to `public`.
+
+## TODO
+
+- Token chooser
+- USD amounts in swap component
+
+- Unstake / Withdraw styling
+- Dashboard components
+- Stats: Tooltips
+- Connected wallet styling in header
+- Landing page
+- Mobile views

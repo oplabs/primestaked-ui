@@ -1,7 +1,11 @@
+import ethxSrc from '~/assets/ethx.svg'
+import sfrxSrc from '~/assets/sfrx.svg'
+import stEthSrc from '~/assets/stETH.svg'
+
 export const assets = [
-  { symbol: 'ETHx' },
-  { symbol: 'stETH' },
-  { symbol: 'sfrxETH' }
+  { symbol: 'ETHx', src: ethxSrc },
+  { symbol: 'stETH', src: stEthSrc },
+  { symbol: 'sfrxETH', src: sfrxSrc }
 ] as const
 
 // Ensure there is a contract address for each asset above

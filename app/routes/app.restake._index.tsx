@@ -8,7 +8,7 @@ import {
 import { zeroAddress, parseEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
-import { formatEth } from '~/utils/bigint'
+import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets } from '~/utils/constants'
 import { ArrowDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
@@ -66,6 +66,12 @@ export default function Index() {
         address: contracts[asset],
         functionName: 'balanceOf',
         args: [address || zeroAddress]
+      },
+      {
+        abi: lrtDepositPoolAbi,
+        address: contracts.lrtDepositPool,
+        functionName: 'getTotalAssetDeposits',
+        args: [contracts[asset]]
       }
     ]
   })
@@ -81,27 +87,27 @@ export default function Index() {
   }, [deposit.status, txReceipt.data, refetch])
 
   let rsETHPrice = 0n
-
+  let lrtBalance = 0n
+  let rawAssetPrice = 0n
+  let depositLimit = 0n
   let assetAllowance = 0n
   let assetBalance = 0n
   let assetPrice = 0n
-  let rawAssetPrice = 0n
-  let lrtBalance = 0n
-  let depositLimit = 0n
+  let depositAmountBI = 0n
+  let youWillGet = 0n
+  let assetDeposited = 0n
 
   if (data) {
     rsETHPrice = data[0].result
     lrtBalance = data[1].result
     rawAssetPrice = data[2].result
     depositLimit = data[3].result
-
     assetAllowance = data[4].result
     assetBalance = data[5].result
+    assetDeposited = data[6].result
     assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
   }
 
-  let depositAmountBI = 0n
-  let youWillGet = 0n
   try {
     depositAmountBI = parseEther(depositAmount)
     youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
@@ -114,23 +120,27 @@ export default function Index() {
   if (!isConnected) {
     btnText = 'Connect wallet'
   } else if (!depositAmountBI || depositAmountBI <= 0n) {
-    btnDisabled = true
     btnText = 'Enter an amount'
-  } else if (depositAmountBI > assetBalance) {
     btnDisabled = true
+  } else if (depositAmountBI > assetBalance) {
     btnText = 'Not enough balance'
+    btnDisabled = true
   } else if (depositAmountBI > assetAllowance) {
     btnText = `Approve ${asset}`
   }
 
-  let modalStatus = 'loading'
   let modalTitle = 'Transaction in process'
+  let modalStatus = 'loading'
   if (deposit.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
     modalStatus = 'success'
   }
+
+  const pctOfLimit = Math.round(
+    (bigintToFloat(assetDeposited) / bigintToFloat(depositLimit)) * 100
+  )
 
   return (
     <>
@@ -207,7 +217,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <div className="p-6 flex flex-col gap-6 bg-white rounded-b-2xl">
+        <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border">
           <button
             className={`${
               btnDisabled ? 'btn-disabled' : 'btn'
@@ -249,13 +259,23 @@ export default function Index() {
             </div>
           ) : null}
         </div>
-      </div>
 
-      <div className="text-xs text-gray-500 mt-6">
-        {`${asset} restaking limit: ${formatEth(depositLimit)}`}
-      </div>
-      <div className="text-xs text-gray-500">
-        {`My ${asset} allowance: ${formatEth(assetAllowance)}`}
+        <div className="p-6 bg-white rounded-b-2xl flex flex-col gap-2">
+          <div className="flex items-center justify-between text-sm">
+            <div>Restaking limit</div>
+            <div className="text-gray-500">
+              {`${formatEth(assetDeposited)} / ${formatEth(
+                depositLimit
+              )} ${asset}`}
+            </div>
+          </div>
+          <div className="rounded-full bg-gray-500/20">
+            <div
+              className="rounded-full bg-red-500 h-[8px]"
+              style={{ width: `${pctOfLimit}%` }}
+            />
+          </div>
+        </div>
       </div>
     </>
   )

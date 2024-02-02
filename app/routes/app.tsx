@@ -80,10 +80,11 @@ export default function Index() {
             <StatBoxItem label="PrimeStaked Points" value="-" />
           </StatBox>
           <StatBox title="Assets Deposited">
-            {assets.map(({ symbol }, i) => (
+            {assets.map(({ symbol, src }, i) => (
               <StatBoxItem
                 key={i}
                 label={symbol}
+                logo={src}
                 value={formatEth(data[i + 3].result)}
               />
             ))}
