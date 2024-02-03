@@ -101,21 +101,22 @@ export default function Index() {
   let youWillGet = 0n
   let assetDeposited = 0n
 
-  if (data) {
-    rsETHPrice = data[0].result
-    lrtBalance = data[1].result
-    rawAssetPrice = data[2].result
-    depositLimit = data[3].result
-    assetAllowance = data[4].result
-    assetBalance = data[5].result
-    assetDeposited = data[6].result
-    assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
-  }
-
   try {
+    if (data) {
+      rsETHPrice = data[0]?.result || 10n ** 18n
+      lrtBalance = data[1].result
+      rawAssetPrice = data[2].result || 10n ** 18n
+      depositLimit = data[3].result
+      assetAllowance = data[4].result
+      assetBalance = data[5].result
+      assetDeposited = data[6].result
+      assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
+    }
     depositAmountBI = parseEther(depositAmount)
     youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
   } catch (e) {
+    console.log(e)
+    console.log(data)
     /* Ignore */
   }
 

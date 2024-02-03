@@ -1,13 +1,13 @@
 import ethxSrc from '~/assets/ethx.svg'
 import sfrxSrc from '~/assets/sfrx.svg'
 import stEthSrc from '~/assets/stETH.svg'
-// import mEthSrc from '~/assets/mETH.svg'
-// import oethSrc from '~/assets/oeth.svg'
+import mEthSrc from '~/assets/mETH.svg'
+import oethSrc from '~/assets/oeth.svg'
 
 export const assets = [
-  // { symbol: 'OETH', src: oethSrc, name: 'Origin Ether' },
+  { symbol: 'OETH', src: oethSrc, name: 'Origin Ether' },
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
-  // { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
+  { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
   { symbol: 'ETHx', src: ethxSrc, name: 'Stader ETHx' },
   { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' }
 ] as const

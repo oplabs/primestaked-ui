@@ -52,9 +52,17 @@ export default function Index() {
 
   if (!data) return null
 
-  const rsETHPrice = data[0].result
-  const tvl = (rsETHPrice * data[1].result) / 10n ** 18n
-  const tvlUsd = (tvl * data[2].result) / 10n ** 8n
+  let rsETHPrice = 0n
+  let tvl = 0n
+  let tvlUsd = 0n
+
+  try {
+    rsETHPrice = data[0].result
+    tvl = (rsETHPrice * data[1].result) / 10n ** 18n
+    tvlUsd = (tvl * data[2].result) / 10n ** 8n
+  } catch (e) {
+    /* Ignore */
+  }
 
   return (
     <>
