@@ -112,7 +112,8 @@ export default function Index() {
       assetDeposited = data[6].result
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
     }
-    depositAmountBI = parseEther(depositAmount)
+    // remove commas from input
+    depositAmountBI = parseEther(depositAmount.replaceAll(",", ""))
     youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
   } catch (e) {
     console.log(e)
