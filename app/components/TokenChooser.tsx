@@ -1,7 +1,15 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-
-import { assets } from '~/utils/constants'
+import {
+  useAccount,
+  useReadContracts,
+} from 'wagmi'
+import {
+  rsETHABI,
+} from '~/utils/abis'
+import { contracts, assets } from '~/utils/constants'
+import { formatEth } from '~/utils/bigint'
+import { zeroAddress } from 'viem'
 
 export function TokenChooser({
   isOpen,
@@ -12,6 +20,18 @@ export function TokenChooser({
   setIsOpen: (isOpen: boolean) => void
   onChange: (asset: string) => void
 }) {
+  const { isConnected, address } = useAccount()
+  const { data, refetch } = useReadContracts({
+    contracts: [
+      ...assets.map(({ symbol }) => ({
+        abi: rsETHABI,
+        address: contracts[symbol],
+        functionName: 'balanceOf',
+        args: [address || zeroAddress]
+      }))
+    ]
+  })
+
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog
@@ -51,7 +71,7 @@ export function TokenChooser({
                     Select a token
                   </Dialog.Title>
                   <div className="px-3 py-2 text-sm border-b border-gray-border flex flex-col">
-                    {assets.map((asset) => {
+                    {assets.map((asset, i) => {
                       return (
                         <button
                           key={asset.symbol}
@@ -66,9 +86,16 @@ export function TokenChooser({
                             alt={asset.symbol}
                             className="h-8"
                           />
-                          <div className="flex flex-col items-start">
-                            <div className="font-medium">{asset.name}</div>
-                            <div className="text-gray-500">{asset.symbol}</div>
+                          <div className="flex flex-row justify-between w-full">
+                            <div className="flex flex-col items-start">
+                              <div className="font-medium">{asset.name}</div>
+                              <div className="text-gray-500">{asset.symbol}</div>
+                            </div>
+                            <div className="flex flex-col items-start">
+                              <div className="text-gray-500">
+                                {formatEth(data && isConnected ? data[i].result : 0)}
+                              </div>
+                            </div>
                           </div>
                         </button>
                       )
