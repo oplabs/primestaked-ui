@@ -147,7 +147,7 @@ export default function Index() {
   // })
 
   let btnDisabled = false
-  let btnText = 'Swap'
+  let btnText = 'Stake'
   if (!isConnected) {
     btnText = 'Connect wallet'
   } else if (!depositAmountBI || depositAmountBI <= 0n) {
@@ -237,9 +237,11 @@ export default function Index() {
             />
             {/* <div className="text-sm text-gray-500">$-</div> */}
           </div>
+          {/* 
           <div className="rounded-full w-12 h-12 border bg-gray-bg1 absolute -bottom-px border-[#B5BECA] left-1/2 -translate-x-1/2 translate-y-1/2 text-red-500 flex items-center justify-center">
             <ArrowDown />
           </div>
+          */}
         </div>
         <div className="p-6 flex flex-col gap-6 border-b border-gray-border">
           <div className="flex items-center justify-between">
