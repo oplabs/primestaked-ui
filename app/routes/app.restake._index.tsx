@@ -268,7 +268,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border">
+        <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border">
           <button
             className={`${
               btnDisabled ? 'btn-disabled' : 'btn'
@@ -310,7 +310,7 @@ export default function Index() {
             </div>
           ) : null}
         </div>
-
+        {/*
         <div className="p-6 bg-white rounded-b-3xl flex flex-col gap-2">
           <div className="flex items-center justify-between text-sm">
             <div>Restaking limit</div>
@@ -327,6 +327,7 @@ export default function Index() {
             />
           </div>
         </div>
+        */}
       </LargeBox>
     </>
   )
