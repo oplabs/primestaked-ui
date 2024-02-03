@@ -11,10 +11,25 @@ export function bigintToFloat(value: ValueType, decimals: number = 18): number {
   return parseFloat(integralPart.toString() + '.' + fractionalAsString)
 }
 
-export function formatEth(value: ValueType) {
-  return bigintToFloat(value).toLocaleString(undefined, {
-    maximumFractionDigits: 4,
-  })
+export function formatEth(value: ValueType, round = false) {
+  if (round) {
+    return bigintToFloat(value).toLocaleString(undefined, {
+      maximumFractionDigits: 4,
+    })
+  }
+
+  const number = bigintToFloat(value)
+    .toLocaleString(undefined, {
+      maximumFractionDigits: 18,
+    })
+    .split('.')
+
+  if (number.length === 1) {
+    return number[0]
+  }
+
+  console.log(number)
+  return `${number[0]}.${number[1].slice(0, 4)}`
 }
 
 export function formatUSD(value: string) {
