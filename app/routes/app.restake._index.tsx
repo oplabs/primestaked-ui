@@ -104,11 +104,12 @@ export default function Index() {
   try {
     if (data) {
       rsETHPrice = data[0]?.result || 10n ** 18n
-      lrtBalance = data[1].result
+      // if contract not connected balance is 0
+      lrtBalance = address ? data[1].result : 0
       rawAssetPrice = data[2].result || 10n ** 18n
       depositLimit = data[3].result
-      assetAllowance = data[4].result
-      assetBalance = data[5].result
+      assetAllowance = address ? data[4].result : 0
+      assetBalance = address ? data[5].result : 0
       assetDeposited = data[6].result
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
     }
