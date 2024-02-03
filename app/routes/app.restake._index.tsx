@@ -5,7 +5,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt
 } from 'wagmi'
-import { zeroAddress, parseEther } from 'viem'
+import { parseEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
@@ -34,6 +34,7 @@ export default function Index() {
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
   const activeAsset = assets.find((a) => a.symbol === asset)
   const [depositAmount, setDepositAmount] = useState('0')
+  const connectedAddress = address || '0x1111111111111111111111111111111111111111'
   const { data, refetch } = useReadContracts({
     contracts: [
       {
@@ -45,7 +46,7 @@ export default function Index() {
         abi: rsETHABI,
         address: contracts.rsETH,
         functionName: 'balanceOf',
-        args: [address || zeroAddress]
+        args: [connectedAddress]
       },
       {
         abi: lrtOracleAbi,
@@ -63,13 +64,13 @@ export default function Index() {
         abi: rsETHABI,
         address: contracts[asset],
         functionName: 'allowance',
-        args: [address || zeroAddress, contracts.lrtDepositPool]
+        args: [connectedAddress, contracts.lrtDepositPool]
       },
       {
         abi: rsETHABI,
         address: contracts[asset],
         functionName: 'balanceOf',
-        args: [address || zeroAddress]
+        args: [connectedAddress]
       },
       {
         abi: lrtDepositPoolAbi,
