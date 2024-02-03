@@ -5,11 +5,11 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt
 } from 'wagmi'
-import { parseEther } from 'viem'
+import { parseEther, parseAbi, formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
-import { contracts, assets } from '~/utils/constants'
+import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { ArrowDown, CaretDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
@@ -39,9 +39,11 @@ export default function Index() {
   const { data, refetch } = useReadContracts({
     contracts: [
       {
-        abi: lrtOracleAbi,
+        abi: parseAbi([
+          `function ${lrtOraclePriceMethod}() view returns (uint256)`
+        ]),
         address: contracts.lrtOracle,
-        functionName: 'rsETHPrice'
+        functionName: lrtOraclePriceMethod
       },
       {
         abi: rsETHABI,
@@ -82,6 +84,8 @@ export default function Index() {
     ]
   })
 
+  // console.log(data)
+
   const txReceipt = useWaitForTransactionReceipt({ hash: deposit.data })
 
   useEffect(() => {
@@ -103,26 +107,44 @@ export default function Index() {
   let youWillGet = 0n
   let assetDeposited = 0n
 
-  try {
-    if (data) {
+  if (data) {
+    try {
       rsETHPrice = data[0]?.result || 10n ** 18n
       // if contract not connected balance is 0
-      lrtBalance = isConnected ? data[1].result : 0
+      lrtBalance = data[1].result
       rawAssetPrice = data[2].result || 10n ** 18n
       depositLimit = data[3].result
-      assetAllowance = isConnected ? data[4].result : 0
-      assetBalance = isConnected ? data[5].result : 0
+      assetAllowance = data[4].result
+      assetBalance = data[5].result
       assetDeposited = data[6].result
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
+    } catch (e) {
+      /* Ignore */
     }
-    // remove commas from input
-    depositAmountBI = parseEther(depositAmount.replaceAll(',', ''))
-    youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
-  } catch (e) {
-    console.log(e)
-    console.log(data)
-    /* Ignore */
+    try {
+      // remove commas from input
+      depositAmountBI = parseEther(depositAmount.replaceAll(',', ''))
+      youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
+    } catch (e) {
+      console.log(e)
+      console.log(data)
+      /* Ignore */
+    }
   }
+
+  // console.log({
+  //   connectedAddress,
+  //   rsETHPrice,
+  //   lrtBalance,
+  //   rawAssetPrice,
+  //   depositLimit,
+  //   assetAllowance,
+  //   assetBalance,
+  //   assetPrice,
+  //   depositAmountBI,
+  //   youWillGet,
+  //   assetDeposited
+  // })
 
   let btnDisabled = false
   let btnText = 'Swap'
@@ -194,7 +216,11 @@ export default function Index() {
             <div className="text-sm text-gray-500 flex items-center gap-3">
               {`Balance: ${formatEth(assetBalance)}`}
               <button
-                onClick={() => setDepositAmount(formatEth(assetBalance))}
+                onClick={() => {
+                  if (assetBalance) {
+                    setDepositAmount(formatEther(assetBalance))
+                  }
+                }}
                 className="border border-gray-500 px-1 text-xs rounded-full hover:bg-gray-500 hover:text-white"
               >
                 max
