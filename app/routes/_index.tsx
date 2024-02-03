@@ -49,10 +49,10 @@ export default function Marketing() {
         <Link to="/">
           <img src={Logo} alt="logo" className="w-[147px] pt-8" />
         </Link>
-        <div className="mt-[76px] text-7xl text-gray-950 z-10">
+        <div className="mt-[76px] text-4.5xl md:text-7xl text-gray-950 z-10">
           Liquid restaking with <span className="text-red-500 font-black">primeETH</span>
         </div>
-        <div className="text-gray-500 text-3xl mt-[22px] max-w-[1086px] tracking-wide leading-relaxed z-10">
+        <div className="text-gray-500 text-lg md:text-3xl mt-[11px] md:mt-[22px] max-w-[1086px] tracking-wide leading-relaxed z-10">
           Stack ETH staking yield, EigenLayer points, and primeETH XP Points all while remaining liquid.
         </div>
         <div className="text-gray-600 text-3xl mt-[34px] z-10">
