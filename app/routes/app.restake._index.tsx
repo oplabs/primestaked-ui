@@ -165,7 +165,10 @@ export default function Index() {
       />
       <TokenChooser
         isOpen={tokenChooserIsOpen}
-        onChange={(newAsset) => setAsset(newAsset)}
+        onChange={(newAsset) => {
+          setDepositAmount('')
+          setAsset(newAsset)
+        }}
         setIsOpen={() => {
           setTokenChooserIsOpen(false)
         }}
