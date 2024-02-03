@@ -61,7 +61,6 @@ output directory" should be set to `public`.
 - Add balance to token chooser
 - Dashboard components
 - Stats: Tooltips
-- Connected wallet styling in header
 - Landing page
 - Mobile views
 - Dapp Footer?
