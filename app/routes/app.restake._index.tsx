@@ -3,7 +3,7 @@ import {
   useAccount,
   useReadContracts,
   useWriteContract,
-  useWaitForTransactionReceipt
+  useWaitForTransactionReceipt,
 } from 'wagmi'
 import { parseEther, parseAbi, formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -20,7 +20,7 @@ import {
   lrtOracleAbi,
   primeETHABI,
   lrtDepositPoolAbi,
-  lrtConfigAbi
+  lrtConfigAbi,
 } from '~/utils/abis'
 import { LargeBox } from '~/components/LargeBox'
 
@@ -40,48 +40,48 @@ export default function Index() {
     contracts: [
       {
         abi: parseAbi([
-          `function ${lrtOraclePriceMethod}() view returns (uint256)`
+          `function ${lrtOraclePriceMethod}() view returns (uint256)`,
         ]),
         address: contracts.lrtOracle,
-        functionName: lrtOraclePriceMethod
+        functionName: lrtOraclePriceMethod,
       },
       {
         abi: primeETHABI,
         address: contracts.primeETH,
         functionName: 'balanceOf',
-        args: [connectedAddress]
+        args: [connectedAddress],
       },
       {
         abi: lrtOracleAbi,
         address: contracts.lrtOracle,
         functionName: 'getAssetPrice',
-        args: [contracts[asset]]
+        args: [contracts[asset]],
       },
       {
         abi: lrtConfigAbi,
         address: contracts.lrtConfig,
         functionName: 'depositLimitByAsset',
-        args: [contracts[asset]]
+        args: [contracts[asset]],
       },
       {
         abi: primeETHABI,
         address: contracts[asset],
         functionName: 'allowance',
-        args: [connectedAddress, contracts.lrtDepositPool]
+        args: [connectedAddress, contracts.lrtDepositPool],
       },
       {
         abi: primeETHABI,
         address: contracts[asset],
         functionName: 'balanceOf',
-        args: [connectedAddress]
+        args: [connectedAddress],
       },
       {
         abi: lrtDepositPoolAbi,
         address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: [contracts[asset]]
-      }
-    ]
+        args: [contracts[asset]],
+      },
+    ],
   })
 
   // console.log(data)
@@ -170,7 +170,7 @@ export default function Index() {
   }
 
   const pctOfLimit = Math.round(
-    (bigintToFloat(assetDeposited) / bigintToFloat(depositLimit)) * 100
+    (bigintToFloat(assetDeposited) / bigintToFloat(depositLimit)) * 100,
   )
 
   return (
@@ -223,21 +223,21 @@ export default function Index() {
                 }}
                 className="border border-gray-500 px-1 text-xs rounded-full hover:bg-gray-500 hover:text-white"
               >
-                max
+                <span className="inline-block -translate-y-px">max</span>
               </button>
             </div>
           </div>
           <div className="flex items-end justify-between">
             <input
               type="text"
-              className="flex-1 text-2xl font-bold"
+              className="flex-1 text-2xl font-bold outline-none"
               placeholder="0"
               value={depositAmount}
               onChange={(e) => setDepositAmount(e.currentTarget.value)}
             />
             {/* <div className="text-sm text-gray-500">$-</div> */}
           </div>
-          {/* 
+          {/*
           <div className="rounded-full w-12 h-12 border bg-gray-bg1 absolute -bottom-px border-[#B5BECA] left-1/2 -translate-x-1/2 translate-y-1/2 text-red-500 flex items-center justify-center">
             <ArrowDown />
           </div>
@@ -288,15 +288,15 @@ export default function Index() {
                     contracts[asset],
                     parseEther(depositAmount),
                     0n,
-                    'Origin'
-                  ]
+                    'Origin',
+                  ],
                 })
               } else {
                 deposit.writeContract({
                   abi: primeETHABI,
                   address: contracts[asset],
                   functionName: 'approve',
-                  args: [contracts.lrtDepositPool, 10n ** 32n]
+                  args: [contracts.lrtDepositPool, 10n ** 32n],
                 })
               }
             }}
@@ -316,7 +316,7 @@ export default function Index() {
             <div>Restaking limit</div>
             <div className="text-gray-500">
               {`${formatEth(assetDeposited)} / ${formatEth(
-                depositLimit
+                depositLimit,
               )} ${asset}`}
             </div>
           </div>
