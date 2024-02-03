@@ -5,7 +5,7 @@ import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
 import { parseAbi } from 'viem'
 
-import { rsETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
+import { primeETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { formatEth, formatUSD } from '~/utils/bigint'
 
@@ -30,8 +30,8 @@ export default function Index() {
         functionName: lrtOraclePriceMethod
       },
       {
-        abi: rsETHABI,
-        address: contracts.rsETH,
+        abi: primeETHABI,
+        address: contracts.primeETH,
         functionName: 'totalSupply'
       },
       {

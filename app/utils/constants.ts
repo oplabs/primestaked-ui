@@ -9,7 +9,7 @@ export const assets = [
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
   { symbol: 'ETHx', src: ethxSrc, name: 'Stader ETHx' },
-  { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' }
+  { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' },
 ] as const
 
 // Ensure there is a contract address for each asset above
@@ -20,10 +20,10 @@ export const contracts = {
   OETH: '0x856c4Efb76C1D1AE02e20CEB03A2A6a08b0b8dC3',
   mETH: '0xd5f7838f5c461feff7fe49ea5ebaf7728bb0adfa',
 
-  rsETH: '0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615',
+  primeETH: '0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615',
   lrtOracle: '0xA755c18CD2376ee238daA5Ce88AcF17Ea74C1c32',
   lrtDepositPool: '0xA479582c8b64533102F6F528774C536e354B8d32',
-  lrtConfig: '0xF879c7859b6DE6FAdaFB74224Ff05b16871646bF'
+  lrtConfig: '0xF879c7859b6DE6FAdaFB74224Ff05b16871646bF',
 } as const
 
 export const lrtOraclePriceMethod = 'primeETHPrice'

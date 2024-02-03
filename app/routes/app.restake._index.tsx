@@ -18,7 +18,7 @@ import primeEthSVG from '~/assets/prime-eth-token.svg'
 
 import {
   lrtOracleAbi,
-  rsETHABI,
+  primeETHABI,
   lrtDepositPoolAbi,
   lrtConfigAbi
 } from '~/utils/abis'
@@ -46,8 +46,8 @@ export default function Index() {
         functionName: lrtOraclePriceMethod
       },
       {
-        abi: rsETHABI,
-        address: contracts.rsETH,
+        abi: primeETHABI,
+        address: contracts.primeETH,
         functionName: 'balanceOf',
         args: [connectedAddress]
       },
@@ -64,13 +64,13 @@ export default function Index() {
         args: [contracts[asset]]
       },
       {
-        abi: rsETHABI,
+        abi: primeETHABI,
         address: contracts[asset],
         functionName: 'allowance',
         args: [connectedAddress, contracts.lrtDepositPool]
       },
       {
-        abi: rsETHABI,
+        abi: primeETHABI,
         address: contracts[asset],
         functionName: 'balanceOf',
         args: [connectedAddress]
@@ -293,7 +293,7 @@ export default function Index() {
                 })
               } else {
                 deposit.writeContract({
-                  abi: rsETHABI,
+                  abi: primeETHABI,
                   address: contracts[asset],
                   functionName: 'approve',
                   args: [contracts.lrtDepositPool, 10n ** 32n]

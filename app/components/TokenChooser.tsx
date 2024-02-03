@@ -5,7 +5,7 @@ import {
   useReadContracts,
 } from 'wagmi'
 import {
-  rsETHABI,
+  primeETHABI,
 } from '~/utils/abis'
 import { contracts, assets } from '~/utils/constants'
 import { formatEth } from '~/utils/bigint'
@@ -24,7 +24,7 @@ export function TokenChooser({
   const { data, refetch } = useReadContracts({
     contracts: [
       ...assets.map(({ symbol }) => ({
-        abi: rsETHABI,
+        abi: primeETHABI,
         address: contracts[symbol],
         functionName: 'balanceOf',
         args: [address || zeroAddress]
