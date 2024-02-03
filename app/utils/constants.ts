@@ -25,3 +25,5 @@ export const contracts = {
   lrtDepositPool: '0xA479582c8b64533102F6F528774C536e354B8d32',
   lrtConfig: '0xF879c7859b6DE6FAdaFB74224Ff05b16871646bF'
 } as const
+
+export const lrtOraclePriceMethod = 'primeETHPrice'

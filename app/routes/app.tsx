@@ -3,14 +3,10 @@ import { Nav } from '~/components/Nav'
 
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
+import { parseAbi } from 'viem'
 
-import {
-  lrtOracleAbi,
-  rsETHABI,
-  oracleAbi,
-  lrtDepositPoolAbi
-} from '~/utils/abis'
-import { contracts, assets } from '~/utils/constants'
+import { rsETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
+import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
@@ -27,9 +23,11 @@ export default function Index() {
   const { data } = useReadContracts({
     contracts: [
       {
-        abi: lrtOracleAbi,
+        abi: parseAbi([
+          `function ${lrtOraclePriceMethod}() view returns (uint256)`
+        ]),
         address: contracts.lrtOracle,
-        functionName: 'rsETHPrice'
+        functionName: lrtOraclePriceMethod
       },
       {
         abi: rsETHABI,

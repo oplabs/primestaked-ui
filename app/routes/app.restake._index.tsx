@@ -34,7 +34,8 @@ export default function Index() {
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
   const activeAsset = assets.find((a) => a.symbol === asset)
   const [depositAmount, setDepositAmount] = useState('0')
-  const connectedAddress = address || '0x1111111111111111111111111111111111111111'
+  const connectedAddress =
+    address || '0x1111111111111111111111111111111111111111'
   const { data, refetch } = useReadContracts({
     contracts: [
       {
@@ -115,7 +116,7 @@ export default function Index() {
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
     }
     // remove commas from input
-    depositAmountBI = parseEther(depositAmount.replaceAll(",", ""))
+    depositAmountBI = parseEther(depositAmount.replaceAll(',', ''))
     youWillGet = (rawAssetPrice * depositAmountBI) / rsETHPrice
   } catch (e) {
     console.log(e)
