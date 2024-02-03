@@ -33,7 +33,7 @@ export default function Index() {
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
   const activeAsset = assets.find((a) => a.symbol === asset)
-  const [depositAmount, setDepositAmount] = useState('0')
+  const [depositAmount, setDepositAmount] = useState('')
   const connectedAddress =
     address || '0x1111111111111111111111111111111111111111'
   const { data, refetch } = useReadContracts({
@@ -202,11 +202,11 @@ export default function Index() {
             <input
               type="text"
               className="flex-1 text-2xl font-bold"
-              placeholder="Enter amount..."
+              placeholder="0"
               value={depositAmount}
               onChange={(e) => setDepositAmount(e.currentTarget.value)}
             />
-            <div className="text-sm text-gray-500">$-</div>
+            {/* <div className="text-sm text-gray-500">$-</div> */}
           </div>
           <div className="rounded-full w-12 h-12 border bg-gray-bg1 absolute -bottom-px border-[#B5BECA] left-1/2 -translate-x-1/2 translate-y-1/2 text-red-500 flex items-center justify-center">
             <ArrowDown />
@@ -226,7 +226,7 @@ export default function Index() {
             <div className="flex-1 text-2xl font-bold">
               {formatEth(youWillGet || '0')}
             </div>
-            <div className="text-sm text-gray-500">$-</div>
+            {/* <div className="text-sm text-gray-500">$-</div> */}
           </div>
         </div>
         <div className="p-6 flex flex-col gap-6 border-b border-gray-border">
