@@ -3,6 +3,8 @@ import sfrxSrc from '~/assets/sfrx.svg'
 import stEthSrc from '~/assets/stETH.svg'
 import mEthSrc from '~/assets/mETH.svg'
 import oethSrc from '~/assets/oeth.svg'
+import rethSrc from '~/assets/rETH.svg'
+import swethSrc from '~/assets/swETH.svg'
 
 export const assets = [
   { symbol: 'OETH', src: oethSrc, name: 'Origin Ether' },
@@ -10,8 +12,8 @@ export const assets = [
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
   { symbol: 'ETHx', src: ethxSrc, name: 'Stader ETHx' },
   { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' },
-  { symbol: 'swETH', src: sfrxSrc, name: 'Swell ETH' },
-  { symbol: 'rETH', src: sfrxSrc, name: 'Rocket Pool ETH' },
+  { symbol: 'swETH', src: swethSrc, name: 'Swell ETH' },
+  { symbol: 'rETH', src: rethSrc, name: 'Rocket Pool ETH' },
 ] as const
 
 // Ensure there is a contract address for each asset above
