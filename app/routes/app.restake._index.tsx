@@ -115,9 +115,9 @@ export default function Index() {
       lrtBalance = data[1].result
       rawAssetPrice = data[2].result || 10n ** 18n
       depositLimit = data[3].result
-      assetAllowance = data[4].result
-      assetBalance = data[5].result
-      assetDeposited = data[6].result
+      assetAllowance = isConnected ? data[4].result : 0n
+      assetBalance = isConnected ? data[5].result : 0n
+      assetDeposited = isConnected ? data[6].result : 0n
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
     } catch (e) {
       /* Ignore */
