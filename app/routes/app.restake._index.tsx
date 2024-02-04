@@ -92,8 +92,6 @@ export default function Index() {
   useEffect(() => {
     if (deposit.status === 'pending') {
       setIsOpen(true)
-    } else if (deposit.status === 'error') {
-      setIsOpen(false)
     }
   }, [deposit.status, txReceipt.data, refetch])
 
@@ -163,11 +161,16 @@ export default function Index() {
 
   let modalTitle = 'Transaction in process'
   let modalStatus = 'loading'
+  let modalDescription
   if (deposit.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
     modalStatus = 'success'
+  } else if (deposit.error) {
+    modalTitle = 'Transaction failed'
+    modalStatus = 'error'
+    modalDescription = deposit.error.shortMessage || deposit.error.message
   }
 
   const pctOfLimit = Math.round(
@@ -178,6 +181,7 @@ export default function Index() {
     <>
       <Modal
         status={modalStatus}
+        description={modalDescription}
         txLink={deposit.data ? `https://etherscan.io/tx/${deposit.data}` : ''}
         title={modalTitle}
         isOpen={isOpen}
@@ -304,12 +308,6 @@ export default function Index() {
           >
             {btnText}
           </button>
-
-          {deposit.error ? (
-            <div className="text-center text-xs break-all">
-              {deposit.error.message}
-            </div>
-          ) : null}
         </div>
         {/*
         <div className="p-6 bg-white rounded-b-3xl flex flex-col gap-2">

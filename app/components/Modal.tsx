@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 import { CheckCircle, Close, Spinner } from './Icons'
@@ -8,14 +8,25 @@ export function Modal({
   setIsOpen,
   title,
   txLink,
-  status
+  status,
+  description,
 }: {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
   txLink?: string
   title: string
   status: string
+  description?: string
 }) {
+  useEffect(() => {
+    if (status === 'success' || status === 'error') {
+      const t = setTimeout(() => {
+        setIsOpen(false)
+      }, 3000)
+      return () => clearTimeout(t)
+    }
+  }, [status, setIsOpen])
+
   return (
     // Use the `Transition` component at the root level
     <Transition show={isOpen} as={Fragment}>
@@ -58,6 +69,8 @@ export function Modal({
                   <div className="text-red-500 my-8">
                     {status === 'loading' ? (
                       <Spinner size={42} />
+                    ) : status === 'error' ? (
+                      <Close size={42} />
                     ) : (
                       <CheckCircle size={42} />
                     )}
@@ -68,6 +81,11 @@ export function Modal({
                   >
                     {title}
                   </Dialog.Title>
+                  {description && (
+                    <p className="text-gray-500 mb-8 break-all">
+                      {description}
+                    </p>
+                  )}
 
                   {txLink && (
                     <div className="mb-8">
