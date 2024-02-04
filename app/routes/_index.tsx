@@ -87,7 +87,7 @@ export default function Marketing() {
       {/* Earn Triple Rewards segment */}
       <Segment
         isWhite={true}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] flex content-center">
