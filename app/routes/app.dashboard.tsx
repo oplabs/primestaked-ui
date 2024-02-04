@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import type { MetaFunction } from '@remix-run/cloudflare'
 
 import eigenPointsSrc from '~/assets/eigen-points.svg'
@@ -9,7 +8,8 @@ import { contracts } from '~/utils/constants'
 import { primeETHABI } from '~/utils/abis'
 import { formatEth } from '~/utils/bigint'
 
-import { NumberSpinner } from '~/components/NumberSpinner'
+import { useQuery } from '@tanstack/react-query'
+import { graphqlClient } from '~/utils/graphql'
 
 export const meta: MetaFunction = () => {
   return [
@@ -21,17 +21,9 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const { isConnected, address } = useAccount()
 
-  const [points, setPoints] = useState(1234)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setPoints(points + 7)
-    }, 1000)
-  }, [points, setPoints])
-
   const connectedAddress =
     address || '0x1111111111111111111111111111111111111111'
-  const { data, refetch } = useReadContracts({
+  const { data: primeEthData } = useReadContracts({
     contracts: [
       {
         abi: primeETHABI,
@@ -42,11 +34,30 @@ export default function Index() {
     ],
   })
 
+
+  const userStats = useQuery({
+    queryKey: ['dashboard-user-stats'],
+    queryFn: graphqlClient<{ lrtPointRecipientStats: { elPoints: string, points: string } }, { address: string }>(`
+      query PointRecipientStats($address: String!) {
+        lrtPointRecipientStats(address: $address) {
+          elPoints
+          points
+        }
+      }
+    `, { address: connectedAddress }),
+  })
+
+
+  const isLoading = userStats.isLoading
+
   let assetBalance = 0n
 
-  if (data) {
-    assetBalance = data[0].result as bigint
+  if (primeEthData) {
+    assetBalance = primeEthData[0].result as bigint
   }
+
+  const lrtPointRecipientStats = userStats.data?.lrtPointRecipientStats
+  const presentGreatness = (val?: string) => val ? formatEth(val) : isLoading ? '...' : '-'
 
   return (
     <>
@@ -57,19 +68,17 @@ export default function Index() {
           <div className="text-gray-500 text-sm mt-8 font-medium">
             EigenLayer Points
           </div>
-          <div className="text-2xl font-medium mt-4">1,452</div>
+          <div className="text-2xl font-medium mt-4">{presentGreatness(lrtPointRecipientStats?.elPoints)}</div>
         </div>
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
           <img src={primePointsSrc} alt="Prime ETH Points" />
           <div className="text-gray-500 text-sm mt-8 font-medium">
             primeETH XP
           </div>
-          <div className="text-2xl font-medium mt-4">
-            <NumberSpinner num={points} />
-          </div>
+          <div className="text-2xl font-medium mt-4">{presentGreatness(lrtPointRecipientStats?.points)}</div>
         </div>
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
-          <img src={primeTokenSrc} alt="Prime ETH" />
+        <img src={primeTokenSrc} alt="Prime ETH" />
           <div className="text-gray-500 text-sm mt-8 font-medium">
             primeETH Balance
           </div>

@@ -70,7 +70,7 @@ export default function Marketing() {
           $6,251,430.43
         </div>
         <div
-          className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center"
+          className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer"
         >
           <Link
             to="/app/restake"

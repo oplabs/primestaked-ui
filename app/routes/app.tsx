@@ -11,6 +11,8 @@ import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { Tabs } from '~/components/Tabs'
+import { useQuery } from '@tanstack/react-query'
+import { graphqlClient } from '~/utils/graphql'
 
 export const meta: MetaFunction = () => {
   return [
@@ -48,6 +50,18 @@ export default function Index() {
     ]
   })
 
+  const pointSummary = useQuery({
+    queryKey: ['prime-eth-point-summary'],
+    queryFn: graphqlClient<{ lrtSummaries: [{ elPoints: string, points: string }] }>(`
+      query PointSummary {
+        lrtSummaries(limit: 1, orderBy: id_DESC) {
+          points
+          elPoints
+        }
+      }
+    `),
+  })
+
   if (!data) return null
 
   let rsETHPrice = 0n
@@ -61,6 +75,9 @@ export default function Index() {
   } catch (e) {
     /* Ignore */
   }
+
+  const formatPointSummaryData = (val?: string) => val ? formatEth(val) : pointSummary.isLoading ? '...' : '-'
+
 
   return (
     <>
@@ -82,8 +99,8 @@ export default function Index() {
               value={`${formatEth(tvl)} ETH`}
               description={`$${formatUSD(tvlUsd)}`}
             />
-            <StatBoxItem label="EigenLayer Points" value="-" />
-            <StatBoxItem label="PrimeStaked Points" value="-" />
+            <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
+            <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
           </StatBox>
           <StatBox title="Assets Deposited">
             {assets.map(({ symbol, src }, i) => (
