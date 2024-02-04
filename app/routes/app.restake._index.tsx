@@ -155,7 +155,7 @@ export default function Index() {
   let stakeBtnDisabled = false
   let approveBtnDisabled = true
   let stakeBtnText = 'Stake'
-  let approveBtnText = `Approve ${asset}`
+  let approveBtnText = `${asset} approved`
   // show approve button if we can stake and asset has been approved this session
   let approveBtnShow = assetApprovedThisSession
   if (!isConnected) {
@@ -171,6 +171,7 @@ export default function Index() {
      approveBtnShow = false
   } else if (depositAmountBI > assetAllowance) {
     stakeBtnText = `Stake`
+    approveBtnText = `Approve ${asset}`
     stakeBtnDisabled = true
     approveBtnDisabled = false
     approveBtnShow = true
