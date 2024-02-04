@@ -10,6 +10,7 @@ export default {
           200: '#B5BECA',
           500: '#828699', // Gray Text
           600: '#475569',
+          750: '#4D5D67', // Footer icon hovered
           850: '#2D3D47', // Footer icon
           950: '#1E293B' // Almost black text
         },
