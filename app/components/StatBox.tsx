@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { Tooltip } from './Tooltip'
+
 export const StatBox = ({
   title,
   children
@@ -19,18 +21,21 @@ export const StatBoxItem = ({
   label,
   value,
   description,
-  logo
+  logo,
+  tooltip
 }: {
   label: string
   value: ReactNode
   description?: ReactNode
   logo?: string
+  tooltip?: string
 }) => {
   return (
     <div>
       <div className="text-gray-500 text-sm flex items-center gap-1">
         {logo ? <img src={logo} alt="Logo" className="h-5" /> : null}
         {label}
+        {tooltip ? <Tooltip>{tooltip}</Tooltip> : null}
       </div>
       <div className="mt-1">{value}</div>{' '}
       {description && (

@@ -23,7 +23,7 @@ export const Footer = () => {
           icon={docsSrc}
           title="Docs"
           imgSize={36}
-          iconLink="https://github.com/oplabs/primestaked-eth"
+          iconLink="https://docs.primestaked.com"
         />
         <FooterIcon 
           icon={supportSrc}

@@ -36,7 +36,7 @@ export default function Index() {
 
 
   const userStats = useQuery({
-    queryKey: ['dashboard-user-stats'],
+    queryKey: [`dashboard-user-stats-${connectedAddress}`],
     queryFn: graphqlClient<{ lrtPointRecipientStats: { elPoints: string, points: string } }, { address: string }>(`
       query PointRecipientStats($address: String!) {
         lrtPointRecipientStats(address: $address) {

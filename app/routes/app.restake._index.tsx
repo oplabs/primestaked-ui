@@ -10,7 +10,8 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
-import { ArrowDown, CaretDown } from '~/components/Icons'
+import { CaretDown } from '~/components/Icons'
+import { Tooltip } from '~/components/Tooltip'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
 
@@ -91,8 +92,6 @@ export default function Index() {
   useEffect(() => {
     if (deposit.status === 'pending') {
       setIsOpen(true)
-    } else if (deposit.status === 'error') {
-      setIsOpen(false)
     }
   }, [deposit.status, txReceipt.data, refetch])
 
@@ -114,9 +113,9 @@ export default function Index() {
       lrtBalance = data[1].result
       rawAssetPrice = data[2].result || 10n ** 18n
       depositLimit = data[3].result
-      assetAllowance = data[4].result
-      assetBalance = data[5].result
-      assetDeposited = data[6].result
+      assetAllowance = isConnected ? data[4].result : 0n
+      assetBalance = isConnected ? data[5].result : 0n
+      assetDeposited = isConnected ? data[6].result : 0n
       assetPrice = (10n ** 18n * rsETHPrice) / rawAssetPrice
     } catch (e) {
       /* Ignore */
@@ -162,11 +161,16 @@ export default function Index() {
 
   let modalTitle = 'Transaction in process'
   let modalStatus = 'loading'
+  let modalDescription
   if (deposit.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
     modalStatus = 'success'
+  } else if (deposit.error) {
+    modalTitle = 'Transaction failed'
+    modalStatus = 'error'
+    modalDescription = deposit.error.shortMessage || deposit.error.message
   }
 
   const pctOfLimit = Math.round(
@@ -177,6 +181,7 @@ export default function Index() {
     <>
       <Modal
         status={modalStatus}
+        description={modalDescription}
         txLink={deposit.data ? `https://etherscan.io/tx/${deposit.data}` : ''}
         title={modalTitle}
         isOpen={isOpen}
@@ -279,7 +284,7 @@ export default function Index() {
               }
               if (!isConnected) {
                 openConnectModal?.()
-              } else if (depositAmountBI < assetAllowance) {
+              } else if (depositAmountBI <= assetAllowance) {
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
                   address: contracts.lrtDepositPool,
@@ -303,12 +308,6 @@ export default function Index() {
           >
             {btnText}
           </button>
-
-          {deposit.error ? (
-            <div className="text-center text-xs break-all">
-              {deposit.error.message}
-            </div>
-          ) : null}
         </div>
         {/*
         <div className="p-6 bg-white rounded-b-3xl flex flex-col gap-2">
