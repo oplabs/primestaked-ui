@@ -29,6 +29,11 @@ export default function Index() {
   const { openConnectModal } = useConnectModal()
   const [isOpen, setIsOpen] = useState(false)
   const [tokenChooserIsOpen, setTokenChooserIsOpen] = useState(false)
+  /* stores token + connected address approvals issued this session.
+   * Required for showing a disabled approval button after the approve
+   * transaction is done.
+   */
+  const [approves, setApproves] = useState([])
   const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
@@ -145,18 +150,30 @@ export default function Index() {
   //   assetDeposited
   // })
 
-  let btnDisabled = false
-  let btnText = 'Stake'
+  const assetApprovedThisSession = approves.includes(`${address}:${asset}`)
+
+  let stakeBtnDisabled = false
+  let approveBtnDisabled = true
+  let stakeBtnText = 'Stake'
+  let approveBtnText = 'Approve'
+  let approveBtnShow = assetApprovedThisSession
   if (!isConnected) {
-    btnText = 'Connect wallet'
+    stakeBtnText = 'Connect wallet'
+    approveBtnShow = false
   } else if (!depositAmountBI || depositAmountBI <= 0n) {
-    btnText = 'Enter an amount'
-    btnDisabled = true
-  } else if (depositAmountBI > assetBalance) {
-    btnText = 'Not enough balance'
-    btnDisabled = true
+    stakeBtnText = 'Enter an amount'
+    stakeBtnDisabled = true
+    approveBtnShow = false
+   } else if (depositAmountBI > assetBalance) {
+     stakeBtnText = 'Not enough balance'
+     stakeBtnDisabled = true
+     approveBtnShow = false
   } else if (depositAmountBI > assetAllowance) {
-    btnText = `Approve ${asset}`
+    stakeBtnText = `Stake ${asset}`
+    approveBtnText = `Approve ${asset}`
+    stakeBtnDisabled = true
+    approveBtnDisabled = false
+    approveBtnShow = true
   }
 
   let modalTitle = 'Transaction in process'
@@ -274,12 +291,36 @@ export default function Index() {
           </div>
         </div>
         <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
-          <button
+          {approveBtnShow && <button
             className={`${
-              btnDisabled ? 'btn-disabled' : 'btn'
+              approveBtnDisabled ? 'btn-disabled' : 'btn'
             } px-3 py-4 text-xl`}
             onClick={() => {
-              if (btnDisabled) {
+              if (approveBtnDisabled) {
+                return
+              }
+              if (depositAmountBI > assetAllowance) {
+                deposit.writeContract({
+                  abi: primeETHABI,
+                  address: contracts[asset],
+                  functionName: 'approve',
+                  args: [contracts.lrtDepositPool, 10n ** 32n],
+                })
+                setApproves([
+                  ...approves,
+                  `${address}:${asset}`
+                ])
+              }
+            }}
+          >
+            {approveBtnText}
+          </button>}
+          <button
+            className={`${
+              stakeBtnDisabled ? 'btn-disabled' : 'btn'
+            } px-3 py-4 text-xl`}
+            onClick={() => {
+              if (stakeBtnDisabled) {
                 return
               }
               if (!isConnected) {
@@ -306,7 +347,7 @@ export default function Index() {
               }
             }}
           >
-            {btnText}
+            {stakeBtnText}
           </button>
         </div>
         {/*
