@@ -10,7 +10,8 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
-import { ArrowDown, CaretDown } from '~/components/Icons'
+import { CaretDown } from '~/components/Icons'
+import { Tooltip } from '~/components/Tooltip'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
 

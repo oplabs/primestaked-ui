@@ -96,6 +96,7 @@ export default function Index() {
           <StatBox title="primeETH Stats">
             <StatBoxItem
               label="TVL"
+              tooltip="Total Value Locked"
               value={`${formatEth(tvl)} ETH`}
               description={`$${formatUSD(tvlUsd)}`}
             />

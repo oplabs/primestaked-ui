@@ -12,6 +12,7 @@
     "pages:deploy": "npm run build && wrangler pages deploy ./public"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.9",
     "@rainbow-me/rainbowkit": "^2.0.0-beta.2",
     "@react-spring/web": "^9.7.3",
     "@remix-run/cloudflare": "^2.5.1",
