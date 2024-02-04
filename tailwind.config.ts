@@ -7,6 +7,7 @@ export default {
           bg1: '#f7faff', // Table
           border: '#d8dee5', // Table border
           100: '#F6F8FE',
+          200: '#B5BECA',
           500: '#828699', // Gray Text
           600: '#475569',
           950: '#1E293B' // Almost black text
@@ -22,13 +23,14 @@ export default {
         'off-white': '#fafbfb'
       },
       fontSize: { // Titles on landing page
+        '2.66xl': ['1.75rem', {}], // 28px
         '4.5xl': ['2.75rem', {
           lineHeight: '70px'
         }],
         '6xl': ['3.5rem', {
           lineHeight: '64px'
         }]
-      }
+      },
     },
 
     backgroundImage: {
