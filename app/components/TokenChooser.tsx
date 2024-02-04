@@ -48,7 +48,7 @@ export function TokenChooser({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30" />
+          <div className="fixed inset-0 bg-black/40" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -62,11 +62,11 @@ export function TokenChooser({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden bg-gray-bg1 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden bg-gray-bg1 text-left align-middle shadow-xl transition-all rounded-3xl">
                 <div className="flex flex-col">
                   <Dialog.Title
                     as="h3"
-                    className="px-6 py-5 text-sm font-medium text-gray-900 border-b border-gray-border rounded-3xl"
+                    className="px-6 py-5 text-sm font-medium text-gray-900 border-b border-gray-border"
                   >
                     Select a token
                   </Dialog.Title>
@@ -92,7 +92,7 @@ export function TokenChooser({
                               <div className="text-gray-500">{asset.symbol}</div>
                             </div>
                             <div className="flex flex-col items-start">
-                              <div className="text-gray-500">
+                              <div className="text-gray-500 font-medium">
                                 {formatEth(data && isConnected ? data[i].result : 0)}
                               </div>
                             </div>
