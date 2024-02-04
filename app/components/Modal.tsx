@@ -18,14 +18,15 @@ export function Modal({
   status: string
   description?: string
 }) {
-  useEffect(() => {
-    if (status === 'success' || status === 'error') {
-      const t = setTimeout(() => {
-        setIsOpen(false)
-      }, 3000)
-      return () => clearTimeout(t)
-    }
-  }, [status, setIsOpen])
+  // Disable auto-close for now
+  // useEffect(() => {
+  //   if (status === 'success' || status === 'error') {
+  //     const t = setTimeout(() => {
+  //       setIsOpen(false)
+  //     }, 3000)
+  //     return () => clearTimeout(t)
+  //   }
+  // }, [status, setIsOpen])
 
   return (
     // Use the `Transition` component at the root level
