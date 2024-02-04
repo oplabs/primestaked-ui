@@ -8,6 +8,9 @@ import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
 import { AcquireStep } from '~/components/landing/AcquireStep'
 import { LearnStep } from '~/components/landing/LearnStep'
+import { Footer } from '~/components/landing/Footer'
+
+import { useTVL } from '~/utils/hooks/useTVL'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
@@ -44,6 +47,8 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Marketing() {
+  const { tvl, tvlUsd } = useTVL()
+
   return (
     <>
       {/* Top liquid staking segment */}
@@ -64,10 +69,10 @@ export default function Marketing() {
           Stack ETH staking yield, EigenLayer points, and primeETH XP Points all while remaining liquid.
         </div>
         <div className="text-gray-600 text-3xl mt-[34px] z-10">
-          <span className="font-bold">2720.43 ETH</span> ASSETS RESTAKED
+          <span className="font-bold">{tvl} ETH</span> ASSETS RESTAKED
         </div>
         <div className="text-gray-600 text-2xl mt-3 z-10">
-          $6,251,430.43
+          ${tvlUsd}
         </div>
         <div
           className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer"
@@ -82,7 +87,7 @@ export default function Marketing() {
       {/* Earn Triple Rewards segment */}
       <Segment
         isWhite={true}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] flex content-center">
@@ -193,7 +198,7 @@ export default function Marketing() {
       {/* How do I earn segment */}
       <Segment
         isWhite={true}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[48px] md:mt-[118px] flex content-center">
@@ -255,7 +260,7 @@ export default function Marketing() {
       {/* Faq segment */}
       <Segment
         isWhite={false}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="w-full mb-[57px] md:mb-[169px]">
@@ -276,6 +281,7 @@ export default function Marketing() {
           />
         </div>
       </Segment>
+      <Footer />
     </>
   )
 }
