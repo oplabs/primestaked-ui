@@ -18,7 +18,7 @@ import { graphqlClient } from '~/utils/graphql'
 export const meta: MetaFunction = () => {
   return [
     { title: 'Prime Staked ETH' },
-    { name: 'description', content: 'Welcome to Prime Staked ETH!' }
+    { name: 'description', content: 'Welcome to Prime Staked ETH!' },
   ]
 }
 
@@ -27,33 +27,35 @@ export default function Index() {
     contracts: [
       {
         abi: parseAbi([
-          `function ${lrtOraclePriceMethod}() view returns (uint256)`
+          `function ${lrtOraclePriceMethod}() view returns (uint256)`,
         ]),
         address: contracts.lrtOracle,
-        functionName: lrtOraclePriceMethod
+        functionName: lrtOraclePriceMethod,
       },
       {
         abi: primeETHABI,
         address: contracts.primeETH,
-        functionName: 'totalSupply'
+        functionName: 'totalSupply',
       },
       {
         abi: oracleAbi,
         address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
-        functionName: 'latestAnswer'
+        functionName: 'latestAnswer',
       },
       ...assets.map(({ symbol }) => ({
         abi: lrtDepositPoolAbi,
         address: contracts.lrtDepositPool,
         functionName: 'getTotalAssetDeposits',
-        args: [contracts[symbol]]
-      }))
-    ]
+        args: [contracts[symbol]],
+      })),
+    ],
   })
 
   const pointSummary = useQuery({
     queryKey: ['prime-eth-point-summary'],
-    queryFn: graphqlClient<{ lrtSummaries: [{ elPoints: string, points: string }] }>(`
+    queryFn: graphqlClient<{
+      lrtSummaries: [{ elPoints: string; points: string }]
+    }>(`
       query PointSummary {
         lrtSummaries(limit: 1, orderBy: id_DESC) {
           points
@@ -77,8 +79,8 @@ export default function Index() {
     /* Ignore */
   }
 
-  const formatPointSummaryData = (val?: string) => val ? formatEth(val) : pointSummary.isLoading ? '...' : '-'
-
+  const formatPointSummaryData = (val?: string) =>
+    val ? formatEth(val) : pointSummary.isLoading ? '...' : '-'
 
   return (
     <>
@@ -92,17 +94,27 @@ export default function Index() {
             <Outlet />
           </div>
           <div className="md:w-[300px] flex flex-col gap-8 pb-12">
-            <StatBox title="primeETH Stats">
+            <StatBox title="primeETH Stats" cols={1}>
               <StatBoxItem
                 label="TVL"
                 tooltip="Total Value Locked"
                 value={`${formatEth(tvl)} ETH`}
                 description={`$${formatUSD(tvlUsd)}`}
               />
-              <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
-              <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
+              <StatBoxItem
+                label="EigenLayer Points"
+                value={formatPointSummaryData(
+                  pointSummary.data?.lrtSummaries[0]?.elPoints,
+                )}
+              />
+              <StatBoxItem
+                label="PrimeStaked Points"
+                value={formatPointSummaryData(
+                  pointSummary.data?.lrtSummaries[0]?.points,
+                )}
+              />
             </StatBox>
-            <StatBox title="Assets Deposited">
+            <StatBox title="Assets Deposited" cols={2}>
               {assets.map(({ symbol, src }, i) => (
                 <StatBoxItem
                   key={i}
@@ -112,7 +124,7 @@ export default function Index() {
                 />
               ))}
             </StatBox>
-            </div>
+          </div>
         </div>
       </div>
     </>

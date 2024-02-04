@@ -4,15 +4,18 @@ import { Tooltip } from './Tooltip'
 
 export const StatBox = ({
   title,
-  children
+  children,
+  cols = 1,
 }: {
   title: string
   children: ReactNode
+  cols: 1 | 2
 }) => {
+  const gridCols = cols === 1 ? 'grid-cols-1' : 'grid-cols-2'
   return (
     <div className="border border-gray-border rounded-xl bg-gray-bg1 font-medium">
       <div className="py-6 px-6 border-b border-gray-border">{title}</div>
-      <div className="p-6 grid grid-cols-2 gap-6">{children}</div>
+      <div className={`p-6 grid ${gridCols} gap-6`}>{children}</div>
     </div>
   )
 }
@@ -22,7 +25,7 @@ export const StatBoxItem = ({
   value,
   description,
   logo,
-  tooltip
+  tooltip,
 }: {
   label: string
   value: ReactNode
