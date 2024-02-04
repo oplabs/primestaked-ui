@@ -28,7 +28,6 @@ export function formatEth(value: ValueType, round = false) {
     return number[0]
   }
 
-  console.log(number)
   return `${number[0]}.${number[1].slice(0, 4)}`
 }
 
