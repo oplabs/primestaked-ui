@@ -10,6 +10,8 @@ import { AcquireStep } from '~/components/landing/AcquireStep'
 import { LearnStep } from '~/components/landing/LearnStep'
 import { Footer } from '~/components/landing/Footer'
 
+import { useTVL } from '~/utils/hooks/useTVL'
+
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
 import Pan from '~/assets/landing/pan.svg'
@@ -45,6 +47,8 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Marketing() {
+  const { tvl, tvlUsd } = useTVL()
+
   return (
     <>
       {/* Top liquid staking segment */}
@@ -65,10 +69,10 @@ export default function Marketing() {
           Stack ETH staking yield, EigenLayer points, and primeETH XP Points all while remaining liquid.
         </div>
         <div className="text-gray-600 text-3xl mt-[34px] z-10">
-          <span className="font-bold">2720.43 ETH</span> ASSETS RESTAKED
+          <span className="font-bold">{tvl} ETH</span> ASSETS RESTAKED
         </div>
         <div className="text-gray-600 text-2xl mt-3 z-10">
-          $6,251,430.43
+          {tvlUsd}
         </div>
         <div
           className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer"
