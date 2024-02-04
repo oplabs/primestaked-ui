@@ -1,5 +1,7 @@
 import { Outlet } from '@remix-run/react'
-import { Nav } from '~/components/Nav'
+
+import { TopNav } from '~/components/nav/TopNav'
+import { SideNav } from '~/components/nav/SideNav'
 
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
@@ -81,14 +83,11 @@ export default function Index() {
 
   return (
     <>
-      <Nav />
+      <TopNav />
       <div className="w-full flex px-6 items-start">
-        <Tabs
-          tabs={[
-            { label: 'Restake', href: '/app/restake' },
-            { label: 'Dashboard', href: '/app/dashboard' }
-          ]}
-        />
+        <div className="hidden md:block">
+          <SideNav />
+        </div>
         <div className="flex-1 flex flex-col items-center justify-center">
           <Outlet />
         </div>
