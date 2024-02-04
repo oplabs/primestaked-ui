@@ -155,7 +155,8 @@ export default function Index() {
   let stakeBtnDisabled = false
   let approveBtnDisabled = true
   let stakeBtnText = 'Stake'
-  let approveBtnText = 'Approve'
+  let approveBtnText = `Approve ${asset}`
+  // show approve button if we can stake and asset has been approved this session
   let approveBtnShow = assetApprovedThisSession
   if (!isConnected) {
     stakeBtnText = 'Connect wallet'
@@ -169,8 +170,7 @@ export default function Index() {
      stakeBtnDisabled = true
      approveBtnShow = false
   } else if (depositAmountBI > assetAllowance) {
-    stakeBtnText = `Stake ${asset}`
-    approveBtnText = `Approve ${asset}`
+    stakeBtnText = `Stake`
     stakeBtnDisabled = true
     approveBtnDisabled = false
     approveBtnShow = true
@@ -218,7 +218,7 @@ export default function Index() {
         }}
       />
       <LargeBox title="Restake LST">
-        <div className="p-6 flex flex-col gap-6 bg-white border-b border-gray-border relative">
+        <div className="p-6 flex flex-col gap-3 bg-white border-b border-gray-border relative">
           <div className="flex items-center justify-between">
             <button
               className="border border-gray-border bg-off-white hover:bg-white text-lg font-medium pl-1 pr-3 py-1 rounded-full flex items-center gap-2 shadow-[0px_8px_10px_0px_#00000012]                "
