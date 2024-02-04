@@ -3,7 +3,7 @@ import { Link } from '@remix-run/react'
 
 import Logo from '~/assets/prime-staked.svg'
 import MenuIcon from '~/assets/menu.svg'
-import LogoMobile from '~/assets/prime-eth-token-full.svg'
+import LogoMobile from '~/assets/prime-staked-nav.svg'
 import { ConnectButton } from './ConnectButton'
 import { DocsLink } from './DocsLink'
 import { SideNav } from './SideNav'
@@ -13,10 +13,10 @@ import { useLocation } from 'react-router-dom'
 export const TopNav = () => {
   return (
     <div className="mb-8 sm:mb-10">
-      <div className="px-3 sm:px-6 mx-auto flex items-center md:gap-12 py-6">
+      <div className="px-3 sm:px-3 mx-auto flex items-center md:gap-12 py-6">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-[125px] hidden md:inline sm:w-[175px]" />
-          <img src={LogoMobile} alt="logo" className="md:hidden w-[44px]" />
+          <img src={LogoMobile} alt="logo" className="md:hidden w-[33px]" />
         </Link>
 
         <MobileMenu />

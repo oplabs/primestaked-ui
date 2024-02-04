@@ -83,7 +83,7 @@ export default function Index() {
   return (
     <>
       <TopNav />
-      <div className="w-full flex px-6 items-start">
+      <div className="w-full flex px-3 md:px-6 items-start">
         <div className="hidden md:block">
           <SideNav />
         </div>
