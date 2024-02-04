@@ -72,7 +72,7 @@ export default function Marketing() {
           <span className="font-bold">{tvl} ETH</span> ASSETS RESTAKED
         </div>
         <div className="text-gray-600 text-2xl mt-3 z-10">
-          {tvlUsd}
+          ${tvlUsd}
         </div>
         <div
           className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer"
