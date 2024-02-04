@@ -88,29 +88,31 @@ export default function Index() {
         <div className="hidden md:block">
           <SideNav />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <Outlet />
-        </div>
-        <div className="w-[300px] flex flex-col gap-8 pb-12">
-          <StatBox title="primeETH Stats">
-            <StatBoxItem
-              label="TVL"
-              value={`${formatEth(tvl)} ETH`}
-              description={`$${formatUSD(tvlUsd)}`}
-            />
-            <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
-            <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
-          </StatBox>
-          <StatBox title="Assets Deposited">
-            {assets.map(({ symbol, src }, i) => (
+        <div className="flex-1 flex flex-col md:flex-row gap-8 ">
+          <div className="flex-1 flex flex-col items-center justify-items-center">
+            <Outlet />
+          </div>
+          <div className="md:w-[300px] flex flex-col gap-8 pb-12">
+            <StatBox title="primeETH Stats">
               <StatBoxItem
-                key={i}
-                label={symbol}
-                logo={src}
-                value={formatEth(data[i + 3].result)}
+                label="TVL"
+                value={`${formatEth(tvl)} ETH`}
+                description={`$${formatUSD(tvlUsd)}`}
               />
-            ))}
-          </StatBox>
+              <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
+              <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
+            </StatBox>
+            <StatBox title="Assets Deposited">
+              {assets.map(({ symbol, src }, i) => (
+                <StatBoxItem
+                  key={i}
+                  label={symbol}
+                  logo={src}
+                  value={formatEth(data[i + 3].result)}
+                />
+              ))}
+            </StatBox>
+          </div>
         </div>
       </div>
     </>
