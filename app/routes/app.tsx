@@ -1,5 +1,7 @@
 import { Outlet } from '@remix-run/react'
-import { Nav } from '~/components/Nav'
+
+import { TopNav } from '~/components/nav/TopNav'
+import { SideNav } from '~/components/nav/SideNav'
 
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
@@ -10,7 +12,6 @@ import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
-import { Tabs } from '~/components/Tabs'
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
 
@@ -81,38 +82,37 @@ export default function Index() {
 
   return (
     <>
-      <Nav />
-      <div className="w-full flex px-6 items-start">
-        <Tabs
-          tabs={[
-            { label: 'Restake', href: '/app/restake' },
-            { label: 'Dashboard', href: '/app/dashboard' }
-          ]}
-        />
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <Outlet />
+      <TopNav />
+      <div className="w-full flex px-3 md:px-6 items-start">
+        <div className="hidden md:block">
+          <SideNav />
         </div>
-        <div className="w-[300px] flex flex-col gap-8 pb-12">
-          <StatBox title="primeETH Stats">
-            <StatBoxItem
-              label="TVL"
-              tooltip="Total Value Locked"
-              value={`${formatEth(tvl)} ETH`}
-              description={`$${formatUSD(tvlUsd)}`}
-            />
-            <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
-            <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
-          </StatBox>
-          <StatBox title="Assets Deposited">
-            {assets.map(({ symbol, src }, i) => (
+        <div className="flex-1 flex flex-col md:flex-row gap-8 ">
+          <div className="flex-1 flex flex-col items-center justify-items-center">
+            <Outlet />
+          </div>
+          <div className="md:w-[300px] flex flex-col gap-8 pb-12">
+            <StatBox title="primeETH Stats">
               <StatBoxItem
-                key={i}
-                label={symbol}
-                logo={src}
-                value={formatEth(data[i + 3].result)}
+                label="TVL"
+                tooltip="Total Value Locked"
+                value={`${formatEth(tvl)} ETH`}
+                description={`$${formatUSD(tvlUsd)}`}
               />
-            ))}
-          </StatBox>
+              <StatBoxItem label="EigenLayer Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.elPoints)} />
+              <StatBoxItem label="PrimeStaked Points" value={formatPointSummaryData(pointSummary.data?.lrtSummaries[0]?.points)} />
+            </StatBox>
+            <StatBox title="Assets Deposited">
+              {assets.map(({ symbol, src }, i) => (
+                <StatBoxItem
+                  key={i}
+                  label={symbol}
+                  logo={src}
+                  value={formatEth(data[i + 3].result)}
+                />
+              ))}
+            </StatBox>
+            </div>
         </div>
       </div>
     </>

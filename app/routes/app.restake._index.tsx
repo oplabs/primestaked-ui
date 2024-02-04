@@ -273,7 +273,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border">
+        <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
           <button
             className={`${
               btnDisabled ? 'btn-disabled' : 'btn'

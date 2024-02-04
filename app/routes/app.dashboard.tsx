@@ -62,7 +62,7 @@ export default function Index() {
   return (
     <>
       <div className="text-center text-2xl font-medium mb-12">Dashboard</div>
-      <div className="grid grid-cols-3 gap-4 w-full max-w-[700px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-[700px]">
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
           <img src={eigenPointsSrc} alt="Eigen Points" />
           <div className="text-gray-500 text-sm mt-8 font-medium">

@@ -62,11 +62,11 @@ export function TokenChooser({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-bg1 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden bg-gray-bg1 text-left align-middle shadow-xl transition-all">
                 <div className="flex flex-col">
                   <Dialog.Title
                     as="h3"
-                    className="px-6 py-5 text-sm font-medium text-gray-900 border-b border-gray-border"
+                    className="px-6 py-5 text-sm font-medium text-gray-900 border-b border-gray-border rounded-3xl"
                   >
                     Select a token
                   </Dialog.Title>
