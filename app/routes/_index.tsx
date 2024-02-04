@@ -8,6 +8,7 @@ import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
 import { AcquireStep } from '~/components/landing/AcquireStep'
 import { LearnStep } from '~/components/landing/LearnStep'
+import { Footer } from '~/components/landing/Footer'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
@@ -193,7 +194,7 @@ export default function Marketing() {
       {/* How do I earn segment */}
       <Segment
         isWhite={true}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[48px] md:mt-[118px] flex content-center">
@@ -255,7 +256,7 @@ export default function Marketing() {
       {/* Faq segment */}
       <Segment
         isWhite={false}
-        width={'large'}
+        width={'normal'}
         alignCenter={true}
       >
         <div className="w-full mb-[57px] md:mb-[169px]">
@@ -276,6 +277,7 @@ export default function Marketing() {
           />
         </div>
       </Segment>
+      <Footer />
     </>
   )
 }

@@ -2,21 +2,23 @@ import { ReactNode } from 'react'
 
 export const Segment = ({
   isWhite,
+  hasGradientBg,
   children,
   isRelative,
   hideOverflow,
   width,
   alignCenter,
 }: {
-  isWhite: bool
-  isRelative: bool
+  isWhite: bool,
+  hasGradientBg: bool,
+  isRelative: bool,
   hideOverflow: bool,
   alignCenter: bool,
   width: string, // normal (1308px), large(1476px)
   children: ReactNode
 }) => {
   return (
-    <div className={`${isWhite ? 'bg-white' : 'bg-gray-100'} 
+    <div className={`${hasGradientBg ? 'bg-footer-gradient' : isWhite ? 'bg-white' : 'bg-gray-100'} 
                      ${hideOverflow ? 'overflow-hidden' : ''} 
                      ${isRelative ? 'relative' : ''} 
                     w-full flex flex-col justify-center items-center`}>
