@@ -280,7 +280,7 @@ export default function Index() {
               }
               if (!isConnected) {
                 openConnectModal?.()
-              } else if (depositAmountBI < assetAllowance) {
+              } else if (depositAmountBI <= assetAllowance) {
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
                   address: contracts.lrtDepositPool,
