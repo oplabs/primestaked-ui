@@ -12,7 +12,6 @@ import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
-import { Tabs } from '~/components/Tabs'
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
 
