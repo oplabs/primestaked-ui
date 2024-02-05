@@ -10,3 +10,5 @@ node_modules
 .wrangler
 
 .DS_Store
+# Sentry Config File
+.sentryclirc
