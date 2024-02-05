@@ -34,9 +34,7 @@ export default function Index() {
    * transaction is done.
    */
   const [approves, setApproves] = useState([])
-  const [depositAction, setDepositAction] = useState<
-    '' | 'approve' | 'deposit'
-  >('')
+  const contractWrite = useWriteContract()
   const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
@@ -95,13 +93,29 @@ export default function Index() {
 
   // console.log(data)
 
-  const txReceipt = useWaitForTransactionReceipt({ hash: deposit.data })
+  const txReceipt = useWaitForTransactionReceipt({ hash: contractWrite.data })
+
+  /* refetch data on any transaction succeeding. Important to refresh data
+   * and to enable Stake button (Modal or in-page) after approve succeeds.
+   */
+  useEffect(() => {
+    if (contractWrite.status === 'success' && txReceipt.data) {
+      refetch()
+      /* It can happen that a wallet provider (say Metamask) will already
+       * see a transaction processed and approval updated on a contract
+       * while another provider (e.g. Infura) will still not have seen the 
+       * latest data. As a workaround to 2 more re-fetches 3 & 10 seconds later.
+       */
+      setTimeout(refetch, 3000)
+      setTimeout(refetch, 10000)
+    }
+  }, [contractWrite.status, txReceipt.data, refetch])
 
   useEffect(() => {
-    if (deposit.status === 'pending') {
+    if (contractWrite.status === 'pending') {
       setIsOpen(true)
     }
-  }, [deposit.status, txReceipt.data, refetch])
+  }, [contractWrite.status, txReceipt.data, refetch])
 
   let rsETHPrice = 0n
   let lrtBalance = 0n
@@ -180,24 +194,56 @@ export default function Index() {
     approveBtnShow = true
   }
 
+  const doStake = () => {
+    if (stakeBtnDisabled) {
+      return
+    }
+    if (!isConnected) {
+      openConnectModal?.()
+    } else if (depositAmountBI <= assetAllowance) {
+      contractWrite.writeContract({
+        abi: lrtDepositPoolAbi,
+        address: contracts.lrtDepositPool,
+        functionName: 'depositAsset',
+        args: [
+          contracts[asset],
+          parseEther(depositAmount),
+          0n,
+          'Origin',
+        ],
+      })
+    }
+  }
+
   let modalTitle = 'Transaction in process'
   let modalStatus = 'loading'
   let modalDescription
   let modalButtonText
   let modalButtonHref
-  if (deposit.status === 'pending') {
+  let modalButtonAction
+  // button not disabled except if action is stake and stake is disabled
+  let modalButtonDisabled = modalButtonAction ? stakeBtnDisabled : false
+  if (contractWrite.status === 'pending') {
     modalTitle = 'Please check your wallet'
-  } else if (deposit.status === 'success' && txReceipt.data) {
+  } else if (contractWrite.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
-    if (depositAction === 'deposit') {
+    if (contractWrite.variables.functionName == 'approve') {
+      modalButtonText = 'Stake'
+      modalButtonHref = null
+      modalButtonAction = doStake
+    }
+    // else depositAssets was called
+    else {
       modalButtonText = 'View Dashboard'
       modalButtonHref = '/app/dashboard'
+      modalButtonAction = null
     }
     modalStatus = 'success'
-  } else if (deposit.error) {
+  } else if (contractWrite.error) {
     modalTitle = 'Transaction failed'
     modalStatus = 'error'
-    modalDescription = deposit.error.shortMessage || deposit.error.message
+
+    modalDescription = contractWrite.error.shortMessage || contractWrite.error.message
   }
 
   const pctOfLimit = Math.round(
@@ -209,7 +255,7 @@ export default function Index() {
       <Modal
         status={modalStatus}
         description={modalDescription}
-        txLink={deposit.data ? `https://etherscan.io/tx/${deposit.data}` : ''}
+        txLink={contractWrite.data ? `https://etherscan.io/tx/${contractWrite.data}` : ''}
         title={modalTitle}
         buttonText={modalButtonText}
         buttonHref={modalButtonHref}
@@ -218,6 +264,8 @@ export default function Index() {
           setIsOpen(false)
           refetch()
         }}
+        modalButtonAction={modalButtonAction}
+        modalButtonDisabled={modalButtonDisabled}
       />
       <TokenChooser
         isOpen={tokenChooserIsOpen}
@@ -313,8 +361,7 @@ export default function Index() {
                   return
                 }
                 if (depositAmountBI > assetAllowance) {
-                  setDepositAction('approve')
-                  deposit.writeContract({
+                  contractWrite.writeContract({
                     abi: primeETHABI,
                     address: contracts[asset],
                     functionName: 'approve',
@@ -329,37 +376,9 @@ export default function Index() {
           )}
           <button
             className={`${
-              stakeBtnDisabled ? 'btn-disabled' : 'btn'
+              stakeBtnDisabled ? 'bun-disabled' : 'btn'
             } px-3 py-4 text-xl`}
-            onClick={() => {
-              if (stakeBtnDisabled) {
-                return
-              }
-              if (!isConnected) {
-                openConnectModal?.()
-              } else if (depositAmountBI <= assetAllowance) {
-                setDepositAction('deposit')
-                deposit.writeContract({
-                  abi: lrtDepositPoolAbi,
-                  address: contracts.lrtDepositPool,
-                  functionName: 'depositAsset',
-                  args: [
-                    contracts[asset],
-                    parseEther(depositAmount),
-                    0n,
-                    'Origin',
-                  ],
-                })
-              } else {
-                setDepositAction('approve')
-                deposit.writeContract({
-                  abi: primeETHABI,
-                  address: contracts[asset],
-                  functionName: 'approve',
-                  args: [contracts.lrtDepositPool, depositAmountBI],
-                })
-              }
-            }}
+            onClick={() => doStake()}
           >
             {stakeBtnText}
           </button>

@@ -13,6 +13,8 @@ export function Modal({
   description,
   buttonText,
   buttonHref,
+  modalButtonAction,
+  modalButtonDisabled,
 }: {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
@@ -22,6 +24,8 @@ export function Modal({
   description?: string
   buttonText?: string
   buttonHref?: string
+  modalButtonAction?: () => void
+  modalButtonDisabled: boolean
 }) {
   // Disable auto-close for now
   // useEffect(() => {
@@ -94,10 +98,23 @@ export function Modal({
                   )}
 
                   {buttonText && buttonHref && (
-                    <div className="btn px-7 py-3 mb-8 text-lg text-center hover:cursor-pointer">
+                    <div className={`${
+                        modalButtonDisabled ? 'btn-disabled' : 'btn'} px-7 py-3 mb-8 text-lg text-center hover:cursor-pointer`}>
                       <Link to={buttonHref}>{buttonText}</Link>
                     </div>
                   )}
+
+                  {buttonText && modalButtonAction && (
+                    <button
+                      className={`${
+                        modalButtonDisabled ? 'btn-disabled' : 'btn'
+                      } px-7 py-3 mb-8 text-lg text-center`}
+                      onClick={modalButtonAction}
+                    >
+                      {buttonText}
+                    </button>
+                  )}
+                  
 
                   {txLink && (
                     <div className="mb-8">
