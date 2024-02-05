@@ -1,7 +1,8 @@
 import { Fragment, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { CheckCircle, Close, Spinner } from './Icons'
+import { ArrowUpRight, CheckCircle, Close, Spinner } from './Icons'
+import { Link } from '@remix-run/react'
 
 export function Modal({
   isOpen,
@@ -10,6 +11,8 @@ export function Modal({
   txLink,
   status,
   description,
+  buttonText,
+  buttonHref,
 }: {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
@@ -17,6 +20,8 @@ export function Modal({
   title: string
   status: string
   description?: string
+  buttonText?: string
+  buttonHref?: string
 }) {
   // Disable auto-close for now
   // useEffect(() => {
@@ -88,15 +93,22 @@ export function Modal({
                     </p>
                   )}
 
+                  {buttonText && buttonHref && (
+                    <div className="btn px-7 py-3 mb-8 text-lg text-center hover:cursor-pointer">
+                      <Link to={buttonHref}>{buttonText}</Link>
+                    </div>
+                  )}
+
                   {txLink && (
                     <div className="mb-8">
                       <a
                         href={txLink}
                         rel="noreferrer"
                         target="_blank"
-                        className="btn px-6 py-3"
+                        className="flex items-center gap-2 text-red-500"
                       >
                         View transaction
+                        <ArrowUpRight size={10} className="mt-1" />
                       </a>
                     </div>
                   )}
