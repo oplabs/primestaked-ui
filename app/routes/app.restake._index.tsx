@@ -318,7 +318,7 @@ export default function Index() {
                     abi: primeETHABI,
                     address: contracts[asset],
                     functionName: 'approve',
-                    args: [contracts.lrtDepositPool, 10n ** 32n],
+                    args: [contracts.lrtDepositPool, depositAmountBI],
                   })
                   setApproves([...approves, `${address}:${asset}`])
                 }
@@ -356,7 +356,7 @@ export default function Index() {
                   abi: primeETHABI,
                   address: contracts[asset],
                   functionName: 'approve',
-                  args: [contracts.lrtDepositPool, 10n ** 32n],
+                  args: [contracts.lrtDepositPool, depositAmountBI],
                 })
               }
             }}
