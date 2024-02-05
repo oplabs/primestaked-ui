@@ -42,8 +42,12 @@ export function formatUSD(value: bigint) {
 
 export function formatPoints(xp: bigint | string): string {
   if (typeof xp === 'string') xp = BigInt(xp)
-  if (xp < 1_000000000_000000000n) return '0'
-  if (xp < 1000000_000000000_000000000n) {
+  if (xp < 1_000000000_000000000n) {
+    return bigintToFloat(xp).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    })
+  } else if (xp < 1000000_000000000_000000000n) {
     return Number(xp / 1_000000000_000000000n).toLocaleString('en-US', {
       maximumFractionDigits: 0,
     })
@@ -55,11 +59,11 @@ export function formatPoints(xp: bigint | string): string {
   }
 }
 
-export function formatPercentage(percentage: bigint): string {
+export function formatPercentage(percentage: bigint, maxDigits = 2): string {
   return (
     bigintToFloat(percentage * 100n).toLocaleString(undefined, {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
+      maximumFractionDigits: maxDigits,
     }) + '%'
   )
 }
