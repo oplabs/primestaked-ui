@@ -180,10 +180,14 @@ export default function Index() {
   let modalTitle = 'Transaction in process'
   let modalStatus = 'loading'
   let modalDescription
+  let modalButtonText
+  let modalButtonHref
   if (deposit.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
+    modalButtonText = 'View Dashboard'
+    modalButtonHref = '/app/dashboard'
     modalStatus = 'success'
   } else if (deposit.error) {
     modalTitle = 'Transaction failed'
@@ -202,6 +206,8 @@ export default function Index() {
         description={modalDescription}
         txLink={deposit.data ? `https://etherscan.io/tx/${deposit.data}` : ''}
         title={modalTitle}
+        buttonText={modalButtonText}
+        buttonHref={modalButtonHref}
         isOpen={isOpen}
         setIsOpen={() => {
           setIsOpen(false)
