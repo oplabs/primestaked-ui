@@ -89,7 +89,7 @@ export default function Index() {
               assetBalance === 0n ? 'btn-disabled' : 'btn'
             } px-3 py-2`}
             onClick={() => {
-              navigate('app/restake')
+              navigate('/app/restake')
             }}
           >
             Restake more
