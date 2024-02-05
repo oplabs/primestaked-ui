@@ -74,9 +74,9 @@ export default function Index() {
     <>
       <div className="text-2xl font-medium mb-12 text-center">Dashboard</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primeTokenSrc} alt="Prime ETH" />
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center py-5 md:py-0">
             <div className="text-gray-500 text-sm font-medium">
               primeETH Balance
             </div>
@@ -85,22 +85,20 @@ export default function Index() {
             </div>
           </div>
           <button
-            className={`${
-              assetBalance === 0n ? 'btn-disabled' : 'btn'
-            } px-3 py-2`}
+            className="btn gpx-3 px-4 py-2"
             onClick={() => {
               navigate('/app/restake')
             }}
           >
-            Restake more
+            Restake {assetBalance === 0n ? 'now' : 'more'}
           </button>
         </div>
       </div>
       <div className="text-2xl font-medium text-center my-12">Your rewards</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={eigenPointsSrc} alt="Eigen Points" />
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center py-5 md:py-0">
             <div className="text-gray-500 text-sm font-medium">
               EigenLayer Points
             </div>
@@ -113,9 +111,9 @@ export default function Index() {
             <div className="font-medium ">Coming soon</div>
           </div>
         </div>
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primePointsSrc} alt="Prime ETH Points" />
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center py-5 md:py-0">
             <div className="text-gray-500 text-sm font-medium">primeETH XP</div>
             <div className="text-2xl font-medium ">
               {formatDashboardPoints(lrtPointRecipientStats?.points)}
