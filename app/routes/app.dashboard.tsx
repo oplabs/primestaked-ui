@@ -85,7 +85,7 @@ export default function Index() {
     total: string | bigint | undefined,
   ) =>
     portion && total && BigInt(total) > 0
-      ? (BigInt(portion) * eth1 * 100n) / BigInt(total)
+      ? (BigInt(portion) * eth1) / BigInt(total)
       : undefined
 
   const eth1 = 1_000000000_000000000n
