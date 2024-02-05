@@ -4,6 +4,7 @@ import {
   useReadContracts,
   useWriteContract,
   useWaitForTransactionReceipt,
+  Config,
 } from 'wagmi'
 import { parseEther, parseAbi, formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -11,7 +12,6 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { CaretDown } from '~/components/Icons'
-import { Tooltip } from '~/components/Tooltip'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
 
@@ -35,6 +35,7 @@ export default function Index() {
    */
   const [approves, setApproves] = useState([])
   const contractWrite = useWriteContract()
+  const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
@@ -237,7 +238,6 @@ export default function Index() {
       modalButtonHref = '/app/dashboard'
       modalButtonAction = null
     }
-      
     modalStatus = 'success'
   } else if (contractWrite.error) {
     modalTitle = 'Transaction failed'
@@ -365,7 +365,7 @@ export default function Index() {
                     abi: primeETHABI,
                     address: contracts[asset],
                     functionName: 'approve',
-                    args: [contracts.lrtDepositPool, 10n ** 32n],
+                    args: [contracts.lrtDepositPool, depositAmountBI],
                   })
                   setApproves([...approves, `${address}:${asset}`])
                 }
@@ -376,7 +376,7 @@ export default function Index() {
           )}
           <button
             className={`${
-              stakeBtnDisabled ? 'btn-disabled' : 'btn'
+              stakeBtnDisabled ? 'bun-disabled' : 'btn'
             } px-3 py-4 text-xl`}
             onClick={() => doStake()}
           >

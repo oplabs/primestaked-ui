@@ -6,7 +6,7 @@ import primePointsSrc from '~/assets/prime-points.svg'
 import { useAccount, useReadContracts } from 'wagmi'
 import { contracts } from '~/utils/constants'
 import { primeETHABI } from '~/utils/abis'
-import { formatEth, formatPoints } from '~/utils/bigint'
+import { formatEth, formatPercentage, formatPoints } from '~/utils/bigint'
 
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
@@ -39,7 +39,10 @@ export default function Index() {
   const userStats = useQuery({
     queryKey: [`dashboard-user-stats-${connectedAddress}`],
     queryFn: graphqlClient<
-      { lrtPointRecipientStats: { elPoints: string; points: string } },
+      {
+        lrtPointRecipientStats: { elPoints: string; points: string }
+        lrtSummaries: { points: string }[]
+      },
       { address: string }
     >(
       `
@@ -48,6 +51,26 @@ export default function Index() {
           elPoints
           points
         }
+        lrtSummaries(limit: 1, orderBy: id_DESC) {
+          points
+        }
+      }
+    `,
+      { address: connectedAddress },
+    ),
+  })
+
+  const elStats = useQuery({
+    queryKey: [`el-stats`],
+    queryFn: graphqlClient<
+      {
+        totalEigenLayerPoints: string
+      },
+      { address: string }
+    >(
+      `
+      query ELStats {
+        totalEigenLayerPoints
       }
     `,
       { address: connectedAddress },
@@ -63,21 +86,41 @@ export default function Index() {
   }
 
   const lrtPointRecipientStats = userStats.data?.lrtPointRecipientStats
+  const lrtSummaries = userStats.data?.lrtSummaries
+  const totalEigenLayerPoints = elStats.data?.totalEigenLayerPoints
+  const totalPrimeXP = lrtSummaries?.[0]?.points
+    ? BigInt(lrtSummaries?.[0]?.points)
+    : undefined
+
   const formatDashboardPoints = (val?: string) =>
     val ? formatPoints(val) : isLoading ? '...' : '-'
 
-  // TODO get those values from squid when available
-  const percentTotalXp = '0'
-  const percentTotalELPoints = '0'
+  const calculatePercentage = (
+    portion: string | bigint | undefined,
+    total: string | bigint | undefined,
+  ) =>
+    portion && total && BigInt(total) > 0
+      ? (BigInt(portion) * eth1) / BigInt(total)
+      : undefined
+
+  const eth1 = 1_000000000_000000000n
+  const percentTotalXp = calculatePercentage(
+    lrtPointRecipientStats?.points,
+    totalPrimeXP,
+  )
+  const percentTotalELPoints = calculatePercentage(
+    lrtPointRecipientStats?.elPoints,
+    totalEigenLayerPoints,
+  )
 
   return (
     <>
       <div className="text-2xl font-medium mb-12 text-center">Dashboard</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex gap-2 flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primeTokenSrc} alt="Prime ETH" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">
+            <div className="text-gray-500 text-center text-sm font-medium">
               primeETH Balance
             </div>
             <div className="text-2xl font-bold align-middle">
@@ -96,10 +139,10 @@ export default function Index() {
       </div>
       <div className="text-2xl font-medium text-center my-12">Your rewards</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex gap-2 flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={eigenPointsSrc} alt="Eigen Points" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">
+            <div className="text-gray-500 text-center text-sm font-medium">
               EigenLayer Points
             </div>
             <div className="text-2xl font-medium ">
@@ -107,21 +150,33 @@ export default function Index() {
             </div>
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-gray-500 text-sm font-medium">% of total</div>
-            <div className="font-medium ">Coming soon</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              % of total
+            </div>
+            <div className="font-medium ">
+              {/*{percentTotalELPoints*/}
+              {/*  ? formatPercentage(percentTotalELPoints)*/}
+              {/*  : '-'}*/}-
+            </div>
           </div>
         </div>
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primePointsSrc} alt="Prime ETH Points" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">primeETH XP</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              primeETH XP
+            </div>
             <div className="text-2xl font-medium ">
               {formatDashboardPoints(lrtPointRecipientStats?.points)}
             </div>
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-gray-500 text-sm font-medium">% of total</div>
-            <div className="font-medium ">Coming soon</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              % of total
+            </div>
+            <div className="font-medium ">
+              {/*{percentTotalXp ? formatPercentage(percentTotalXp) : '-'}*/}-
+            </div>
           </div>
         </div>
       </div>

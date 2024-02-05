@@ -51,19 +51,19 @@ export default function Index() {
     ],
   })
 
-  const pointSummary = useQuery({
-    queryKey: ['prime-eth-point-summary'],
-    queryFn: graphqlClient<{
-      lrtSummaries: [{ elPoints: string; points: string }]
-    }>(`
-      query PointSummary {
-        lrtSummaries(limit: 1, orderBy: id_DESC) {
-          points
-          elPoints
-        }
-      }
-    `),
-  })
+  // const pointSummary = useQuery({
+  //   queryKey: ['prime-eth-point-summary'],
+  //   queryFn: graphqlClient<{
+  //     lrtSummaries: [{ elPoints: string; points: string }]
+  //   }>(`
+  //     query PointSummary {
+  //       lrtSummaries(limit: 1, orderBy: id_DESC) {
+  //         points
+  //         elPoints
+  //       }
+  //     }
+  //   `),
+  // })
 
   if (!data) return null
 
@@ -79,11 +79,11 @@ export default function Index() {
     /* Ignore */
   }
 
-  const formatPointEL = (val?: string) =>
-    val ? formatPoints(val) : pointSummary.isLoading ? '...' : '-'
-
-  const formatPointXP = (val?: string) =>
-    val ? formatPoints(BigInt(val)) : pointSummary.isLoading ? '...' : '-'
+  // const formatPointEL = (val?: string) =>
+  //   val ? formatPoints(val) : pointSummary.isLoading ? '...' : '-'
+  //
+  // const formatPointXP = (val?: string) =>
+  //   val ? formatPoints(BigInt(val)) : pointSummary.isLoading ? '...' : '-'
 
   return (
     <>
