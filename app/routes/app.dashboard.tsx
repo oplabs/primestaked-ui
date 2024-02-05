@@ -85,14 +85,12 @@ export default function Index() {
             </div>
           </div>
           <button
-            className={`${
-              assetBalance === 0n ? 'btn-disabled' : 'btn'
-            } px-3 py-2`}
+            className="btn px-3 py-2"
             onClick={() => {
               navigate('/app/restake')
             }}
           >
-            Restake more
+            Restake {assetBalance === 0n ? 'now' : 'more'}
           </button>
         </div>
       </div>
