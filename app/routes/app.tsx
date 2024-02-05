@@ -9,7 +9,7 @@ import { parseAbi } from 'viem'
 
 import { primeETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
-import { formatEth, formatUSD } from '~/utils/bigint'
+import { formatEth, formatPoints, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { useQuery } from '@tanstack/react-query'
@@ -79,8 +79,11 @@ export default function Index() {
     /* Ignore */
   }
 
-  const formatPointSummaryData = (val?: string) =>
-    val ? formatEth(val) : pointSummary.isLoading ? '...' : '-'
+  const formatPointEL = (val?: string) =>
+    val ? formatPoints(val) : pointSummary.isLoading ? '...' : '-'
+
+  const formatPointXP = (val?: string) =>
+    val ? formatPoints(BigInt(val)) : pointSummary.isLoading ? '...' : '-'
 
   return (
     <>
@@ -93,7 +96,7 @@ export default function Index() {
           <div className="flex-1 flex flex-col items-center justify-items-center">
             <Outlet />
           </div>
-          <div className="md:w-[300px] flex flex-col gap-8 pb-12">
+          <div className="lg:w-[300px] flex flex-col gap-8 pb-12">
             <StatBox title="primeETH Stats" cols={1}>
               <StatBoxItem
                 label="TVL"
@@ -103,13 +106,13 @@ export default function Index() {
               />
               <StatBoxItem
                 label="EigenLayer Points"
-                value={formatPointSummaryData(
+                value={formatPointEL(
                   pointSummary.data?.lrtSummaries[0]?.elPoints,
                 )}
               />
               <StatBoxItem
                 label="PrimeStaked Points"
-                value={formatPointSummaryData(
+                value={formatPointXP(
                   pointSummary.data?.lrtSummaries[0]?.points,
                 )}
               />

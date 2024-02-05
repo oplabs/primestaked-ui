@@ -1,3 +1,5 @@
+import { formatEther } from 'viem'
+
 type ValueType = string | number | bigint | boolean
 
 export function bigintToFloat(value: ValueType, decimals: number = 18): number {
@@ -36,4 +38,19 @@ export function formatUSD(value: bigint) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })
+}
+
+export function formatPoints(xp: bigint | string): string {
+  if (typeof xp === 'string') xp = BigInt(xp)
+  if (xp < 1_000000000_000000000n) return '0'
+  if (xp < 1000000_000000000_000000000n) {
+    return Number(xp / 1_000000000_000000000n).toLocaleString('en-US', {
+      maximumFractionDigits: 0,
+    })
+  } else {
+    return Number(xp / 1_000000000_000000000n).toLocaleString('en-US', {
+      notation: 'compact',
+      maximumFractionDigits: 1,
+    })
+  }
 }
