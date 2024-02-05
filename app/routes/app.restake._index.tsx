@@ -34,7 +34,10 @@ export default function Index() {
    * transaction is done.
    */
   const [approves, setApproves] = useState([])
-  const deposit = useWriteContract<Config, { action: 'approve' | 'deposit' }>()
+  const [depositAction, setDepositAction] = useState<
+    '' | 'approve' | 'deposit'
+  >('')
+  const deposit = useWriteContract()
   const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
@@ -186,7 +189,7 @@ export default function Index() {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
-    if (deposit.context?.action === 'deposit') {
+    if (depositAction === 'deposit') {
       modalButtonText = 'View Dashboard'
       modalButtonHref = '/app/dashboard'
     }
@@ -310,7 +313,7 @@ export default function Index() {
                   return
                 }
                 if (depositAmountBI > assetAllowance) {
-                  deposit.context = { action: 'approve' }
+                  setDepositAction('approve')
                   deposit.writeContract({
                     abi: primeETHABI,
                     address: contracts[asset],
@@ -335,7 +338,7 @@ export default function Index() {
               if (!isConnected) {
                 openConnectModal?.()
               } else if (depositAmountBI <= assetAllowance) {
-                deposit.context = { action: 'deposit' }
+                setDepositAction('deposit')
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
                   address: contracts.lrtDepositPool,
@@ -348,7 +351,7 @@ export default function Index() {
                   ],
                 })
               } else {
-                deposit.context = { action: 'approve' }
+                setDepositAction('approve')
                 deposit.writeContract({
                   abi: primeETHABI,
                   address: contracts[asset],
