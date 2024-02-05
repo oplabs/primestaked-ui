@@ -98,8 +98,6 @@ export default function Index() {
     totalEigenLayerPoints,
   )
 
-  // https://app.eigenlayer.xyz/api/trpc/price.getPrices,nativeStaking.getNativeStakingSummaryByEigenpod?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22podOwnerAddress%22%3A%220x0000000000000000000000000000000000000000%22%7D%7D%7D
-
   return (
     <>
       <div className="text-2xl font-medium mb-12 text-center">Dashboard</div>
