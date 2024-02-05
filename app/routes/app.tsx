@@ -104,6 +104,7 @@ export default function Index() {
                 value={`${formatEth(tvl)} ETH`}
                 description={`$${formatUSD(tvlUsd)}`}
               />
+              {/*
               <StatBoxItem
                 label="EigenLayer Points"
                 value={formatPointEL(
@@ -116,6 +117,7 @@ export default function Index() {
                   pointSummary.data?.lrtSummaries[0]?.points,
                 )}
               />
+              */}
             </StatBox>
             <StatBox title="Assets Deposited" cols={2}>
               {assets.map(({ symbol, src }, i) => (
