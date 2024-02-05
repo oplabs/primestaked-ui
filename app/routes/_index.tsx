@@ -21,6 +21,7 @@ import TripleRewards from '~/assets/landing/earnTripleRewards.svg'
 
 import GobigSrc from '~/assets/landing/goBig.png'
 import BearlySrc from '~/assets/landing/beEarly.png'
+import UniswapSrc from '~/assets/landing/uniswap_logo.svg'
 import OethSrc from '~/assets/landing/tokens/oeth_token.png'
 import StethSrc from '~/assets/landing/tokens/steth_token.png'
 import SfrxSrc from '~/assets/landing/tokens/frxeth_token.png'
@@ -118,7 +119,7 @@ export default function Marketing() {
         </div>
         <div className="text-lg md:text-2xl text-gray-600 mt-[26px] md:mt-[40px] text-left md:mr-[142px] z-10">
           In addition to popular LSTs, we support{' '}
-          <span className="font-bold text-blue-500">OETH</span> which is
+          <a href="https://oeth.com" className="font-bold text-blue-500" target="_blank">OETH</a> which is
           currently the highest yielding LST on the market which is providing a
           2% higher APR than the rest of the market right now.
         </div>
@@ -153,13 +154,13 @@ export default function Marketing() {
               className="w-[115px] h-[115px] xl:w-[180px] xl:h-[180px]"
             />
             <div className="text-2.66xl text-white mt-[35px] xl:mt-[61px] xl:max-w-[270px] text-center leading-tight">
-              Deposit with OETH and earn
+              Deposit with <a href="https://oeth.com" className="font-bold" target="_blank">OETH</a> and earn
             </div>
             <div className="xl:text-5xl text-3xl text-white text-center font-bold mt-4">
               2X REWARDS*
             </div>
             <div className="text-sm xl:text-lg text-white text-center xl:mt-[15px] mt-[10px]">
-              *2x bonus applies only to primeETH minted with OETH and held in
+              *2x bonus applies only to primeETH minted with <a href="https://oeth.com" className="font-bold" target="_blank">OETH</a> and held in
               the same wallet
             </div>
           </div>
@@ -181,30 +182,38 @@ export default function Marketing() {
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[96px] md:mt-[162px] flex content-center">
           How do I acquire primeETH?
         </div>
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-[0px] gap-y-[20px] xl:gap-x-[17px] xl:gap-y-[0px] mt-[64px] xl:mt-[75px] mb-[20px] xl:mb-[103px]">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-[0px] gap-y-[20px] xl:gap-x-[17px] xl:gap-y-[0px] mt-[64px] xl:mt-[75px]">
           <AcquireStep
             step={1}
-            description="OETH, stETH, mETH, sfrxETH, and ETHx. Stay tuned to our Twitter as we announce support for additional LSTs in the coming days."
+            description="Choose from the most trusted LSTs on the market."
           >
             Obtain one of the supported assets
           </AcquireStep>
-          <AcquireStep step={2} description="">
-            Go to <span className="text-red-500">our app</span> and select the
-            asset you obtained
+          <AcquireStep step={2} description="You won't lose your Ethereum staking yield.">
+            Go to <Link to="/app/restake" className="text-red-500">our app</Link> and select your asset
           </AcquireStep>
           <AcquireStep
             step={3}
-            description="Our platform will handle the rest, providing you with three types of yield as your assets are restaked."
+            description="Our platform will handle the rest, providing you with three types of yield from restaking."
           >
-            Choose to restake
+            Approve and stake
           </AcquireStep>
+        </div>
+        <div className="pt-[40px] mb-[40px] xl:mb-[103px]">
+          <img
+            src={UniswapSrc}
+            className="h-[68px] m-auto mb-[20px]"
+          />
+          <div className="md:text-2xl text-lg">
+            You can also <a href="https://app.uniswap.org/swap?outputCurrency=0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615&inputCurrency=ETH" className="text-red-500" target="_blank">buy primeETH on Uniswap</a>.
+          </div>
         </div>
       </Segment>
       {/* Faq segment */}
       <Segment isWhite={false} width={'normal'} alignCenter={true}>
         <div className="w-full mb-[57px] md:mb-[169px]">
           <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] text-center w-full">
-            FAQs
+            FAQ
           </div>
           <FaqQuestion
             question="What is EigenLayer and Restaking?"
