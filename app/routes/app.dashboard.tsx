@@ -104,10 +104,10 @@ export default function Index() {
     <>
       <div className="text-2xl font-medium mb-12 text-center">Dashboard</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex gap-2 flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primeTokenSrc} alt="Prime ETH" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">
+            <div className="text-gray-500 text-center text-sm font-medium">
               primeETH Balance
             </div>
             <div className="text-2xl font-bold align-middle">
@@ -126,10 +126,10 @@ export default function Index() {
       </div>
       <div className="text-2xl font-medium text-center my-12">Your rewards</div>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
+        <div className="rounded-3xl border border-gray-border bg-white flex gap-2 flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={eigenPointsSrc} alt="Eigen Points" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">
+            <div className="text-gray-500 text-center text-sm font-medium">
               EigenLayer Points
             </div>
             <div className="text-2xl font-medium ">
@@ -137,7 +137,9 @@ export default function Index() {
             </div>
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-gray-500 text-sm font-medium">% of total</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              % of total
+            </div>
             <div className="font-medium ">
               {percentTotalELPoints
                 ? formatPercentage(percentTotalELPoints)
@@ -148,13 +150,17 @@ export default function Index() {
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primePointsSrc} alt="Prime ETH Points" />
           <div className="flex flex-col gap-2 items-center py-5 md:py-0">
-            <div className="text-gray-500 text-sm font-medium">primeETH XP</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              primeETH XP
+            </div>
             <div className="text-2xl font-medium ">
               {formatDashboardPoints(lrtPointRecipientStats?.points)}
             </div>
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-gray-500 text-sm font-medium">% of total</div>
+            <div className="text-gray-500 text-center text-sm font-medium">
+              % of total
+            </div>
             <div className="font-medium ">
               {percentTotalXp ? formatPercentage(percentTotalXp) : '-'}
             </div>
