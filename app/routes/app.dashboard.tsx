@@ -42,7 +42,6 @@ export default function Index() {
       {
         lrtPointRecipientStats: { elPoints: string; points: string }
         lrtSummaries: { points: string }[]
-        totalEigenLayerPoints: string
       },
       { address: string }
     >(
@@ -55,6 +54,22 @@ export default function Index() {
         lrtSummaries(limit: 1, orderBy: id_DESC) {
           points
         }
+      }
+    `,
+      { address: connectedAddress },
+    ),
+  })
+
+  const elStats = useQuery({
+    queryKey: [`el-stats`],
+    queryFn: graphqlClient<
+      {
+        totalEigenLayerPoints: string
+      },
+      { address: string }
+    >(
+      `
+      query ELStats {
         totalEigenLayerPoints
       }
     `,
@@ -72,7 +87,7 @@ export default function Index() {
 
   const lrtPointRecipientStats = userStats.data?.lrtPointRecipientStats
   const lrtSummaries = userStats.data?.lrtSummaries
-  const totalEigenLayerPoints = userStats.data?.totalEigenLayerPoints
+  const totalEigenLayerPoints = elStats.data?.totalEigenLayerPoints
   const totalPrimeXP = lrtSummaries?.[0]?.points
     ? BigInt(lrtSummaries?.[0]?.points)
     : undefined
