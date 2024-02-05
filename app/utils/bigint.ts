@@ -42,7 +42,7 @@ export function formatUSD(value: bigint) {
 
 export function formatPoints(xp: bigint | string): string {
   if (typeof xp === 'string') xp = BigInt(xp)
-  if (xp < 1_000000000_000000000n) {
+  if (xp < 1000_000000000_000000000n) {
     return bigintToFloat(xp).toLocaleString(undefined, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 2,
