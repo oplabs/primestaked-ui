@@ -93,7 +93,7 @@ export default function Index() {
           <SideNav />
         </div>
         <div className="flex-1 flex flex-col md:flex-row gap-8 ">
-          <div className="flex-1 flex flex-col items-center justify-items-center">
+          <div className="flex-1 flex flex-col items-center">
             <Outlet />
           </div>
           <div className="md:w-[230px] lg:w-[300px] flex flex-col gap-8 pb-12">

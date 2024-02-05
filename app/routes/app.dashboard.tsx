@@ -10,6 +10,7 @@ import { formatEth, formatPoints } from '~/utils/bigint'
 
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
+import { useNavigate } from '@remix-run/react'
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const { isConnected, address } = useAccount()
+  const navigate = useNavigate()
 
   const connectedAddress =
     address || '0x1111111111111111111111111111111111111111'
@@ -64,43 +66,67 @@ export default function Index() {
   const formatDashboardPoints = (val?: string) =>
     val ? formatPoints(val) : isLoading ? '...' : '-'
 
+  // TODO get those values from squid when available
+  const percentTotalXp = '0'
+  const percentTotalELPoints = '0'
+
   return (
     <>
-      <div className="text-center text-2xl font-medium mb-12">Dashboard</div>
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
-          <img className="mt-2" src={eigenPointsSrc} alt="Eigen Points" />
-          <div className="text-gray-500 text-sm mt-6 font-medium">
-            EigenLayer Points
-          </div>
-          <div className="text-2xl font-medium mt-4">
-            {formatDashboardPoints(lrtPointRecipientStats?.elPoints)}
-          </div>
-        </div>
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
-          <img className="mt-2" src={primePointsSrc} alt="Prime ETH Points" />
-          <div className="text-gray-500 text-sm mt-6 font-medium">
-            primeETH XP
-          </div>
-          <div className="text-2xl font-medium mt-4">
-            {formatDashboardPoints(lrtPointRecipientStats?.points)}
-          </div>
-        </div>
-        <div className="rounded-3xl border border-gray-border bg-white flex flex-col items-center py-5">
+      <div className="text-2xl font-medium mb-12 text-center">Dashboard</div>
+      <div className="flex flex-col gap-4 w-full max-w-[700px]">
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
           <img className="mt-2" src={primeTokenSrc} alt="Prime ETH" />
-          <div className="text-gray-500 text-sm mt-6 font-medium">
-            primeETH Balance
+          <div className="flex flex-col gap-2 items-center">
+            <div className="text-gray-500 text-sm font-medium">
+              primeETH Balance
+            </div>
+            <div className="text-2xl font-bold align-middle">
+              {formatEth(assetBalance)}
+            </div>
           </div>
-          <div className="text-2xl font-medium mt-4">
-            {formatEth(assetBalance)}
+          <button
+            className={`${
+              assetBalance === 0n ? 'btn-disabled' : 'btn'
+            } px-3 py-2`}
+            onClick={() => {
+              navigate('app/restake')
+            }}
+          >
+            Restake more
+          </button>
+        </div>
+      </div>
+      <div className="text-2xl font-medium text-center my-12">Your rewards</div>
+      <div className="flex flex-col gap-4 w-full max-w-[700px]">
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
+          <img className="mt-2" src={eigenPointsSrc} alt="Eigen Points" />
+          <div className="flex flex-col gap-2 items-center">
+            <div className="text-gray-500 text-sm font-medium">
+              EigenLayer Points
+            </div>
+            <div className="text-2xl font-medium ">
+              {formatDashboardPoints(lrtPointRecipientStats?.elPoints)}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 items-center">
+            <div className="text-gray-500 text-sm font-medium">% of total</div>
+            <div className="font-medium ">Coming soon</div>
+          </div>
+        </div>
+        <div className="rounded-3xl border border-gray-border bg-white flex flex-row justify-between items-center py-5 px-10">
+          <img className="mt-2" src={primePointsSrc} alt="Prime ETH Points" />
+          <div className="flex flex-col gap-2 items-center">
+            <div className="text-gray-500 text-sm font-medium">primeETH XP</div>
+            <div className="text-2xl font-medium ">
+              {formatDashboardPoints(lrtPointRecipientStats?.points)}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 items-center">
+            <div className="text-gray-500 text-sm font-medium">% of total</div>
+            <div className="font-medium ">Coming soon</div>
           </div>
         </div>
       </div>
-      {/* <img
-        src={dashboardSrc}
-        alt="Dashboard"
-        className="mx-auto max-w-[840px]"
-      /> */}
     </>
   )
 }
