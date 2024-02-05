@@ -165,10 +165,10 @@ export default function Index() {
     stakeBtnText = 'Enter an amount'
     stakeBtnDisabled = true
     approveBtnShow = false
-   } else if (depositAmountBI > assetBalance) {
-     stakeBtnText = 'Not enough balance'
-     stakeBtnDisabled = true
-     approveBtnShow = false
+  } else if (depositAmountBI > assetBalance) {
+    stakeBtnText = 'Not enough balance'
+    stakeBtnDisabled = true
+    approveBtnShow = false
   } else if (depositAmountBI > assetAllowance) {
     stakeBtnText = `Stake`
     approveBtnText = `Approve ${asset}`
@@ -253,7 +253,7 @@ export default function Index() {
           <div className="flex items-end justify-between">
             <input
               type="text"
-              className="flex-1 text-2xl font-bold outline-none"
+              className="flex-1 text-2xl font-bold outline-none w-full"
               placeholder="0"
               value={depositAmount}
               onChange={(e) => setDepositAmount(e.currentTarget.value)}
@@ -292,30 +292,29 @@ export default function Index() {
           </div>
         </div>
         <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
-          {approveBtnShow && <button
-            className={`${
-              approveBtnDisabled ? 'btn-disabled' : 'btn'
-            } px-3 py-4 text-xl`}
-            onClick={() => {
-              if (approveBtnDisabled) {
-                return
-              }
-              if (depositAmountBI > assetAllowance) {
-                deposit.writeContract({
-                  abi: primeETHABI,
-                  address: contracts[asset],
-                  functionName: 'approve',
-                  args: [contracts.lrtDepositPool, 10n ** 32n],
-                })
-                setApproves([
-                  ...approves,
-                  `${address}:${asset}`
-                ])
-              }
-            }}
-          >
-            {approveBtnText}
-          </button>}
+          {approveBtnShow && (
+            <button
+              className={`${
+                approveBtnDisabled ? 'btn-disabled' : 'btn'
+              } px-3 py-4 text-xl`}
+              onClick={() => {
+                if (approveBtnDisabled) {
+                  return
+                }
+                if (depositAmountBI > assetAllowance) {
+                  deposit.writeContract({
+                    abi: primeETHABI,
+                    address: contracts[asset],
+                    functionName: 'approve',
+                    args: [contracts.lrtDepositPool, 10n ** 32n],
+                  })
+                  setApproves([...approves, `${address}:${asset}`])
+                }
+              }}
+            >
+              {approveBtnText}
+            </button>
+          )}
           <button
             className={`${
               stakeBtnDisabled ? 'btn-disabled' : 'btn'
