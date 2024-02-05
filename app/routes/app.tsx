@@ -101,7 +101,7 @@ export default function Index() {
               <StatBoxItem
                 label="TVL"
                 tooltip="Total Value Locked"
-                value={`${formatEth(tvl)} ETH`}
+                value={`${formatEth(tvl, true)} ETH`}
                 description={`$${formatUSD(tvlUsd)}`}
               />
               {/*
@@ -125,7 +125,7 @@ export default function Index() {
                   key={i}
                   label={symbol}
                   logo={src}
-                  value={formatEth(data[i + 3].result)}
+                  value={formatEth(data[i + 3].result, true)}
                 />
               ))}
             </StatBox>
