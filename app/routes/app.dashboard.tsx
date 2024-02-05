@@ -139,9 +139,9 @@ export default function Index() {
               % of total
             </div>
             <div className="font-medium ">
-              {percentTotalELPoints
-                ? formatPercentage(percentTotalELPoints)
-                : '-'}
+              {/*{percentTotalELPoints*/}
+              {/*  ? formatPercentage(percentTotalELPoints)*/}
+              {/*  : '-'}*/}-
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function Index() {
               % of total
             </div>
             <div className="font-medium ">
-              {percentTotalXp ? formatPercentage(percentTotalXp) : '-'}
+              {/*{percentTotalXp ? formatPercentage(percentTotalXp) : '-'}*/}-
             </div>
           </div>
         </div>
