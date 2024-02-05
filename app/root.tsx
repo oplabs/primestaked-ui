@@ -1,12 +1,9 @@
+import { captureRemixErrorBoundaryError } from "@sentry/remix";
 import type { LinksFunction } from '@remix-run/cloudflare'
 import {
-  Links,
-  // LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration
-} from '@remix-run/react'
+Links, // LiveReload,
+Meta, Outlet, Scripts, ScrollRestoration, useRouteError
+} from '@remix-run/react';
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
@@ -23,6 +20,12 @@ export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: rainbowStyles },
   { rel: 'icon', href: '/favicon.png', type: 'image/png' }
 ]
+
+export const ErrorBoundary = () => {
+  const error = useRouteError();
+  captureRemixErrorBoundaryError(error);
+  return <div>Something went wrong</div>;
+};
 
 export default function App() {
   return (
