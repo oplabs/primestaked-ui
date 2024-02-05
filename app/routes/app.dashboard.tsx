@@ -6,7 +6,7 @@ import primePointsSrc from '~/assets/prime-points.svg'
 import { useAccount, useReadContracts } from 'wagmi'
 import { contracts } from '~/utils/constants'
 import { primeETHABI } from '~/utils/abis'
-import { formatEth, formatPoints } from '~/utils/bigint'
+import { formatEth, formatPercentage, formatPoints } from '~/utils/bigint'
 
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
@@ -39,7 +39,11 @@ export default function Index() {
   const userStats = useQuery({
     queryKey: [`dashboard-user-stats-${connectedAddress}`],
     queryFn: graphqlClient<
-      { lrtPointRecipientStats: { elPoints: string; points: string } },
+      {
+        lrtPointRecipientStats: { elPoints: string; points: string }
+        lrtSummaries: { elPoints: string; points: string }[]
+        totalEigenLayerPoints: string
+      },
       { address: string }
     >(
       `
@@ -48,6 +52,10 @@ export default function Index() {
           elPoints
           points
         }
+        lrtSummaries(limit: 1, orderBy: id_DESC) {
+          points
+        }
+        totalEigenLayerPoints
       }
     `,
       { address: connectedAddress },
@@ -63,12 +71,34 @@ export default function Index() {
   }
 
   const lrtPointRecipientStats = userStats.data?.lrtPointRecipientStats
+  const lrtSummaries = userStats.data?.lrtSummaries
+  const totalEigenLayerPoints = userStats.data?.totalEigenLayerPoints
+  const totalPrimeXP = lrtSummaries?.[0]?.points
+    ? BigInt(lrtSummaries?.[0]?.points)
+    : undefined
+
   const formatDashboardPoints = (val?: string) =>
     val ? formatPoints(val) : isLoading ? '...' : '-'
 
-  // TODO get those values from squid when available
-  const percentTotalXp = '0'
-  const percentTotalELPoints = '0'
+  const calculatePercentage = (
+    portion: string | bigint | undefined,
+    total: string | bigint | undefined,
+  ) =>
+    portion && total && BigInt(total) > 0
+      ? (BigInt(portion) * eth1 * 100n) / BigInt(total)
+      : undefined
+
+  const eth1 = 1_000000000_000000000n
+  const percentTotalXp = calculatePercentage(
+    lrtPointRecipientStats?.points,
+    totalPrimeXP,
+  )
+  const percentTotalELPoints = calculatePercentage(
+    lrtPointRecipientStats?.elPoints,
+    totalEigenLayerPoints,
+  )
+
+  // https://app.eigenlayer.xyz/api/trpc/price.getPrices,nativeStaking.getNativeStakingSummaryByEigenpod?batch=1&input=%7B%220%22%3A%7B%22json%22%3Anull%2C%22meta%22%3A%7B%22values%22%3A%5B%22undefined%22%5D%7D%7D%2C%221%22%3A%7B%22json%22%3A%7B%22podOwnerAddress%22%3A%220x0000000000000000000000000000000000000000%22%7D%7D%7D
 
   return (
     <>
@@ -108,7 +138,11 @@ export default function Index() {
           </div>
           <div className="flex flex-col gap-2 items-center">
             <div className="text-gray-500 text-sm font-medium">% of total</div>
-            <div className="font-medium ">Coming soon</div>
+            <div className="font-medium ">
+              {percentTotalELPoints
+                ? formatPercentage(percentTotalELPoints)
+                : '-'}
+            </div>
           </div>
         </div>
         <div className="rounded-3xl border border-gray-border bg-white flex flex-col md:flex-row justify-between items-center py-5 px-10">
@@ -121,7 +155,9 @@ export default function Index() {
           </div>
           <div className="flex flex-col gap-2 items-center">
             <div className="text-gray-500 text-sm font-medium">% of total</div>
-            <div className="font-medium ">Coming soon</div>
+            <div className="font-medium ">
+              {percentTotalXp ? formatPercentage(percentTotalXp) : '-'}
+            </div>
           </div>
         </div>
       </div>

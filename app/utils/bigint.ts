@@ -54,3 +54,12 @@ export function formatPoints(xp: bigint | string): string {
     })
   }
 }
+
+export function formatPercentage(percentage: bigint): string {
+  return (
+    bigintToFloat(percentage).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }) + '%'
+  )
+}
