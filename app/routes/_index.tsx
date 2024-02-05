@@ -42,7 +42,7 @@ import noCheckSrc from '~/assets/landing/no_check.svg'
 export const meta: MetaFunction = () => {
   return [
     { title: 'Prime Staked ETH' },
-    { name: 'description', content: 'Welcome to Prime Staked ETH!' }
+    { name: 'description', content: 'Welcome to Prime Staked ETH!' },
   ]
 }
 
@@ -58,51 +58,42 @@ export default function Marketing() {
         width={'normal'}
         isRelative={true}
       >
-        <img src={Cow} alt="cow" className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-206px] z-0" />
+        <img
+          src={Cow}
+          alt="cow"
+          className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-206px] z-0"
+        />
         <Link to="/">
           <img src={Logo} alt="logo" className="w-[147px] pt-8" />
         </Link>
         <div className="mt-[76px] text-4.5xl md:text-7xl text-gray-950 z-10">
-          Liquid restaking with <span className="text-red-500 font-black">primeETH</span>
+          Liquid restaking with{' '}
+          <span className="text-red-500 font-black">primeETH</span>
         </div>
         <div className="text-gray-500 text-lg md:text-3xl mt-[11px] md:mt-[22px] max-w-[1086px] tracking-wide leading-relaxed z-10">
-          Stack ETH staking yield, EigenLayer points, and primeETH XP Points all while remaining liquid.
+          Stack ETH staking yield, EigenLayer points, and primeETH XP Points all
+          while remaining liquid.
         </div>
         <div className="text-gray-600 text-3xl mt-[34px] z-10">
           <span className="font-bold">{tvl} ETH</span> ASSETS RESTAKED
         </div>
-        <div className="text-gray-600 text-2xl mt-3 z-10">
-          ${tvlUsd}
-        </div>
-        <div
-          className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer"
-        >
-          <Link
-            to="/app/restake"
-          >
-            Restake now
-          </Link>
+        <div className="text-gray-600 text-2xl mt-3 z-10">${tvlUsd}</div>
+        <div className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer">
+          <Link to="/app/restake">Restake now</Link>
         </div>
       </Segment>
       {/* Earn Triple Rewards segment */}
-      <Segment
-        isWhite={true}
-        width={'normal'}
-        alignCenter={true}
-      >
+      <Segment isWhite={true} width={'normal'} alignCenter={true}>
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] flex content-center">
           Earn Triple Rewards
         </div>
-        <img className="ml-[-43px] md:ml-[-90px] mt-[0px] md:mt-[-70px]" src={TripleRewards}/>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 gap-y-5 md:gap-x-7 mt-[55px] md:mt-[121px] mb-[40px] md:mb-[96px]">
-          <RedBox
-            iconSrc={waterDropSrc}
-            text="Stay liquid"
-          />
-          <RedBox
-            iconSrc={noCheckSrc}
-            text="No need to run a validator"
-          />
+        <img
+          className="ml-[-43px] md:ml-[-90px] mt-[0px] md:mt-[-70px]"
+          src={TripleRewards}
+        />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-0 gap-y-5 xl:gap-x-7 mt-[55px] xl:mt-[121px] mb-[40px] xl:mb-[96px]">
+          <RedBox iconSrc={waterDropSrc} text="Stay liquid" />
+          <RedBox iconSrc={noCheckSrc} text="No need to run a validator" />
           <RedBox
             iconSrc={currencyExchangeSrc}
             text="Get rewarded automatically"
@@ -117,106 +108,60 @@ export default function Marketing() {
         hideOverflow={true}
         isRelative={true}
       >
-        <img src={Pan} alt="cow" className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-300px] z-0" />
+        <img
+          src={Pan}
+          alt="cow"
+          className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-300px] z-0"
+        />
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] flex content-left w-full z-10">
           Which tokens are supported?
         </div>
         <div className="text-lg md:text-2xl text-gray-600 mt-[26px] md:mt-[40px] text-left md:mr-[142px] z-10">
-          In addition to popular LSTs, we support <span className="font-bold text-blue-500">OETH</span> which is currently the highest yielding LST on the market which is providing a 2% higher APR than the rest of the market right now.
+          In addition to popular LSTs, we support{' '}
+          <span className="font-bold text-blue-500">OETH</span> which is
+          currently the highest yielding LST on the market which is providing a
+          2% higher APR than the rest of the market right now.
         </div>
-        <div className="grid grid-cols-3 md:grid-cols-5 gap-x-[50px] gap-y-[30px] md:gap-x-[140px] md:gap-y-[50px] mt-[36px] md:mt-[76px] mb-[60px] md:mb-[52px] z-10">
-          <Token
-            iconSrc={OethSrc}
-            text="OETH"
-            isActive={true}
-          />
-          <Token
-            iconSrc={StethSrc}
-            text="stETH"
-            isActive={true}
-          />
-          <Token
-            iconSrc={SfrxSrc}
-            text="sfrxETH"
-            isActive={true}
-          />
-          <Token
-            iconSrc={MethSrc}
-            text="mEth"
-            isActive={true}
-          />
-          <Token
-            iconSrc={EthxSrc}
-            text="ETHx"
-            isActive={true}
-          />
-          <Token
-            iconSrc={RethSrc}
-            text="rEth"
-            isActive={true}
-          />
-          <Token
-            iconSrc={SwethSrc}
-            text="swETH"
-            isActive={true}
-          />
-          <Token
-            iconSrc={WbethSrc}
-            text="wBETH"
-            isActive={false}
-          />
-          <Token
-            iconSrc={OsethSrc}
-            text="osETH"
-            isActive={false}
-          />
-          <Token
-            iconSrc={AnkrethSrc}
-            text="ankrETH"
-            isActive={false}
-          />
-          <Token
-            iconSrc={CbethSrc}
-            text="cbETH"
-            isActive={false}
-          />
-          <Token
-            iconSrc={LsethSrc}
-            text="LsETH"
-            isActive={false}
-          />
-          <Token
-            iconSrc={EthSrc}
-            text="ETH"
-            isActive={false}
-          />
+        <div className="grid grid-cols-3 xl:grid-cols-5 gap-x-[50px] gap-y-[30px] xl:gap-x-[140px] xl:gap-y-[50px] mt-[36px] xl:mt-[76px] mb-[60px] xl:mb-[52px] z-10">
+          <Token iconSrc={OethSrc} text="OETH" isActive={true} />
+          <Token iconSrc={StethSrc} text="stETH" isActive={true} />
+          <Token iconSrc={SfrxSrc} text="sfrxETH" isActive={true} />
+          <Token iconSrc={MethSrc} text="mEth" isActive={true} />
+          <Token iconSrc={EthxSrc} text="ETHx" isActive={true} />
+          <Token iconSrc={RethSrc} text="rEth" isActive={true} />
+          <Token iconSrc={SwethSrc} text="swETH" isActive={true} />
+          <Token iconSrc={WbethSrc} text="wBETH" isActive={false} />
+          <Token iconSrc={OsethSrc} text="osETH" isActive={false} />
+          <Token iconSrc={AnkrethSrc} text="ankrETH" isActive={false} />
+          <Token iconSrc={CbethSrc} text="cbETH" isActive={false} />
+          <Token iconSrc={LsethSrc} text="LsETH" isActive={false} />
+          <Token iconSrc={EthSrc} text="ETH" isActive={false} />
         </div>
-        <div className="text-4xl font-bold text-off-black mb-[79px] md:mb-[110px] text-center z-10">
+        <div className="text-4xl font-bold text-off-black mb-[79px] xl:mb-[110px] text-center z-10">
           More EigenLayer assets coming soon...
         </div>
       </Segment>
       {/* How do I earn segment */}
-      <Segment
-        isWhite={true}
-        width={'normal'}
-        alignCenter={true}
-      >
-        <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[48px] md:mt-[118px] flex content-center">
+      <Segment isWhite={true} width={'normal'} alignCenter={true}>
+        <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[48px] md:mt-[118px] flex content-center mb-16 xl:mb-0">
           How do I earn?
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-[0px] gap-y-[20px] md:gap-x-[17px] md:gap-y-[0px] mt-[64px] md:mt-75px] mb-[20px] md:mb-[103px]">
-          <div className="flex flex-col items-center justify-start border-solid border-[1px] border-blue-500 rounded-3xl py-[36px] px-[20px] md:py-[44px] md:px-[53px] bg-blue-500">
-            <img src={OethSrc} className="w-[115px] h-[115px] md:w-[180px] md:h-[180px]"/>
-            <div className="text-2.66xl text-white mt-[35px] md:mt-[61px] md:max-w-[270px] text-center leading-tight">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-[0px] gap-y-[20px] xl:gap-x-[17px] xl:gap-y-[0px] xl-[64px] xl:mt-[75px] mb-[20px] xl:mb-[103px]">
+          <div className="flex flex-col items-center justify-start border-solid border-[1px] border-blue-500 rounded-3xl py-[36px] px-[20px] xl:py-[44px] xl:px-[53px] bg-blue-500">
+            <img
+              src={OethSrc}
+              className="w-[115px] h-[115px] xl:w-[180px] xl:h-[180px]"
+            />
+            <div className="text-2.66xl text-white mt-[35px] xl:mt-[61px] xl:max-w-[270px] text-center leading-tight">
               Deposit with OETH and earn
             </div>
-            <div className="md:text-5xl text-3xl text-white text-center font-bold mt-4">
+            <div className="xl:text-5xl text-3xl text-white text-center font-bold mt-4">
               2X REWARDS*
             </div>
-            <div className="text-sm md:text-lg text-white text-center md:mt-[15px] mt-[10px]">
-              *2x bonus applies only to primeETH minted with OETH and held in the same wallet
+            <div className="text-sm xl:text-lg text-white text-center xl:mt-[15px] mt-[10px]">
+              *2x bonus applies only to primeETH minted with OETH and held in
+              the same wallet
             </div>
-
           </div>
 
           <LearnStep
@@ -236,18 +181,16 @@ export default function Marketing() {
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[96px] md:mt-[162px] flex content-center">
           How do I acquire primeETH?
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-[0px] gap-y-[20px] md:gap-x-[17px] md:gap-y-[0px] mt-[64px] md:mt-75px] mb-[20px] md:mb-[103px]">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-[0px] gap-y-[20px] xl:gap-x-[17px] xl:gap-y-[0px] mt-[64px] xl:mt-[75px] mb-[20px] xl:mb-[103px]">
           <AcquireStep
             step={1}
             description="OETH, stETH, mETH, sfrxETH, and ETHx. Stay tuned to our Twitter as we announce support for additional LSTs in the coming days."
           >
             Obtain one of the supported assets
           </AcquireStep>
-          <AcquireStep
-            step={2}
-            description=""
-          >
-            Go to <span className="text-red-500">our app</span> and select the asset you obtained
+          <AcquireStep step={2} description="">
+            Go to <span className="text-red-500">our app</span> and select the
+            asset you obtained
           </AcquireStep>
           <AcquireStep
             step={3}
@@ -258,11 +201,7 @@ export default function Marketing() {
         </div>
       </Segment>
       {/* Faq segment */}
-      <Segment
-        isWhite={false}
-        width={'normal'}
-        alignCenter={true}
-      >
+      <Segment isWhite={false} width={'normal'} alignCenter={true}>
         <div className="w-full mb-[57px] md:mb-[169px]">
           <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] text-center w-full">
             FAQs
