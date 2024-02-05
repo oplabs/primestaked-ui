@@ -41,7 +41,7 @@ export default function Index() {
     queryFn: graphqlClient<
       {
         lrtPointRecipientStats: { elPoints: string; points: string }
-        lrtSummaries: { elPoints: string; points: string }[]
+        lrtSummaries: { points: string }[]
         totalEigenLayerPoints: string
       },
       { address: string }
