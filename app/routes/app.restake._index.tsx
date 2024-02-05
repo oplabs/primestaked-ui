@@ -186,7 +186,7 @@ export default function Index() {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
-    modalButtonText = 'View dashboard'
+    modalButtonText = 'View Dashboard'
     modalButtonHref = '/app/dashboard'
     modalStatus = 'success'
   } else if (deposit.error) {
