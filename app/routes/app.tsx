@@ -96,7 +96,7 @@ export default function Index() {
           <div className="flex-1 flex flex-col items-center justify-items-center">
             <Outlet />
           </div>
-          <div className="lg:w-[300px] flex flex-col gap-8 pb-12">
+          <div className="md:w-[230px] lg:w-[300px] flex flex-col gap-8 pb-12">
             <StatBox title="primeETH Stats" cols={1}>
               <StatBoxItem
                 label="TVL"

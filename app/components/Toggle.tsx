@@ -11,10 +11,10 @@ interface ToggleProps {
 export const Toggle = (props: ToggleProps) => {
   const location = useLocation()
   const activeTab = props.tabs.findIndex(
-    (tab) => location.pathname === tab.href
+    (tab) => location.pathname === tab.href,
   )
 
-  const base = 'px-6 py-2 text-center rounded-full font-medium text-sm'
+  const base = 'px-6 py-3 text-center rounded-full font-medium text-sm'
   const active = `${base} bg-red-500 text-white pointer-events-none`
   const inactive = `${base} text-gray-500 hover:text-black cursor-pointer`
   return (
