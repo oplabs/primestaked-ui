@@ -4,6 +4,7 @@ import {
   useReadContracts,
   useWriteContract,
   useWaitForTransactionReceipt,
+  Config,
 } from 'wagmi'
 import { parseEther, parseAbi, formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -11,7 +12,6 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { bigintToFloat, formatEth } from '~/utils/bigint'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { CaretDown } from '~/components/Icons'
-import { Tooltip } from '~/components/Tooltip'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
 
@@ -34,7 +34,7 @@ export default function Index() {
    * transaction is done.
    */
   const [approves, setApproves] = useState([])
-  const deposit = useWriteContract()
+  const deposit = useWriteContract<Config, { action: 'approve' | 'deposit' }>()
   const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
@@ -186,8 +186,10 @@ export default function Index() {
     modalTitle = 'Please check your wallet'
   } else if (deposit.status === 'success' && txReceipt.data) {
     modalTitle = 'Transaction successful'
-    modalButtonText = 'View Dashboard'
-    modalButtonHref = '/app/dashboard'
+    if (deposit.context?.action === 'deposit') {
+      modalButtonText = 'View Dashboard'
+      modalButtonHref = '/app/dashboard'
+    }
     modalStatus = 'success'
   } else if (deposit.error) {
     modalTitle = 'Transaction failed'
@@ -308,6 +310,7 @@ export default function Index() {
                   return
                 }
                 if (depositAmountBI > assetAllowance) {
+                  deposit.context = { action: 'approve' }
                   deposit.writeContract({
                     abi: primeETHABI,
                     address: contracts[asset],
@@ -332,6 +335,7 @@ export default function Index() {
               if (!isConnected) {
                 openConnectModal?.()
               } else if (depositAmountBI <= assetAllowance) {
+                deposit.context = { action: 'deposit' }
                 deposit.writeContract({
                   abi: lrtDepositPoolAbi,
                   address: contracts.lrtDepositPool,
@@ -344,6 +348,7 @@ export default function Index() {
                   ],
                 })
               } else {
+                deposit.context = { action: 'approve' }
                 deposit.writeContract({
                   abi: primeETHABI,
                   address: contracts[asset],
