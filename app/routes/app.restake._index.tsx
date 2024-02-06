@@ -14,6 +14,7 @@ import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
 import { CaretDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
+import { getReferrerId } from '~/utils/useReferrerTracker'
 
 import primeEthSVG from '~/assets/prime-eth-token.svg'
 
@@ -103,7 +104,7 @@ export default function Index() {
       refetch()
       /* It can happen that a wallet provider (say Metamask) will already
        * see a transaction processed and approval updated on a contract
-       * while another provider (e.g. Infura) will still not have seen the 
+       * while another provider (e.g. Infura) will still not have seen the
        * latest data. As a workaround to 2 more re-fetches 3 & 10 seconds later.
        */
       setTimeout(refetch, 3000)
@@ -211,7 +212,7 @@ export default function Index() {
           contracts[asset],
           parseEther(depositAmount),
           0n,
-          'Origin',
+          getReferrerId(),
         ],
       })
     }
@@ -224,7 +225,7 @@ export default function Index() {
   let modalButtonHref
   let modalButtonAction
   // button not disabled except if action is stake and stake is disabled
-  let modalButtonDisabled = modalButtonAction ? stakeBtnDisabled : false
+  const modalButtonDisabled = modalButtonAction ? stakeBtnDisabled : false
   if (contractWrite.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (contractWrite.status === 'success' && txReceipt.data) {
@@ -245,7 +246,8 @@ export default function Index() {
     modalTitle = 'Transaction failed'
     modalStatus = 'error'
 
-    modalDescription = contractWrite.error.shortMessage || contractWrite.error.message
+    modalDescription =
+      contractWrite.error.shortMessage || contractWrite.error.message
   }
 
   const pctOfLimit = Math.round(
@@ -257,7 +259,11 @@ export default function Index() {
       <Modal
         status={modalStatus}
         description={modalDescription}
-        txLink={contractWrite.data ? `https://etherscan.io/tx/${contractWrite.data}` : ''}
+        txLink={
+          contractWrite.data
+            ? `https://etherscan.io/tx/${contractWrite.data}`
+            : ''
+        }
         title={modalTitle}
         buttonText={modalButtonText}
         buttonHref={modalButtonHref}
