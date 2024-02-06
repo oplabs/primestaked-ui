@@ -48,8 +48,8 @@ const FooterIcon = ({
   imgSize: number
 }) => {
   return (
-    <a href={iconLink} title={title} className="flex flex-col justify-center items-center hover:bg-gray-750 bg-gray-850 mx-2 w-[80px] h-[80px] rounded-full">
-      <img className="m-auto" alt={title} src={icon} height={imgSize || 55} width={imgSize || 55} />
+    <a href={iconLink} title={title} className="flex flex-col justify-center items-center hover:bg-gray-750 bg-gray-850 mx-5 w-[60px] h-[60px] rounded-full">
+      <img className="m-auto" alt={title} src={icon} height={imgSize || 40} width={imgSize || 40} />
     </a>
   )
 }
