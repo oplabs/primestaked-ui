@@ -20,7 +20,7 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
-  const { isConnected, address } = useAccount()
+  const { address } = useAccount()
   const navigate = useNavigate()
 
   const connectedAddress =
