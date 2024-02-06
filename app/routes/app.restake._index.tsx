@@ -201,6 +201,8 @@ export default function Index() {
     if (!isConnected) {
       openConnectModal?.()
     } else if (depositAmountBI <= assetAllowance) {
+      // reset stake form
+      setDepositAmount('')
       contractWrite.writeContract({
         abi: lrtDepositPoolAbi,
         address: contracts.lrtDepositPool,
@@ -376,7 +378,7 @@ export default function Index() {
           )}
           <button
             className={`${
-              stakeBtnDisabled ? 'bun-disabled' : 'btn'
+              stakeBtnDisabled ? 'btn-disabled' : 'btn'
             } px-3 py-4 text-xl`}
             onClick={() => doStake()}
           >
