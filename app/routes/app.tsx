@@ -125,7 +125,7 @@ export default function Index() {
                   key={i}
                   label={symbol}
                   logo={src}
-                  value={formatEth(data[i + 3].result, true)}
+                  value={formatEth(data[i + 3]?.result, true)}
                 />
               ))}
             </StatBox>

@@ -31,6 +31,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240129.0",
     "@headlessui/react": "^1.7.18",
+    "@react-hookz/web": "^24.0.4",
     "@remix-run/dev": "^2.5.1",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
