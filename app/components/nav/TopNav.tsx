@@ -13,19 +13,19 @@ import { useLocation } from 'react-router-dom'
 
 export const TopNav = () => {
   return (
-    <div className="mb-8 sm:mb-10">
-      <div className="px-3 sm:px-3 mx-auto flex items-center md:gap-12 py-6">
-        <Link to="/">
+    <div className="mb-6">
+      <div className="px-3 sm:px-6 mx-auto flex items-center py-6">
+        <Link to="/" className="mr-16">
           <img
             src={Logo}
             alt="logo"
-            className="w-[125px] hidden md:inline sm:w-[175px]"
+            className="w-[100px] hidden md:inline sm:w-[148px]"
           />
           <img src={LogoMobile} alt="logo" className="md:hidden w-[33px]" />
         </Link>
 
-        <MobileMenu />
         <DesktopMenu />
+        <MobileMenu />
       </div>
     </div>
   )
@@ -37,7 +37,6 @@ const DesktopMenu = () => {
   const inactiveClass = `${baseClass} text-gray-500 hover:text-black`
   return (
     <>
-      {/* <NavTabs className="hidden sm:flex justify-between" /> */}
       <div className="hidden sm:flex justify-between items-center text-lg gap-8">
         <NavLink
           to="/app/restake"

@@ -89,52 +89,38 @@ export default function Index() {
   return (
     <>
       <TopNav />
-      <div className="w-full flex px-3 md:px-6 items-start">
-        <div className="hidden md:block w-full max-w-[280px] pr-8">
+      <div className="w-full flex flex-col sm:flex-row px-3 md:px-6 items-start gap-8 sm:gap-0">
+        <div className="hidden md:block w-full max-w-[250px]">
           <SideNav />
         </div>
-        <div className="flex-1 flex flex-col md:flex-row gap-8">
-          <div className="flex-1 flex flex-col items-center">
-            <Outlet />
-          </div>
-          <div className="md:w-[230px] lg:w-[300px] flex flex-col gap-8 pb-12">
-            <StatBox title="Global Stats" cols={1}>
-              <div>
-                <div className="text-gray-500 text-sm flex items-center gap-1">
-                  TVL
-                  <Tooltip>Total Value Locked</Tooltip>
-                </div>
-                <div className="mt-2 text-xl">{`${formatEth(tvl, true)} ETH`}</div>{' '}
-                <div className="text-gray-500 text-xs mt-1">
-                  {`$${formatUSD(tvlUsd, 0)}`}
-                </div>
+        <div className="w-full sm:w-auto sm:flex-1 flex flex-col items-center px-2 sm:px-8">
+          <Outlet />
+        </div>
+        <div className="w-full sm:w-[250px] flex flex-col gap-6 pb-12 px-2 sm:px-0">
+          <StatBox title="Global Stats" cols={1}>
+            <div className="px-2">
+              <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed">
+                TVL
+                <Tooltip size={16}>Total Value Locked</Tooltip>
               </div>
-              {/*
+              <div className="mt-1 text-xl">
+                {`${formatEth(tvl, true)} ETH`}
+              </div>
+              <div className="text-gray-500 text-xs mt-1">
+                {`$${formatUSD(tvlUsd, 0)}`}
+              </div>
+            </div>
+          </StatBox>
+          <StatBox title="Assets Deposited" cols={2}>
+            {assets.map(({ symbol, src }, i) => (
               <StatBoxItem
-                label="EigenLayer Points"
-                value={formatPointEL(
-                  pointSummary.data?.lrtSummaries[0]?.elPoints,
-                )}
+                key={i}
+                label={symbol}
+                logo={src}
+                value={formatEth(data[i + 3].result, true)}
               />
-              <StatBoxItem
-                label="PrimeStaked Points"
-                value={formatPointXP(
-                  pointSummary.data?.lrtSummaries[0]?.points,
-                )}
-              />
-              */}
-            </StatBox>
-            <StatBox title="Assets Deposited" cols={2}>
-              {assets.map(({ symbol, src }, i) => (
-                <StatBoxItem
-                  key={i}
-                  label={symbol}
-                  logo={src}
-                  value={formatEth(data[i + 3].result, true)}
-                />
-              ))}
-            </StatBox>
-          </div>
+            ))}
+          </StatBox>
         </div>
       </div>
     </>

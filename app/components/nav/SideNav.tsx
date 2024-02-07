@@ -17,8 +17,8 @@ export const SideNav = () => {
         <div className={descriptionClass}>
           Get even more primeETH XP when you invite your friends
         </div>
-        <div className="mt-3">
-          <button className="btn-outline text-sm text-red-500 py-2 px-4">
+        <div className="mt-4 pb-2">
+          <button className="btn-outline text-sm text-red-500 py-3 px-4">
             Copy Referral Link
           </button>
         </div>
