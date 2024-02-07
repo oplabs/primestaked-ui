@@ -93,10 +93,10 @@ export default function Index() {
         <div className="hidden md:block w-full max-w-[250px]">
           <SideNav />
         </div>
-        <div className="w-full sm:w-auto sm:flex-1 flex flex-col items-center px-2 sm:px-8">
+        <div className="w-full sm:w-auto sm:flex-1 flex flex-col items-center sm:px-8">
           <Outlet />
         </div>
-        <div className="w-full sm:w-[250px] flex flex-col gap-6 pb-12 px-2 sm:px-0">
+        <div className="w-full sm:w-[250px] flex flex-col gap-6 pb-12">
           <StatBox title="Global Stats" cols={1}>
             <div className="px-2">
               <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed">

@@ -11,12 +11,12 @@ import primePointsSrc from '~/assets/prime-points.svg'
 
 import { ConnectButton } from './ConnectButton'
 import { DocsLink } from './DocsLink'
-import { SideNav } from './SideNav'
+import { Tabs } from '~/components/Tabs'
 import { ArrowUpRight } from '~/components/Icons'
 
 import { useLocation } from 'react-router-dom'
 import { useUserStats } from '~/utils/useUserStats'
-import { formatEth, formatPercentage, formatPoints } from '~/utils/bigint'
+import { formatEth, formatPoints } from '~/utils/bigint'
 
 export const TopNav = () => {
   return (
@@ -129,15 +129,13 @@ const MobileMenu = () => {
       <div
         className={`${
           showMenu ? 'opacity-90 z-50' : 'z-[-1] opacity-0'
-        } transition-opacity ease-in duration-300 delay-100 fixed top-0 bottom-0 left-0 right-0 cursor-pointer bg-gray-950`}
-        onClick={() => {
-          setShowMenu(false)
-        }}
+        } z-50 transition-opacity ease-in duration-300 delay-100 fixed top-0 bottom-0 left-0 right-0 cursor-pointer bg-gray-950`}
+        onClick={() => setShowMenu(false)}
       />
       <div
         className={`${
-          showMenu ? 'left-0 z-50' : 'z-[-1] left-[-100%]'
-        } ease-in duration-300 delay-100 absolute w-[300px] top-0 left-0 bottom-0 bg-white flex flex-col px-4 py-4`}
+          showMenu ? 'left-0' : 'left-[-100%]'
+        } ease-in z-50 duration-300 delay-100 absolute w-[300px] top-0 left-0 bottom-0 bg-white flex flex-col px-4 py-4`}
         style={{
           transitionProperty: 'left',
         }}
@@ -145,7 +143,12 @@ const MobileMenu = () => {
         <Link to="/" className="mb-8">
           <img src={Logo} alt="logo" className="w-[175px]" />
         </Link>
-        <SideNav />
+        <Tabs
+          tabs={[
+            { label: 'Restake', href: '/app/restake' },
+            { label: 'Dashboard', href: '/app/dashboard' },
+          ]}
+        />
         <div className="mt-auto mr-auto">
           <DocsLink />
         </div>

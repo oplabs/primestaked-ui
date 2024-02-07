@@ -24,7 +24,9 @@ export const assets = [
     symbol: 'OETH',
     src: oethSrc,
     name: 'Origin Ether',
-    tags: [{ title: '2x primeETH XP Boost', color: 'red' }],
+    tags: [
+      { title: '2x XP Boost', tooltip: '2x primeETH XP Boost', color: 'red' },
+    ],
   },
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },

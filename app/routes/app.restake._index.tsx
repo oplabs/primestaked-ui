@@ -272,7 +272,7 @@ export default function Index() {
         }}
         setIsOpen={() => setTokenChooserIsOpen(false)}
       />
-      <div className="p-6 border-b border-gray-border">
+      <div className="py-4 px-4 sm:py-6 sm:px-6 border-b border-gray-border">
         <div className="text-sm text-gray-500 font-medium mb-4 leading-snug">
           Select the asset
         </div>
@@ -295,25 +295,7 @@ export default function Index() {
         </button>
 
         <div className="mt-8 flex items-center text-sm text-gray-500 font-medium mb-3 leading-snug">
-          <div>Enter amount</div>
-          <div className="ml-auto">
-            {`Your primeETH: ${formatEth(lrtBalance)}`}
-          </div>
-          <button
-            className="rounded-full border border-gray-border text-xs px-1.5 py-0.5 ml-3"
-            onClick={() => {
-              walletClient?.data?.watchAsset({
-                type: 'ERC20',
-                options: {
-                  address: contracts.primeETH,
-                  decimals: 18,
-                  symbol: 'primeETH',
-                },
-              })
-            }}
-          >
-            Add primeETH
-          </button>
+          Enter amount
         </div>
 
         <div className="relative">
@@ -341,8 +323,27 @@ export default function Index() {
             <div>{`${formatEth(assetBalance)} ${asset}`}</div>
           </div>
         </div>
+        <div className="flex justify-end items-center text-sm text-gray-500 mt-2 sm:hidden">
+          {`Your primeETH: ${formatEth(lrtBalance)}`}
+
+          <button
+            className="rounded-full border border-gray-border text-xs px-1.5 py-0.5 ml-3 hover:bg-gray-500 hover:border-gray-500 hover:text-white"
+            onClick={() => {
+              walletClient?.data?.watchAsset({
+                type: 'ERC20',
+                options: {
+                  address: contracts.primeETH,
+                  decimals: 18,
+                  symbol: 'primeETH',
+                },
+              })
+            }}
+          >
+            Add primeETH
+          </button>
+        </div>
       </div>
-      <div className="p-6 flex flex-col gap-4 border-b border-gray-border">
+      <div className="py-4 px-4 sm:py-6 sm:px-6  flex flex-col gap-4 border-b border-gray-border">
         <div className="flex justify-between items-center">
           <div className="text-gray-500 text-sm">You will receive:</div>
           <div className="flex items-center gap-2 font-medium">
@@ -359,7 +360,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="p-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
+      <div className="py-4 px-4 sm:py-6 sm:px-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
         {approveBtnShow && (
           <button
             className={`${

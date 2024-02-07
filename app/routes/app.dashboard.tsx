@@ -55,10 +55,10 @@ export default function Index() {
         </div>
         <div className={headerClass}>Your Balance</div>
         <div className={boxClass}>
-          <div className="w-1/4 flex justify-center">
+          <div className="sm:w-1/4 flex justify-center">
             <img className="h-16" src={primeTokenSrc} alt="Prime ETH" />
           </div>
-          <div className="w-1/2 flex flex-col gap-2 items-center py-6 md:pt-2 md:pb-1">
+          <div className="sm:w-1/2 flex flex-col gap-2 items-center py-6 md:pt-2 md:pb-1">
             <div className="text-gray-500 text-center text-sm font-medium leading-relaxed">
               primeETH
             </div>
@@ -66,7 +66,7 @@ export default function Index() {
               {formatEth(assetBalance)}
             </div>
           </div>
-          <div className="w-1/4 flex justify-center">
+          <div className="sm:w-1/4 flex justify-center">
             <Link to="/app/restake" className="btn text-sm px-6 py-3">
               Restake {assetBalance === 0n ? 'now' : 'more'}
             </Link>
@@ -74,10 +74,10 @@ export default function Index() {
         </div>
         <div className={headerClass}>Your Rewards</div>
         <div className={`${boxClass} mb-2`}>
-          <div className="w-1/4 flex justify-center">
+          <div className="sm:w-1/4 flex justify-center">
             <img className="h-16" src={primePointsSrc} alt="Prime ETH Points" />
           </div>
-          <div className="w-1/2 flex flex-col gap-3 items-center py-6 md:pt-2 md:pb-2">
+          <div className="sm:w-1/2 flex flex-col gap-3 items-center py-6 md:pt-2 md:pb-2">
             <div className="text-gray-500 text-center text-sm font-medium flex items-center gap-2">
               primeETH XP
               <Tooltip placement="right">
@@ -99,7 +99,7 @@ export default function Index() {
               {formatDashboardPoints(lrtPointRecipientStats?.points)}
             </div>
           </div>
-          <div className="w-1/4 flex justify-center flex-col gap-3 items-center">
+          <div className="sm:w-1/4 flex justify-center flex-col gap-3 items-center">
             <div className="text-gray-500 text-center text-sm font-medium">
               % of total
             </div>
@@ -109,10 +109,10 @@ export default function Index() {
           </div>
         </div>
         <div className={boxClass}>
-          <div className="w-1/4 flex justify-center">
+          <div className="sm:w-1/4 flex justify-center">
             <img className="h-16" src={eigenPointsSrc} alt="Eigen Points" />
           </div>
-          <div className="w-1/2 flex flex-col gap-3 items-center py-6 md:pt-2 md:pb-2">
+          <div className="sm:w-1/2 flex flex-col gap-3 items-center py-6 md:pt-2 md:pb-2">
             <div className="text-gray-500 text-center text-sm font-medium">
               EigenLayer Points
             </div>
@@ -120,7 +120,7 @@ export default function Index() {
               {formatDashboardPoints(lrtPointRecipientStats?.elPoints)}
             </div>
           </div>
-          <div className="w-1/4 flex justify-center flex-col gap-3 items-center">
+          <div className="sm:w-1/4 flex justify-center flex-col gap-3 items-center">
             <div className="text-gray-500 text-center text-sm font-medium">
               % of total
             </div>
