@@ -3,7 +3,8 @@ import whaleSrc from '~/assets/whale.svg'
 import oethSrc from '~/assets/oeth.svg'
 import ethSrc from '~/assets/ETH.svg'
 import friendsSrc from '~/assets/friends.svg'
-import { Tooltip } from '../Tooltip'
+import { Tooltip } from '~/components/Tooltip'
+import { CopyReferrerLink } from '~/components/CopyReferrerLink'
 
 const boxClass = `border border-gray-border rounded-3xl px-4 pt-6 pb-4 flex flex-col items-center justify-center w-full`
 const descriptionClass = `text-gray-500 text-xs text-center mt-2 leading-relaxed`
@@ -18,9 +19,7 @@ export const SideNav = () => {
           Get even more primeETH XP when you invite your friends
         </div>
         <div className="mt-4 pb-2">
-          <button className="btn-outline text-sm text-red-500 py-3 px-4">
-            Copy Referral Link
-          </button>
+          <CopyReferrerLink />
         </div>
       </div>
       <div className={boxClass}>

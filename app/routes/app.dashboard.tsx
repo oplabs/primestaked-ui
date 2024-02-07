@@ -8,10 +8,11 @@ import { useAccount, useReadContracts } from 'wagmi'
 import { contracts } from '~/utils/constants'
 import { primeETHABI } from '~/utils/abis'
 import { formatEth, formatPercentage, formatPoints } from '~/utils/bigint'
+import { CopyReferrerLink } from '~/components/CopyReferrerLink'
 
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
-import { useNavigate, Link } from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import { Tooltip } from '~/components/Tooltip'
 
 export const meta: MetaFunction = () => {
@@ -23,7 +24,6 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const { address } = useAccount()
-  const navigate = useNavigate()
 
   const connectedAddress =
     address || '0x1111111111111111111111111111111111111111'
@@ -134,9 +134,7 @@ export default function Index() {
             </div>
           </div>
           <div>
-            <button className="btn-outline py-3 px-4 text-sm">
-              Copy Referral Link
-            </button>
+            <CopyReferrerLink />
           </div>
         </div>
         <div className={headerClass}>Your Balance</div>
@@ -170,11 +168,13 @@ export default function Index() {
                 <div className="flex flex-col gap-2 text-gray-500 text-xs">
                   <div className="flex justify-between items-center gap-12">
                     <div>Deposits</div>
-                    <div>0</div>
+                    <div>
+                      {formatDashboardPoints(lrtPointRecipientStats?.points)}
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center gap-12">
+                  <div className="flex justify-between items-center gap-8">
                     <div>Referrals</div>
-                    <div>0</div>
+                    <div>Coming soon...</div>
                   </div>
                 </div>
               </Tooltip>
