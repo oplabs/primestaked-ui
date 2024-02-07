@@ -10,10 +10,16 @@ import { parseEther, parseAbi, formatEther } from 'viem'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { bigintToFloat, formatEth } from '~/utils/bigint'
-import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
+import {
+  contracts,
+  assets,
+  lrtOraclePriceMethod,
+  Asset,
+} from '~/utils/constants'
 import { CaretDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
+import { Tags } from '~/components/Tags'
 import { getReferrerId } from '~/utils/useReferrerTracker'
 
 import primeEthSVG from '~/assets/prime-eth-token.svg'
@@ -39,7 +45,7 @@ export default function Index() {
   const { isConnected, address } = useAccount()
 
   const [asset, setAsset] = useState<keyof typeof contracts>(assets[0].symbol)
-  const activeAsset = assets.find((a) => a.symbol === asset)
+  const activeAsset = assets.find((a) => a.symbol === asset) as Asset
   const [depositAmount, setDepositAmount] = useState('')
   const connectedAddress =
     address || '0x1111111111111111111111111111111111111111'
@@ -280,7 +286,10 @@ export default function Index() {
             className="w-[34px] h-[34px]"
           />
           {asset}
-          <div className="ml-auto border border-gray-border text-gray-500 bg-gray-bg1 rounded-full w-[34px] h-[34px] flex items-center justify-center">
+          <div className="ml-auto">
+            <Tags tags={activeAsset.tags} />
+          </div>
+          <div className="ml-1 border border-gray-border text-gray-500 bg-gray-bg1 rounded-full w-[34px] h-[34px] flex items-center justify-center">
             <CaretDown />
           </div>
         </button>

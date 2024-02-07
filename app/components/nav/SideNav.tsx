@@ -54,7 +54,13 @@ export const SideNav = () => {
         </div>
         <div className="font-medium leading-relaxed">2X REWARDS*</div>
         <div className="text-gray-500 mt-2">
-          <Tooltip size={16}>See Terms and Conditions</Tooltip>
+          <Tooltip
+            size={16}
+            className="p-2 text-xs text-balance text-center text-gray-500"
+          >
+            2x bonus applies only to primeETH minted with OETH and held in the
+            same wallet
+          </Tooltip>
         </div>
       </div>
     </div>

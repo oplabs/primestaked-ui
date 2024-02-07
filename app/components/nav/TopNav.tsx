@@ -4,12 +4,19 @@ import { Link, NavLink } from '@remix-run/react'
 import Logo from '~/assets/prime-staked.svg'
 import MenuIcon from '~/assets/menu.svg'
 import LogoMobile from '~/assets/prime-staked-nav.svg'
+
+import primeTokenSrc from '~/assets/prime-eth-token-full.svg'
+import eigenPointsSrc from '~/assets/eigen-points.svg'
+import primePointsSrc from '~/assets/prime-points.svg'
+
 import { ConnectButton } from './ConnectButton'
 import { DocsLink } from './DocsLink'
 import { SideNav } from './SideNav'
 import { ArrowUpRight } from '~/components/Icons'
 
 import { useLocation } from 'react-router-dom'
+import { useUserStats } from '~/utils/useUserStats'
+import { formatEth, formatPercentage, formatPoints } from '~/utils/bigint'
 
 export const TopNav = () => {
   return (
@@ -35,6 +42,7 @@ const DesktopMenu = () => {
   const baseClass = 'text-sm font-medium'
   const activeClass = `${baseClass} text-black`
   const inactiveClass = `${baseClass} text-gray-500 hover:text-black`
+  const { assetBalance, lrtPointRecipientStats, isLoading } = useUserStats()
   return (
     <>
       <div className="hidden sm:flex justify-between items-center text-lg gap-8">
@@ -60,7 +68,25 @@ const DesktopMenu = () => {
           <ArrowUpRight size={11} />
         </a>
       </div>
-      <div className="hidden md:flex items-center justify-between gap-4 ml-auto">
+      <div className="hidden md:flex items-center justify-between gap-8 ml-auto">
+        <div className="flex items-center gap-2">
+          <img className="w-7 h-7" src={primeTokenSrc} alt="Prime ETH" />
+          <div className="text-gray-500 text-sm font-medium">
+            {formatEth(assetBalance, true)}
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <img className="w-7 h-7" src={primePointsSrc} alt="Prime ETH" />
+          <div className="text-gray-500 text-sm font-medium">
+            {isLoading ? '0' : formatPoints(lrtPointRecipientStats?.points)}
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <img className="w-7 h-7" src={eigenPointsSrc} alt="Prime ETH" />
+          <div className="text-gray-500 text-sm font-medium">
+            {isLoading ? '0' : formatPoints(lrtPointRecipientStats?.elPoints)}
+          </div>
+        </div>
         <ConnectButton />
       </div>
     </>

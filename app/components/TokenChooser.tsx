@@ -1,11 +1,13 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useAccount, useReadContracts } from 'wagmi'
+import { zeroAddress } from 'viem'
+
 import { primeETHABI } from '~/utils/abis'
 import { contracts, assets } from '~/utils/constants'
 import { formatEth } from '~/utils/bigint'
-import { zeroAddress } from 'viem'
-import { Tooltip } from './Tooltip'
+
+import { Tags } from '~/components/Tags'
 
 export function TokenChooser({
   isOpen,
@@ -17,7 +19,7 @@ export function TokenChooser({
   onChange: (asset: string) => void
 }) {
   const { isConnected, address } = useAccount()
-  const { data, refetch } = useReadContracts({
+  const { data } = useReadContracts({
     contracts: [
       ...assets.map(({ symbol }) => ({
         abi: primeETHABI,
@@ -114,38 +116,5 @@ export function TokenChooser({
         </div>
       </Dialog>
     </Transition>
-  )
-}
-
-interface Tag {
-  title: string
-  color: string
-  tooltip?: string
-}
-
-const Tags = ({ tags }: { tags: Tag[] }) => {
-  if (!tags) return null
-  return (
-    <>
-      {tags.map((tag, idx) => {
-        const color =
-          tag.color === 'red'
-            ? 'border-red-500 bg-red-500 text-white'
-            : 'text-green-500 border-green-500/30'
-        return (
-          <div
-            key={idx}
-            className={`rounded border font-medium ${color} text-xs px-1 py-px flex gap-1`}
-          >
-            {tag.title}
-            {!tag.tooltip ? null : (
-              <Tooltip className="p-3 text-xs" placement="right">
-                {tag.tooltip}
-              </Tooltip>
-            )}
-          </div>
-        )
-      })}
-    </>
   )
 }

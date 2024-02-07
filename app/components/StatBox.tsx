@@ -40,7 +40,7 @@ export const StatBoxItem = ({
       <div className="text-gray-500 text-sm flex items-center gap-1">
         {logo ? <img src={logo} alt="Logo" className="h-4" /> : null}
         {label}
-        {tooltip ? <Tooltip>{tooltip}</Tooltip> : null}
+        {tooltip ? <Tooltip className="p-2 text-xs">{tooltip}</Tooltip> : null}
       </div>
       <div className="mt-1">{value}</div>{' '}
       {description && (

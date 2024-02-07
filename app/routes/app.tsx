@@ -101,7 +101,9 @@ export default function Index() {
             <div className="px-2">
               <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed">
                 TVL
-                <Tooltip size={16}>Total Value Locked</Tooltip>
+                <Tooltip size={16} className="p-2 text-xs">
+                  Total Value Locked
+                </Tooltip>
               </div>
               <div className="mt-1 text-xl">
                 {`${formatEth(tvl, true)} ETH`}
@@ -112,12 +114,13 @@ export default function Index() {
             </div>
           </StatBox>
           <StatBox title="Assets Deposited" cols={2}>
-            {assets.map(({ symbol, src }, i) => (
+            {assets.map(({ name, symbol, src }, i) => (
               <StatBoxItem
                 key={i}
                 label={symbol}
                 logo={src}
                 value={formatEth(data[i + 3].result, true)}
+                tooltip={name}
               />
             ))}
           </StatBox>
