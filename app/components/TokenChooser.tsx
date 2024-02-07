@@ -1,35 +1,33 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {
-  useAccount,
-  useReadContracts,
-} from 'wagmi'
-import {
-  primeETHABI,
-} from '~/utils/abis'
+import { useAccount, useReadContracts } from 'wagmi'
+import { zeroAddress } from 'viem'
+
+import { primeETHABI } from '~/utils/abis'
 import { contracts, assets } from '~/utils/constants'
 import { formatEth } from '~/utils/bigint'
-import { zeroAddress } from 'viem'
+
+import { Tags } from '~/components/Tags'
 
 export function TokenChooser({
   isOpen,
   setIsOpen,
-  onChange
+  onChange,
 }: {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
   onChange: (asset: string) => void
 }) {
   const { isConnected, address } = useAccount()
-  const { data, refetch } = useReadContracts({
+  const { data } = useReadContracts({
     contracts: [
       ...assets.map(({ symbol }) => ({
         abi: primeETHABI,
         address: contracts[symbol],
         functionName: 'balanceOf',
-        args: [address || zeroAddress]
-      }))
-    ]
+        args: [address || zeroAddress],
+      })),
+    ],
   })
 
   return (
@@ -88,12 +86,19 @@ export function TokenChooser({
                           />
                           <div className="flex flex-row justify-between w-full">
                             <div className="flex flex-col items-start">
-                              <div className="font-medium">{asset.name}</div>
-                              <div className="text-gray-500">{asset.symbol}</div>
+                              <div className="flex gap-1">
+                                <div className="font-medium">{asset.name}</div>
+                                <div className="text-gray-500">
+                                  {asset.symbol}
+                                </div>
+                              </div>
+                              <Tags tags={asset.tags} />
                             </div>
                             <div className="flex flex-col items-start">
                               <div className="text-gray-500 font-medium">
-                                {formatEth(data && isConnected ? data[i].result : 0)}
+                                {formatEth(
+                                  data && isConnected ? data[i].result : 0,
+                                )}
                               </div>
                             </div>
                           </div>

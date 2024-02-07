@@ -14,6 +14,7 @@ import { formatEth, formatPoints, formatUSD } from '~/utils/bigint'
 import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
+import { Tooltip } from '~/components/Tooltip'
 
 export const meta: MetaFunction = () => {
   return [
@@ -88,48 +89,41 @@ export default function Index() {
   return (
     <>
       <TopNav />
-      <div className="w-full flex px-3 md:px-6 items-start">
-        <div className="hidden md:block">
+      <div className="w-full flex flex-col sm:flex-row px-3 md:px-6 items-start gap-8 sm:gap-0">
+        <div className="hidden md:block w-full max-w-[250px]">
           <SideNav />
         </div>
-        <div className="flex-1 flex flex-col md:flex-row gap-8 ">
-          <div className="flex-1 flex flex-col items-center">
-            <Outlet />
-          </div>
-          <div className="md:w-[230px] lg:w-[300px] flex flex-col gap-8 pb-12">
-            <StatBox title="primeETH Stats" cols={1}>
+        <div className="w-full sm:w-auto sm:flex-1 flex flex-col items-center sm:px-8">
+          <Outlet />
+        </div>
+        <div className="w-full sm:w-[250px] flex flex-col gap-6 pb-12">
+          <StatBox title="Global Stats" cols={1}>
+            <div className="px-2">
+              <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed">
+                TVL
+                <Tooltip size={16} className="p-2 text-xs">
+                  Total Value Locked
+                </Tooltip>
+              </div>
+              <div className="mt-1 text-xl">
+                {`${formatEth(tvl, true)} ETH`}
+              </div>
+              <div className="text-gray-500 text-xs mt-1">
+                {`$${formatUSD(tvlUsd, 0)}`}
+              </div>
+            </div>
+          </StatBox>
+          <StatBox title="Assets Deposited" cols={2}>
+            {assets.map(({ name, symbol, src }, i) => (
               <StatBoxItem
-                label="TVL"
-                tooltip="Total Value Locked"
-                value={`${formatEth(tvl, true)} ETH`}
-                description={`$${formatUSD(tvlUsd)}`}
+                key={i}
+                label={symbol}
+                logo={src}
+                value={formatEth(data[i + 3].result, true)}
+                tooltip={name}
               />
-              {/*
-              <StatBoxItem
-                label="EigenLayer Points"
-                value={formatPointEL(
-                  pointSummary.data?.lrtSummaries[0]?.elPoints,
-                )}
-              />
-              <StatBoxItem
-                label="PrimeStaked Points"
-                value={formatPointXP(
-                  pointSummary.data?.lrtSummaries[0]?.points,
-                )}
-              />
-              */}
-            </StatBox>
-            <StatBox title="Assets Deposited" cols={2}>
-              {assets.map(({ symbol, src }, i) => (
-                <StatBoxItem
-                  key={i}
-                  label={symbol}
-                  logo={src}
-                  value={formatEth(data[i + 3]?.result, true)}
-                />
-              ))}
-            </StatBox>
-          </div>
+            ))}
+          </StatBox>
         </div>
       </div>
     </>

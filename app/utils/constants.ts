@@ -6,15 +6,46 @@ import oethSrc from '~/assets/oeth.svg'
 import rethSrc from '~/assets/rETH.svg'
 import swethSrc from '~/assets/swETH.svg'
 
+export interface Tag {
+  title: string
+  color: string
+  tooltip?: string
+}
+
+export interface Asset {
+  symbol: string
+  src: string
+  name: string
+  tags?: Tag[]
+}
+
 export const assets = [
-  { symbol: 'OETH', src: oethSrc, name: 'Origin Ether' },
+  {
+    symbol: 'OETH',
+    src: oethSrc,
+    name: 'Origin Ether',
+    tags: [
+      { title: '2x XP Boost', tooltip: '2x primeETH XP Boost', color: 'red' },
+    ],
+  },
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
-  { symbol: 'ETHx', src: ethxSrc, name: 'Stader ETHx' },
+  {
+    symbol: 'ETHx',
+    src: ethxSrc,
+    name: 'Stader ETHx',
+    tags: [
+      {
+        title: 'Eigen Turbocharge',
+        color: 'green',
+        tooltip: `1M Extra EigenLayer pts - 50 extra EL pts per ETHx minted and restaked`,
+      },
+    ],
+  },
   { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' },
   { symbol: 'swETH', src: swethSrc, name: 'Swell ETH' },
   { symbol: 'rETH', src: rethSrc, name: 'Rocket Pool ETH' },
-] as const
+] as Asset[]
 
 // Ensure there is a contract address for each asset above
 export const contracts = {

@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
+
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -12,26 +14,40 @@ export default {
           600: '#475569',
           750: '#4D5D67', // Footer icon hovered
           850: '#2D3D47', // Footer icon
-          950: '#1E293B' // Almost black text
+          950: '#1E293B', // Almost black text
         },
         blue: {
           100: '#EAF0F9',
-          500: '#0074f0' // Button
+          500: '#0074f0', // Button
         },
         red: {
-          500: '#ff4e4e'
+          500: '#ff4e4e',
+        },
+        green: {
+          500: '#07C166',
         },
         'off-black': '#101113',
-        'off-white': '#fafbfb'
+        'off-white': '#fafbfb',
       },
-      fontSize: { // Titles on landing page
+      fontSize: {
+        '1.5xl': ['1.25rem', {}], // 28px
+        // Titles on landing page
         '2.66xl': ['1.75rem', {}], // 28px
-        '4.5xl': ['2.75rem', {
-          lineHeight: '70px'
-        }],
-        '6xl': ['3.5rem', {
-          lineHeight: '64px'
-        }]
+        '4.5xl': [
+          '2.75rem',
+          {
+            lineHeight: '70px',
+          },
+        ],
+        '6xl': [
+          '3.5rem',
+          {
+            lineHeight: '64px',
+          },
+        ],
+      },
+      fontFamily: {
+        sans: ['Sailec', ...defaultTheme.fontFamily.sans],
       },
     },
 
@@ -40,8 +56,8 @@ export default {
       'blue-gradient-light': `linear-gradient(0deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 100%), linear-gradient(90deg, #8c66fc -29%, #0274f1 145%)`,
       'orange-gradient':
         'linear-gradient(91deg, #FEDBA8 -3.29%, #CF75D5 106.42%)',
-      'footer-gradient': `linear-gradient(76.46deg, #000000 -1.88%, #1E313F 117.7%)`
-    }
+      'footer-gradient': `linear-gradient(76.46deg, #000000 -1.88%, #1E313F 117.7%)`,
+    },
   },
-  plugins: []
+  plugins: [],
 }

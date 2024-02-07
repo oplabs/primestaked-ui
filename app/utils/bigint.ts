@@ -37,10 +37,10 @@ export function formatEth(value: ValueType, round = false) {
   return `${number[0]}.${number[1].slice(0, 4)}`
 }
 
-export function formatUSD(value: bigint) {
+export function formatUSD(value: bigint, digits: number = 2) {
   return bigintToFloat(value).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
   })
 }
 

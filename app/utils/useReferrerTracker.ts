@@ -8,7 +8,7 @@ interface ReferrerTrackerValue {
   timestamp: number
 }
 
-const validRegex = /^[0-9A-Z]{4,10}$/i
+const validRegex = /^[0-9A-Z]{4,42}$/i
 
 export function useReferrerTracker(defaultReferrerId: string) {
   const { value: storedTxReferrerId, set: setTxReferrerId } =
