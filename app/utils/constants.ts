@@ -7,10 +7,20 @@ import rethSrc from '~/assets/rETH.svg'
 import swethSrc from '~/assets/swETH.svg'
 
 export const assets = [
-  { symbol: 'OETH', src: oethSrc, name: 'Origin Ether' },
+  {
+    symbol: 'OETH',
+    src: oethSrc,
+    name: 'Origin Ether',
+    tags: [{ title: '2x primeETH XP Boost', color: 'red' }],
+  },
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
-  { symbol: 'ETHx', src: ethxSrc, name: 'Stader ETHx' },
+  {
+    symbol: 'ETHx',
+    src: ethxSrc,
+    name: 'Stader ETHx',
+    tags: [{ title: 'Eigen Boost', color: 'green', tooltip: 'Eigen Boost' }],
+  },
   { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' },
   { symbol: 'swETH', src: swethSrc, name: 'Swell ETH' },
   { symbol: 'rETH', src: rethSrc, name: 'Rocket Pool ETH' },

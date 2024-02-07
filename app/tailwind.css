@@ -20,8 +20,57 @@ body {
   @apply rounded-full leading-tight font-medium bg-gray-200 opacity-50 pointer-events-none;
 }
 .btn-outline {
-  @apply rounded-full leading-tight font-medium border-red-500 border hover:bg-blue-600 hover:text-off-black transition-all duration-200 ease-in-out cursor-pointer;
+  @apply rounded-full leading-tight font-medium text-red-500 border-red-500 border hover:bg-red-500 hover:text-white transition-all duration-200 ease-in-out cursor-pointer;
 }
 .btn-outline-disabled {
   @apply rounded-full leading-tight font-medium border-red-500/50 border text-off-white/30;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 100;
+  src: url(/fonts/Sailec/Sailec-Hairline.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 200;
+  src: url(/fonts/Sailec/Sailec-Thin.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 300;
+  src: url(/fonts/Sailec/Sailec-Light.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 400;
+  src: url(/fonts/Sailec/Sailec-Regular.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 500;
+  src: url(/fonts/Sailec/Sailec-Medium.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 700;
+  src: url(/fonts/Sailec/Sailec-Bold.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Sailec;
+  font-weight: 900;
+  src: url(/fonts/Sailec/Sailec-Black.otf) format('opentype');
+  font-display: swap;
 }

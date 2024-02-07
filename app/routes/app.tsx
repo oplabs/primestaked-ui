@@ -14,6 +14,7 @@ import { formatEth, formatPoints, formatUSD } from '~/utils/bigint'
 import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
+import { Tooltip } from '~/components/Tooltip'
 
 export const meta: MetaFunction = () => {
   return [
@@ -89,21 +90,25 @@ export default function Index() {
     <>
       <TopNav />
       <div className="w-full flex px-3 md:px-6 items-start">
-        <div className="hidden md:block w-full max-w-[300px]">
+        <div className="hidden md:block w-full max-w-[280px] pr-8">
           <SideNav />
         </div>
-        <div className="flex-1 flex flex-col md:flex-row gap-8 ">
+        <div className="flex-1 flex flex-col md:flex-row gap-8">
           <div className="flex-1 flex flex-col items-center">
             <Outlet />
           </div>
           <div className="md:w-[230px] lg:w-[300px] flex flex-col gap-8 pb-12">
-            <StatBox title="primeETH Stats" cols={1}>
-              <StatBoxItem
-                label="TVL"
-                tooltip="Total Value Locked"
-                value={`${formatEth(tvl, true)} ETH`}
-                description={`$${formatUSD(tvlUsd)}`}
-              />
+            <StatBox title="Global Stats" cols={1}>
+              <div>
+                <div className="text-gray-500 text-sm flex items-center gap-1">
+                  TVL
+                  <Tooltip>Total Value Locked</Tooltip>
+                </div>
+                <div className="mt-2 text-xl">{`${formatEth(tvl, true)} ETH`}</div>{' '}
+                <div className="text-gray-500 text-xs mt-1">
+                  {`$${formatUSD(tvlUsd, 0)}`}
+                </div>
+              </div>
               {/*
               <StatBoxItem
                 label="EigenLayer Points"
@@ -125,7 +130,7 @@ export default function Index() {
                   key={i}
                   label={symbol}
                   logo={src}
-                  value={formatEth(data[i + 3]?.result, true)}
+                  value={formatEth(data[i + 3].result, true)}
                 />
               ))}
             </StatBox>
