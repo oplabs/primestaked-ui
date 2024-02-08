@@ -31,14 +31,10 @@ export default {
       },
       fontSize: {
         '1.5xl': ['1.25rem', {}], // 28px
+        '3xl': ['2rem', { lineHeight: '3.1rem', letterSpacing: '0.005em' }], // 32px
         // Titles on landing page
         '2.66xl': ['1.75rem', {}], // 28px
-        '4.5xl': [
-          '2.75rem',
-          {
-            lineHeight: '70px',
-          },
-        ],
+        '4.5xl': ['2.5rem', { lineHeight: '3rem' }],
         '6xl': [
           '3.5rem',
           {
@@ -48,6 +44,7 @@ export default {
       },
       fontFamily: {
         sans: ['Sailec', ...defaultTheme.fontFamily.sans],
+        heading: ['Inter', ...defaultTheme.fontFamily.sans],
       },
     },
 

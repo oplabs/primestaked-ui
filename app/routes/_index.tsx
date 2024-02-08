@@ -39,6 +39,7 @@ import EthSrc from '~/assets/landing/tokens/eth_token.svg'
 import currencyExchangeSrc from '~/assets/landing/currency_exchange.svg'
 import waterDropSrc from '~/assets/landing/water_drop.svg'
 import noCheckSrc from '~/assets/landing/no_check.svg'
+import { useAPY } from '~/utils/useAPY'
 
 export const meta: MetaFunction = () => {
   return [
@@ -49,6 +50,7 @@ export const meta: MetaFunction = () => {
 
 export default function Marketing() {
   const { tvl, tvlUsd } = useTVL()
+  const apy = useAPY()
 
   return (
     <>
@@ -56,29 +58,72 @@ export default function Marketing() {
       <Segment
         isWhite={false}
         hideOverflow={true}
-        width={'normal'}
+        width="normal"
         isRelative={true}
+        className={`bg-[bottom_-105%_right_125%] sm:bg-[bottom_-102%_right_-2%] bg-no-repeat`}
+        style={{ backgroundImage: `url(${Cow})` }}
       >
-        <img
+        {/* <img
           src={Cow}
           alt="cow"
           className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-206px] z-0"
-        />
-        <Link to="/">
-          <img src={Logo} alt="logo" className="w-[147px] pt-8" />
-        </Link>
-        <div className="mt-[76px] text-4.5xl md:text-7xl text-gray-950 z-10">
-          Liquid restaking with{' '}
+        /> */}
+        <div className="flex justify-between items-center pt-8">
+          <Link to="/">
+            <img src={Logo} alt="logo" className="w-[147px]" />
+          </Link>
+          <a
+            href="https://docs.primestaked.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:block ml-auto text-gray-950 hover:underline"
+          >
+            Docs
+          </a>
+          <Link
+            to="/app/restake"
+            className="hidden sm:block ml-8 btn-outline px-7 py-3 leading-snug"
+          >
+            Restake now
+          </Link>
+        </div>
+        <div className="mt-16 text-4.5xl md:text-7xl text-gray-950 z-10 md:leading-[1.1] font-medium">
+          Liquid restaking with
+          <br className="hidden sm:block" />{' '}
           <span className="text-red-500 font-black">primeETH</span>
         </div>
-        <div className="text-gray-500 text-lg md:text-3xl mt-[11px] md:mt-[22px] max-w-[1086px] tracking-wide leading-relaxed z-10">
+        <div className="text-gray-500 text-lg md:text-3xl mt-[11px] md:mt-[22px] max-w-[1086px] z-10 text-balance font-heading">
           Stack ETH staking yield, EigenLayer points, and primeETH XP Points all
           while remaining liquid.
         </div>
-        <div className="text-gray-600 text-3xl mt-[34px] z-10">
-          <span className="font-bold">{tvl} ETH</span> ASSETS RESTAKED
+        <div className="flex flex-col sm:flex-row sm:items-center mt-8 sm:mt-20 gap-4 sm:gap-20">
+          <div>
+            <div className="text-gray-500 text-lg sm:text-2xl">
+              Assets restaked
+            </div>
+            <div className="sm:mt-1 text-2xl sm:text-4.5xl font-bold text-gray-600">{`${tvl} ETH`}</div>
+            <div className="mt-1 sm:mt-2 text-gray-600 font-medium text-sm sm:text-base">{`$${tvlUsd}`}</div>
+          </div>
+          <div className="border-r border-gray-border h-20 hidden sm:block" />
+          <div>
+            <div className="text-gray-500 text-lg sm:text-2xl">APY</div>
+            <div className="sm:mt-1 text-2xl sm:text-4.5xl font-bold text-gray-600">
+              {`${apy.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}%`}
+            </div>
+            <div className="mt-1 sm:mt-2 text-gray-600 font-medium flex items-center gap-3 text-sm sm:text-base">
+              <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                +
+              </div>
+              <div>EigenLayer Points</div>
+              <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                +
+              </div>
+              <div>PrimeETH XP</div>
+            </div>
+          </div>
         </div>
-        <div className="text-gray-600 text-2xl mt-3 z-10">${tvlUsd}</div>
         <div className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer">
           <Link to="/app/restake">Restake now</Link>
         </div>
@@ -91,6 +136,7 @@ export default function Marketing() {
         <img
           className="ml-[-43px] md:ml-[-90px] mt-[0px] md:mt-[-70px]"
           src={TripleRewards}
+          alt="Triple Rewards"
         />
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-0 gap-y-5 xl:gap-x-7 mt-[55px] xl:mt-[121px] mb-[40px] xl:mb-[96px]">
           <RedBox iconSrc={waterDropSrc} text="Stay liquid" />
@@ -119,9 +165,16 @@ export default function Marketing() {
         </div>
         <div className="text-lg md:text-2xl text-gray-600 mt-[26px] md:mt-[40px] text-left md:mr-[142px] z-10">
           In addition to popular LSTs, we support{' '}
-          <a href="https://oeth.com" className="font-bold text-blue-500" target="_blank">OETH</a> which is
-          currently the highest yielding LST on the market which is providing a
-          2% higher APR than the rest of the market right now.
+          <a
+            href="https://oeth.com"
+            className="font-bold text-blue-500"
+            target="_blank"
+            rel="noreferrer"
+          >
+            OETH
+          </a>{' '}
+          which is currently the highest yielding LST on the market which is
+          providing a 2% higher APR than the rest of the market right now.
         </div>
         <div className="grid grid-cols-3 xl:grid-cols-5 gap-x-[50px] gap-y-[30px] xl:gap-x-[140px] xl:gap-y-[50px] mt-[36px] xl:mt-[76px] mb-[60px] xl:mb-[52px] z-10">
           <Token iconSrc={OethSrc} text="OETH" isActive={true} />
@@ -154,14 +207,31 @@ export default function Marketing() {
               className="w-[115px] h-[115px] xl:w-[180px] xl:h-[180px]"
             />
             <div className="text-2.66xl text-white mt-[35px] xl:mt-[61px] xl:max-w-[270px] text-center leading-tight">
-              Deposit with <a href="https://oeth.com" className="font-bold" target="_blank">OETH</a> and earn
+              Deposit with{' '}
+              <a
+                href="https://oeth.com"
+                className="font-bold"
+                target="_blank"
+                rel="noreferrer"
+              >
+                OETH
+              </a>{' '}
+              and earn
             </div>
             <div className="xl:text-5xl text-3xl text-white text-center font-bold mt-4">
               2X REWARDS*
             </div>
             <div className="text-sm xl:text-lg text-white text-center xl:mt-[15px] mt-[10px]">
-              *2x bonus applies only to primeETH minted with <a href="https://oeth.com" className="font-bold" target="_blank">OETH</a> and held in
-              the same wallet
+              *2x bonus applies only to primeETH minted with{' '}
+              <a
+                href="https://oeth.com"
+                className="font-bold"
+                target="_blank"
+                rel="noreferrer"
+              >
+                OETH
+              </a>{' '}
+              and held in the same wallet
             </div>
           </div>
 
@@ -189,8 +259,15 @@ export default function Marketing() {
           >
             Obtain one of the supported assets
           </AcquireStep>
-          <AcquireStep step={2} description="You won't lose your Ethereum staking yield.">
-            Go to <Link to="/app/restake" className="text-red-500">our app</Link> and select your asset
+          <AcquireStep
+            step={2}
+            description="You won't lose your Ethereum staking yield."
+          >
+            Go to{' '}
+            <Link to="/app/restake" className="text-red-500">
+              our app
+            </Link>{' '}
+            and select your asset
           </AcquireStep>
           <AcquireStep
             step={3}
@@ -200,12 +277,18 @@ export default function Marketing() {
           </AcquireStep>
         </div>
         <div className="pt-[40px] mb-[40px] xl:mb-[103px]">
-          <img
-            src={UniswapSrc}
-            className="h-[68px] m-auto mb-[20px]"
-          />
+          <img src={UniswapSrc} className="h-[68px] m-auto mb-[20px]" />
           <div className="md:text-2xl text-lg">
-            You can also <a href="https://app.uniswap.org/swap?outputCurrency=0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615&inputCurrency=ETH" className="text-red-500" target="_blank">buy primeETH on Uniswap</a>.
+            You can also{' '}
+            <a
+              href="https://app.uniswap.org/swap?outputCurrency=0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615&inputCurrency=ETH"
+              className="text-red-500"
+              target="_blank"
+              rel="noreferrer"
+            >
+              buy primeETH on Uniswap
+            </a>
+            .
           </div>
         </div>
       </Segment>
