@@ -225,7 +225,7 @@ export default function Marketing() {
           />
           <FaqQuestion
             question="Can I withdraw my funds?"
-            answer="Withdrawals won't be available at launch, but will be enabled in the near future. A liquidity pool will be setup on Curve to enable conversion of primeETH to ETH for those needing to exit."
+            answer="Withdrawals are not yet supported, but we're committed to enabling them prior to introducing any fees. You can also sell primeETH at any time via Uniswap where there is ample exit liquidity."
           />
         </div>
       </Segment>
