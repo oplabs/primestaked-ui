@@ -7,10 +7,12 @@ export const Tags = ({ tags }: { tags?: Tag[] }) => {
   return (
     <>
       {tags.map((tag, idx) => {
-        const color =
-          tag.color === 'red'
-            ? 'border-red-500 bg-red-500 text-white'
-            : 'text-green-500 border-green-500/30'
+        const color = {
+          red: 'border-red-500 bg-red-500 text-white',
+          'red-outline': 'text-red-500 border-red-500/30',
+          green: 'text-green-500 border-green-500/30',
+        }[tag.color]
+
         return (
           <div
             key={idx}

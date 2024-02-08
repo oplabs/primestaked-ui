@@ -24,9 +24,7 @@ export const assets = [
     symbol: 'OETH',
     src: oethSrc,
     name: 'Origin Ether',
-    tags: [
-      { title: '2x XP Boost', tooltip: '2x primeETH XP Boost', color: 'red' },
-    ],
+    tags: [{ title: '2x primeETH XP Boost', color: 'red' }],
   },
   { symbol: 'stETH', src: stEthSrc, name: 'Lido Staked ETH' },
   { symbol: 'mETH', src: mEthSrc, name: 'Mantle Staked Ether' },
@@ -44,7 +42,17 @@ export const assets = [
   },
   { symbol: 'sfrxETH', src: sfrxSrc, name: 'Staked Frax Ether' },
   { symbol: 'swETH', src: swethSrc, name: 'Swell ETH' },
-  { symbol: 'rETH', src: rethSrc, name: 'Rocket Pool ETH' },
+  {
+    symbol: 'rETH',
+    src: rethSrc,
+    name: 'Rocket Pool ETH',
+    tags: [
+      {
+        title: '1.1x primeETH XP Boost',
+        color: 'red-outline',
+      },
+    ],
+  },
 ] as Asset[]
 
 // Ensure there is a contract address for each asset above
