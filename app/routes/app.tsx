@@ -6,15 +6,15 @@ import { SideNav } from '~/components/nav/SideNav'
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
 import { parseAbi } from 'viem'
+import { calculateAPY } from '~/utils/calculateAPY'
 
 import { primeETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
-import { formatEth, formatPoints, formatUSD } from '~/utils/bigint'
+import { formatEth, formatUSD } from '~/utils/bigint'
 
 import { StatBox, StatBoxItem } from '~/components/StatBox'
-import { useQuery } from '@tanstack/react-query'
-import { graphqlClient } from '~/utils/graphql'
 import { Tooltip } from '~/components/Tooltip'
+import { useAPY } from '~/utils/useAPY'
 
 export const meta: MetaFunction = () => {
   return [
@@ -51,6 +51,8 @@ export default function Index() {
       })),
     ],
   })
+
+  const apy = useAPY()
 
   // const pointSummary = useQuery({
   //   queryKey: ['prime-eth-point-summary'],
@@ -110,6 +112,21 @@ export default function Index() {
               </div>
               <div className="text-gray-500 text-xs mt-1">
                 {`$${formatUSD(tvlUsd, 0)}`}
+              </div>
+              <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed mt-6">
+                APY
+                <Tooltip size={16} className="p-2 text-xs">
+                  Calculated daily
+                </Tooltip>
+              </div>
+              <div className="mt-1 text-xl">
+                {`${apy.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}%`}
+              </div>
+              <div className="text-gray-500 text-xs mt-1">
+                <div>+ EigenLayer Points</div>
+                <div>+ primeETH XP</div>
               </div>
             </div>
           </StatBox>

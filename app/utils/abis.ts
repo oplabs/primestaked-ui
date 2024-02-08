@@ -12,7 +12,6 @@ export const lrtOracleAbi = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   { inputs: [], name: 'AssetNotSupported', type: 'error' },
   { inputs: [], name: 'CallerNotLRTConfigAdmin', type: 'error' },
-  { inputs: [], name: 'CallerNotLRTConfigManager', type: 'error' },
   { inputs: [], name: 'ZeroAddressNotAllowed', type: 'error' },
   {
     anonymous: false,
@@ -90,7 +89,7 @@ export const lrtOracleAbi = [
   },
   {
     inputs: [],
-    name: 'rsETHPrice',
+    name: 'primeETHPrice',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
@@ -116,8 +115,8 @@ export const lrtOracleAbi = [
   },
   {
     inputs: [],
-    name: 'updateRSETHPrice',
-    outputs: [],
+    name: 'updatePrimeETHPrice',
+    outputs: [{ internalType: 'uint256', name: 'price_', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },

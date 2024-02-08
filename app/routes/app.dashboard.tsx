@@ -37,22 +37,6 @@ export default function Index() {
   return (
     <>
       <div className="flex flex-col gap-4 w-full max-w-[700px]">
-        <div className="rounded-3xl border border-gray-border flex gap-2 flex-col md:flex-row items-center py-6 sm:py-2 px-6">
-          <div className="w-12 h-12">
-            <img src={friendsSrc} alt="friends" />
-          </div>
-          <div className="flex-1 flex flex-col items-center sm:items-start sm:pt-4 pb-4 gap-3">
-            <div className="leading-relaxed font-medium">
-              Invite your friends
-            </div>
-            <div className="text-gray-500 text-balance max-w-64 text-xs leading-snug text-center sm:text-left">
-              Get even more primeETH XP when you invite your friends
-            </div>
-          </div>
-          <div>
-            <CopyReferrerLink />
-          </div>
-        </div>
         <div className={headerClass}>Your Balance</div>
         <div className={boxClass}>
           <div className="sm:w-1/4 flex justify-center">
