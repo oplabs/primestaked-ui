@@ -116,7 +116,7 @@ export default function Index() {
               <div className="text-gray-500 text-sm flex items-center gap-1 leading-relaxed mt-6">
                 APY
                 <Tooltip size={16} className="p-2 text-xs">
-                  Calculated daily
+                  The yield from the underlying LSTs, calculated daily.
                 </Tooltip>
               </div>
               <div className="mt-1 text-xl">
