@@ -28,7 +28,7 @@ export default function Index() {
     percentTotalELPoints,
   } = useUserStats()
 
-  const formatDashboardPoints = (val?: string) =>
+  const formatDashboardPoints = (val?: bigint | string | undefined) =>
     val ? formatPoints(val) : isLoading ? '...' : '-'
 
   const headerClass = `font-medium text-center mt-4 text-xl leading-relaxed mb-2`
@@ -83,14 +83,23 @@ export default function Index() {
               <Tooltip placement="right">
                 <div className="flex flex-col gap-2 text-gray-500 text-xs">
                   <div className="flex justify-between items-center gap-12">
-                    <div>Deposits</div>
+                    <div>From balance held</div>
                     <div>
-                      {formatDashboardPoints(lrtPointRecipientStats?.points)}
+                      {formatDashboardPoints(
+                        lrtPointRecipientStats
+                          ? BigInt(lrtPointRecipientStats.points) -
+                              BigInt(lrtPointRecipientStats.referralPoints)
+                          : undefined,
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between items-center gap-8">
-                    <div>Referrals</div>
-                    <div>Coming soon...</div>
+                    <div>From referrals</div>
+                    <div>
+                      {formatDashboardPoints(
+                        lrtPointRecipientStats?.referralPoints,
+                      )}
+                    </div>
                   </div>
                 </div>
               </Tooltip>

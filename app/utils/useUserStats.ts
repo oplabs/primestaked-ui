@@ -26,8 +26,15 @@ export function useUserStats() {
     queryKey: [`dashboard-user-stats-${connectedAddress}`],
     queryFn: graphqlClient<
       {
-        lrtPointRecipientStats: { elPoints: string; points: string }
-        lrtSummaries: { points: string }[]
+        lrtPointRecipientStats: {
+          elPoints: string
+          points: string
+          referralPoints: string
+        }
+        lrtSummaries: {
+          elPoints: string
+          points: string
+        }[]
       },
       { address: string }
     >(
@@ -36,8 +43,10 @@ export function useUserStats() {
         lrtPointRecipientStats(address: $address) {
           elPoints
           points
+          referralPoints
         }
         lrtSummaries(limit: 1, orderBy: id_DESC) {
+          elPoints
           points
         }
       }
@@ -48,14 +57,10 @@ export function useUserStats() {
 
   const elStats = useQuery({
     queryKey: [`el-stats`],
-    queryFn: graphqlClient<
-      { totalEigenLayerPoints: string },
-      { address: string }
-    >(
+    queryFn: graphqlClient<{ totalEigenLayerPoints: string }>(
       `query ELStats {
          totalEigenLayerPoints
        }`,
-      { address: connectedAddress },
     ),
   })
 
