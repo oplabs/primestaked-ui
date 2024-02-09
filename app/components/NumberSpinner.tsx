@@ -96,7 +96,7 @@ const CharSpinner = (props: CharSpinnerProps) => {
       >
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 9].map((num, idx) => {
           const className =
-            idx === 10 ? 'absolute' : idx === 11 ? 'absolute -top-9' : ''
+            idx === 10 ? 'absolute' : idx === 11 ? 'absolute -top-11' : ''
           return (
             <div key={idx} className={className}>
               {num}

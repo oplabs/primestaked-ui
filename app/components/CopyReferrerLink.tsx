@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAccount } from 'wagmi'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { TooltipToast } from './Tooltip'
 import { hexToBase62 } from '~/utils/base62'
 
@@ -9,6 +10,7 @@ export const CopyReferrerLink = ({
   className?: string
 }) => {
   const { isConnected, address } = useAccount()
+  const { openConnectModal } = useConnectModal()
   const [urlOrigin, setUrlOrigin] = useState('')
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -19,9 +21,17 @@ export const CopyReferrerLink = ({
     ? `${urlOrigin}/app/restake?r=${hexToBase62(address)}`
     : ''
 
+  if (!isConnected) {
+    return (
+      <button className={className} onClick={() => openConnectModal?.()}>
+        Connect Wallet
+      </button>
+    )
+  }
+
   return (
     <TooltipToast
-      text={isConnected ? 'Link copied!' : 'Please connect your wallet first'}
+      text="Link copied!"
       placement="bottom"
       className="p-2 text-xs"
     >
