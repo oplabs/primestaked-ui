@@ -16,6 +16,7 @@ import rainbowStyles from '@rainbow-me/rainbowkit/styles.css'
 import styles from './tailwind.css'
 import { config } from '~/utils/wagmi'
 import { useReferrerTracker } from './utils/useReferrerTracker'
+import { DepositsCountdown } from '~/components/DepositsCountdown'
 
 globalThis.process = globalThis.process ?? { env: {} }
 const queryClient = new QueryClient()
@@ -46,6 +47,7 @@ export default function App() {
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
+              <DepositsCountdown />
               <Outlet />
             </RainbowKitProvider>
           </QueryClientProvider>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTime } from 'react-time-sync'
 import {
   useAccount,
   useReadContracts,
@@ -15,6 +16,7 @@ import {
   assets,
   lrtOraclePriceMethod,
   Asset,
+  depositsEndDate,
 } from '~/utils/constants'
 import { CaretDown } from '~/components/Icons'
 import { Modal } from '~/components/Modal'
@@ -30,8 +32,12 @@ import {
   lrtDepositPoolAbi,
   lrtConfigAbi,
 } from '~/utils/abis'
+import { Tooltip } from '~/components/Tooltip'
 
 export default function Index() {
+  const now = useTime() * 1000
+  const depositsEnded = now >= depositsEndDate.getTime()
+
   const { openConnectModal } = useConnectModal()
   const [isOpen, setIsOpen] = useState(false)
   const [tokenChooserIsOpen, setTokenChooserIsOpen] = useState(false)
@@ -165,7 +171,11 @@ export default function Index() {
   let approveBtnText = `${asset} approved`
   // show approve button if we can stake and asset has been approved this session
   let approveBtnShow = assetApprovedThisSession
-  if (!isConnected) {
+  if (depositsEnded) {
+    stakeBtnText = 'Deposits are currently closed'
+    stakeBtnDisabled = true
+    approveBtnShow = false
+  } else if (!isConnected) {
     stakeBtnText = 'Connect wallet'
     approveBtnShow = false
   } else if (!depositAmountBI || depositAmountBI <= 0n) {
@@ -273,92 +283,114 @@ export default function Index() {
         setIsOpen={() => setTokenChooserIsOpen(false)}
       />
       <div className="py-4 px-4 sm:py-6 sm:px-6 border-b border-gray-border">
-        <div className="text-sm text-gray-500 font-medium mb-4 leading-snug">
-          Select the asset
-        </div>
-        <button
-          className="w-full border border-gray-border bg-white hover:bg-off-white text-1.5xl font-medium pl-4 pr-3 py-2.5 rounded-2xl flex items-center gap-2"
-          onClick={() => setTokenChooserIsOpen(true)}
+        {!depositsEnded ? null : (
+          <div className="border border-blue-500 bg-blue-500/10 p-2 flex items-center justify-center text-sm rounded-lg mb-6 gap-2">
+            Deposits are currently closed.
+          </div>
+        )}
+        <div
+          className={
+            depositsEnded ? 'bg-bg1 opacity-50 pointer-events-none' : ''
+          }
         >
-          <img
-            src={activeAsset.src}
-            alt={asset}
-            className="w-[34px] h-[34px]"
-          />
-          {asset}
-          <div className="ml-auto">
-            <Tags tags={activeAsset.tags} />
+          <div className="text-sm text-gray-500 font-medium mb-4 leading-snug">
+            Select the asset
           </div>
-          <div className="ml-1 border border-gray-border text-gray-500 bg-gray-bg1 rounded-full w-[34px] h-[34px] flex items-center justify-center">
-            <CaretDown />
-          </div>
-        </button>
-
-        <div className="mt-8 flex items-center text-sm text-gray-500 font-medium mb-3 leading-snug">
-          Enter amount
-        </div>
-
-        <div className="relative">
-          <input
-            type="text"
-            className="w-full border border-gray-border bg-white text-3xl font-medium pl-4 py-4 leading-relaxed rounded-2xl flex items-center gap-2"
-            placeholder="0"
-            value={depositAmount}
-            onChange={(e) => setDepositAmount(e.currentTarget.value)}
-          />
-          <div className="absolute text-sm text-gray-500 right-4 top-0 bottom-0 flex flex-col items-end justify-center gap-1.5">
-            <div className="flex items-center">
-              Balance
-              <button
-                onClick={() => {
-                  if (assetBalance) {
-                    setDepositAmount(formatEther(assetBalance))
-                  }
-                }}
-                className="ml-2 border border-gray-500 px-2 text-xs rounded-full hover:bg-gray-500 hover:text-white"
-              >
-                <span className="inline-block -translate-y-px">max</span>
-              </button>
-            </div>
-            <div>{`${formatEth(assetBalance)} ${asset}`}</div>
-          </div>
-        </div>
-        <div className="flex justify-end items-center text-sm text-gray-500 mt-2 sm:hidden">
-          {`Your primeETH: ${formatEth(lrtBalance)}`}
-
           <button
-            className="rounded-full border border-gray-border text-xs px-1.5 py-0.5 ml-3 hover:bg-gray-500 hover:border-gray-500 hover:text-white"
-            onClick={() => {
-              walletClient?.data?.watchAsset({
-                type: 'ERC20',
-                options: {
-                  address: contracts.primeETH,
-                  decimals: 18,
-                  symbol: 'primeETH',
-                },
-              })
-            }}
+            className="w-full border border-gray-border bg-white hover:bg-off-white text-1.5xl font-medium pl-4 pr-3 py-2.5 rounded-2xl flex items-center gap-2"
+            onClick={() => setTokenChooserIsOpen(true)}
           >
-            Add primeETH
+            <img
+              src={activeAsset.src}
+              alt={asset}
+              className="w-[34px] h-[34px]"
+            />
+            {asset}
+            <div className="ml-auto">
+              <Tags tags={activeAsset.tags} />
+            </div>
+            <div className="ml-1 border border-gray-border text-gray-500 bg-gray-bg1 rounded-full w-[34px] h-[34px] flex items-center justify-center">
+              <CaretDown />
+            </div>
           </button>
-        </div>
-      </div>
-      <div className="py-4 px-4 sm:py-6 sm:px-6  flex flex-col gap-4 border-b border-gray-border">
-        <div className="flex justify-between items-center">
-          <div className="text-gray-500 text-sm">You will receive:</div>
-          <div className="flex items-center gap-2 font-medium">
-            {formatEth(youWillGet || '0')}
-            <img src={primeEthSVG} alt="primeETH" className="h-5" />
-            primeETH
+
+          <div className="mt-8 flex items-center text-sm text-gray-500 font-medium mb-3 leading-snug">
+            Enter amount
+          </div>
+
+          <div className="relative">
+            <input
+              type="text"
+              className="w-full border border-gray-border bg-white text-3xl font-medium pl-4 py-4 leading-relaxed rounded-2xl flex items-center gap-2"
+              placeholder="0"
+              value={depositAmount}
+              onChange={(e) => setDepositAmount(e.currentTarget.value)}
+            />
+            <div className="absolute text-sm text-gray-500 right-4 top-0 bottom-0 flex flex-col items-end justify-center gap-1.5">
+              <div className="flex items-center">
+                Balance
+                <button
+                  onClick={() => {
+                    if (assetBalance) {
+                      setDepositAmount(formatEther(assetBalance))
+                    }
+                  }}
+                  className="ml-2 border border-gray-500 px-2 text-xs rounded-full hover:bg-gray-500 hover:text-white"
+                >
+                  <span className="inline-block -translate-y-px">max</span>
+                </button>
+              </div>
+              <div>{`${formatEth(assetBalance)} ${asset}`}</div>
+            </div>
+          </div>
+          <div className="flex justify-end items-center text-sm text-gray-500 mt-2 sm:hidden">
+            {`Your primeETH: ${formatEth(lrtBalance)}`}
+
+            <button
+              className="rounded-full border border-gray-border text-xs px-1.5 py-0.5 ml-3 hover:bg-gray-500 hover:border-gray-500 hover:text-white"
+              onClick={() => {
+                walletClient?.data?.watchAsset({
+                  type: 'ERC20',
+                  options: {
+                    address: contracts.primeETH,
+                    decimals: 18,
+                    symbol: 'primeETH',
+                  },
+                })
+              }}
+            >
+              Add primeETH
+            </button>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <div className="text-gray-500 text-sm">Exchange Rate:</div>
-          <div className="text-sm">
-            {`${formatEth(assetPrice)} ${asset} = 1 primeETH`}
+      </div>
+      {depositsEnded ? null : (
+        <div className="py-4 px-4 sm:py-6 sm:px-6  flex flex-col gap-4 border-b border-gray-border">
+          <div className="flex justify-between items-center">
+            <div className="text-gray-500 text-sm">You will receive:</div>
+            <div className="flex items-center gap-2 font-medium">
+              {formatEth(youWillGet || '0')}
+              <img src={primeEthSVG} alt="primeETH" className="h-5" />
+              primeETH
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="text-gray-500 text-sm">Exchange Rate:</div>
+            <div className="text-sm">
+              {`${formatEth(assetPrice)} ${asset} = 1 primeETH`}
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="text-gray-500 text-sm flex items-center gap-2">
+              Referral Bonus
+              <Tooltip className="p-2 text-sm text-gray-900">
+                You were referred by 1qobxFJ6hdRNq5DFmuz5RWOmoOf
+              </Tooltip>
+            </div>
+            <div className="text-sm">10%</div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="py-4 px-4 sm:py-6 sm:px-6 flex flex-col gap-6 bg-white rounded-b-3xl border-b border-gray-border mb-[-1px]">
         {approveBtnShow && (

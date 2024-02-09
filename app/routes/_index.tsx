@@ -1,7 +1,6 @@
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { Link } from '@remix-run/react'
 
-import { Countdown } from '~/components/Countdown'
 import { Segment } from '~/components/landing/Segment'
 import { RedBox } from '~/components/landing/RedBox'
 import { Token } from '~/components/landing/Token'
@@ -18,7 +17,6 @@ import Pan from '~/assets/landing/pan.svg'
 import AlarmSrc from '~/assets/landing/alarm.svg'
 import WhaleSrc from '~/assets/landing/whale.svg'
 import TripleRewards from '~/assets/landing/earnTripleRewards.svg'
-import eigenLogoSrc from '~/assets/eigen-logo.svg'
 
 import GobigSrc from '~/assets/landing/goBig.png'
 import BearlySrc from '~/assets/landing/beEarly.png'
@@ -49,9 +47,6 @@ export const meta: MetaFunction = () => {
   ]
 }
 
-const countdownTo = new Date()
-countdownTo.setUTCHours(20, 0, 0, 0)
-
 export default function Marketing() {
   const { tvl, tvlUsd } = useTVL()
   const apy = useAPY()
@@ -59,23 +54,6 @@ export default function Marketing() {
   return (
     <>
       {/* Top liquid staking segment */}
-      <div className="bg-black py-4 sm:py-8 w-full text-white flex px-4 md:px-8 lg:px-12 flex-col sm:flex-row items-center gap-4 sm:gap-8">
-        <div className="min-w-0">
-          <img src={eigenLogoSrc} alt="eigenLayer" className="w-8 sm:w-12" />
-        </div>
-        <div className="flex-1 flex flex-col items-center sm:items-start">
-          <div className="text-lg sm:text-2xl font-medium leading-relaxed text-center sm:text-left">
-            EigenLayer Deposits Close Soon
-          </div>
-          <div className="text-sm sm:text-lg text-balance leading-snug text-center sm:text-left">
-            Don’t miss your chance to earn primeETH XP in addition to earning
-            EigenLayer points. The window for deposits is short! Act now!
-          </div>
-        </div>
-        <div className="">
-          <Countdown to={countdownTo} />
-        </div>
-      </div>
       <Segment
         isWhite={false}
         hideOverflow={true}

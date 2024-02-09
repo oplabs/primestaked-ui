@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTime } from 'react-time-sync'
 
-import { NumberSpinner } from 'app/components/NumberSpinner'
+import { NumberSpinner } from '~/components/NumberSpinner'
 
 interface CountdownProps {
   to: Date
