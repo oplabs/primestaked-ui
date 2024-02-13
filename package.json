@@ -4,38 +4,37 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build --sourcemap && sentry-upload-sourcemaps --org origin-protocol --project primestaked",
-    "dev": "remix dev --manual -c \"npm run start\"",
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
+    "start": "wrangler pages dev ./build/client",
+    "deploy": "wrangler pages deploy ./build/client",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
-    "typecheck": "tsc",
-    "pages:deploy": "npm run build && wrangler pages deploy ./public"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.9",
-    "@rainbow-me/rainbowkit": "^2.0.0-beta.2",
+    "@rainbow-me/rainbowkit": "^2.0.0",
     "@react-spring/web": "^9.7.3",
-    "@remix-run/cloudflare": "^2.5.1",
-    "@remix-run/cloudflare-pages": "^2.5.1",
-    "@remix-run/css-bundle": "^2.5.1",
-    "@remix-run/react": "^2.5.1",
-    "@remix-run/serve": "^2.5.1",
-    "@sentry/remix": "^7.99.0",
-    "@tanstack/react-query": "^5.18.0",
+    "@remix-run/cloudflare": "^2.6.0",
+    "@remix-run/cloudflare-pages": "^2.6.0",
+    "@remix-run/react": "^2.6.0",
+    "@remix-run/serve": "^2.6.0",
+    "@sentry/remix": "^7.101.0",
+    "@tanstack/react-query": "^5.20.5",
     "isbot": "^4.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.7.1",
-    "wagmi": "^2.5.5"
+    "viem": "^2.7.8",
+    "wagmi": "^2.5.7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240129.0",
+    "@cloudflare/workers-types": "^4.20240208.0",
     "@headlessui/react": "^1.7.18",
     "@react-hookz/web": "^24.0.4",
-    "@remix-run/dev": "^2.5.1",
-    "@types/react": "^18.2.48",
-    "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@remix-run/dev": "^2.6.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
     "axios": "^1.6.7",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -47,7 +46,8 @@
     "react-time-sync": "^5.2.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
-    "wrangler": "3.20.0"
+    "vite-tsconfig-paths": "^4.3.1",
+    "wrangler": "3.28.2"
   },
   "engines": {
     "node": ">=18.0.0"

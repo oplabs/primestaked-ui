@@ -17,5 +17,6 @@ export const config = getDefaultConfig({
   transports: {
     [mainnet.id]: http('https://eth-mainnet.g.alchemy.com/v2/EP6A_NXNsgvvMTKyz2DWegRdJTliwLT_')
     // [mainnet.id]: http('http://localhost:8545')
-  }
+  },
+  ssr: true
 })

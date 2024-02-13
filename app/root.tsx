@@ -1,7 +1,7 @@
 import { captureRemixErrorBoundaryError } from '@sentry/remix'
 import type { LinksFunction } from '@remix-run/cloudflare'
 import {
-  Links, // LiveReload,
+  Links,
   Meta,
   Outlet,
   Scripts,
@@ -11,10 +11,10 @@ import {
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import rainbowStyles from '@rainbow-me/rainbowkit/styles.css'
+import '@rainbow-me/rainbowkit/styles.css'
 
-import styles from './tailwind.css'
 import { config } from '~/utils/wagmi'
+import './tailwind.css'
 import { useReferrerTracker } from './utils/useReferrerTracker'
 import { DepositsCountdown } from '~/components/DepositsCountdown'
 
@@ -22,8 +22,6 @@ globalThis.process = globalThis.process ?? { env: {} }
 const queryClient = new QueryClient()
 
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: styles },
-  { rel: 'stylesheet', href: rainbowStyles },
   { rel: 'icon', href: '/favicon.png', type: 'image/png' },
 ]
 
@@ -54,7 +52,6 @@ export default function App() {
         </WagmiProvider>
         <ScrollRestoration />
         <Scripts />
-        {/* <LiveReload /> */}
       </body>
     </html>
   )
