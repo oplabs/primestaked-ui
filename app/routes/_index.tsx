@@ -13,6 +13,7 @@ import { useTVL } from '~/utils/hooks/useTVL'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
+import EigenStar from '~/assets/landing/eigen-star.svg'
 import Pan from '~/assets/landing/pan.svg'
 import AlarmSrc from '~/assets/landing/alarm.svg'
 import WhaleSrc from '~/assets/landing/whale.svg'
@@ -54,19 +55,10 @@ export default function Marketing() {
   return (
     <>
       {/* Top liquid staking segment */}
-      <Segment
-        isWhite={false}
-        hideOverflow={true}
-        width="normal"
-        isRelative={true}
-        className={`bg-[bottom_-105%_right_125%] sm:bg-[bottom_-102%_right_-2%] bg-no-repeat`}
+      <div
+        className={`w-full flex flex-col justify-center items-center px-4 md:px-8 lg:px-12 bg-[bottom_-105%_right_125%] sm:bg-[bottom_-102%_right_-2%] bg-no-repeat`}
         style={{ backgroundImage: `url(${Cow})` }}
       >
-        {/* <img
-          src={Cow}
-          alt="cow"
-          className="absolute right-[-240px] sm:right-[-120px] md:right-0 bottom-[-206px] z-0"
-        /> */}
         <div className="flex justify-between items-center pt-8">
           <Link to="/">
             <img src={Logo} alt="logo" className="w-[147px]" />
@@ -126,10 +118,10 @@ export default function Marketing() {
         <div className="btn px-7 py-4 text-xl mr-0 md:mr-auto mt-[50px] mb-[90px] z-10 text-center hover:cursor-pointer">
           <Link to="/app/restake">Restake now</Link>
         </div>
-      </Segment>
+      </div>
       {/* Earn Triple Rewards segment */}
-      <Segment isWhite={true} width={'normal'} alignCenter={true}>
-        <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] flex content-center">
+      <Segment isWhite={true} width={'large'} alignCenter={true}>
+        <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[105px] flex content-center">
           Earn Triple Rewards
         </div>
         <img
@@ -137,7 +129,7 @@ export default function Marketing() {
           src={TripleRewards}
           alt="Triple Rewards"
         />
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-0 gap-y-5 xl:gap-x-7 mt-[55px] xl:mt-[121px] mb-[40px] xl:mb-[96px]">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-0 gap-y-5 xl:gap-x-7 mt-[55px] xl:mt-[121px] mb-[40px] xl:mb-[96px] w-full px-3">
           <RedBox iconSrc={waterDropSrc} text="Stay liquid" />
           <RedBox iconSrc={noCheckSrc} text="No need to run a validator" />
           <RedBox
@@ -146,6 +138,18 @@ export default function Marketing() {
           />
         </div>
       </Segment>
+      <div
+        className="bg-[#586CF8] text-white w-full flex flex-col justify-center items-center px-4 md:px-8 lg:px-12 py-24 bg-[bottom_left] sm:bg-[bottom_left] bg-no-repeat"
+        style={{ backgroundImage: `url(${EigenStar})` }}
+      >
+        <div className="text-balance text-6xl text-center font-bold mb-16">
+          For a limited time, PrimeStaked is giving away 1,000,000 EigenLayer
+          points
+        </div>
+        <button className="mt-2 rounded-full px-20 py-4 border border-white text-2.66xl font-medium hover:bg-white hover:text-[#586CF8]">
+          Learn more
+        </button>
+      </div>
       {/* Tokens are supported segment */}
       <Segment
         isWhite={false}

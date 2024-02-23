@@ -6,7 +6,6 @@ import { SideNav } from '~/components/nav/SideNav'
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { useReadContracts } from 'wagmi'
 import { parseAbi } from 'viem'
-import { calculateAPY } from '~/utils/calculateAPY'
 
 import { primeETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
 import { contracts, assets, lrtOraclePriceMethod } from '~/utils/constants'
@@ -54,20 +53,6 @@ export default function Index() {
 
   const apy = useAPY()
 
-  // const pointSummary = useQuery({
-  //   queryKey: ['prime-eth-point-summary'],
-  //   queryFn: graphqlClient<{
-  //     lrtSummaries: [{ elPoints: string; points: string }]
-  //   }>(`
-  //     query PointSummary {
-  //       lrtSummaries(limit: 1, orderBy: id_DESC) {
-  //         points
-  //         elPoints
-  //       }
-  //     }
-  //   `),
-  // })
-
   if (!data) return null
 
   let rsETHPrice = 0n
@@ -81,12 +66,6 @@ export default function Index() {
   } catch (e) {
     /* Ignore */
   }
-
-  // const formatPointEL = (val?: string) =>
-  //   val ? formatPoints(val) : pointSummary.isLoading ? '...' : '-'
-  //
-  // const formatPointXP = (val?: string) =>
-  //   val ? formatPoints(BigInt(val)) : pointSummary.isLoading ? '...' : '-'
 
   return (
     <>
