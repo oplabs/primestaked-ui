@@ -6,7 +6,7 @@ import { primeETHABI, oracleAbi } from '~/utils/abis'
 import { contracts, lrtOraclePriceMethod } from '~/utils/constants'
 
 export const useTVL = () => {
-  
+
   const { data } = useReadContracts({
     contracts: [
       {
@@ -49,7 +49,7 @@ export const useTVL = () => {
   }
 
   return {
-    tvl: tvl ? formatEth(tvl) : '-',
+    tvl: tvl ? formatEth(tvl, true, 1) : '-',
     tvlUsd: tvlUsd ? formatUSD(tvlUsd) : '-'
   }
 }
