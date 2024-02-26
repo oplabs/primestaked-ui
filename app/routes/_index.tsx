@@ -1,7 +1,6 @@
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { Link } from '@remix-run/react'
 
-import { Segment } from '~/components/landing/Segment'
 import { RedBox } from '~/components/landing/RedBox'
 import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
@@ -15,9 +14,6 @@ import EigenStar from '~/assets/landing/eigen-star.svg'
 import Pan from '~/assets/landing/pan.svg'
 import EthStakingSrc from '~/assets/landing/eth-staking.svg'
 
-import GobigSrc from '~/assets/landing/goBig.png'
-import BearlySrc from '~/assets/landing/beEarly.png'
-import UniswapSrc from '~/assets/landing/uniswap_logo.svg'
 import HowItWorksSrc from '~/assets/landing/how-it-works.png'
 import OethSrc from '~/assets/landing/tokens/oeth_token.svg'
 import StethSrc from '~/assets/landing/tokens/steth_token.svg'
@@ -28,11 +24,15 @@ import RethSrc from '~/assets/landing/tokens/reth_token.svg'
 import SwethSrc from '~/assets/landing/tokens/sweth_token.svg'
 import EthSrc from '~/assets/landing/tokens/eth_token.svg'
 import EthSimpleSrc from '~/assets/landing/eth-simple.svg'
+import LimitedTime from '~/assets/landing/limited-time.svg'
+import EigenStar2 from '~/assets/landing/eigen-star2.svg'
+import PrimeBonusSrc from '~/assets/landing/prime-bonus.svg'
 
 import currencyExchangeSrc from '~/assets/landing/currency_exchange.svg'
 import waterDropSrc from '~/assets/landing/water_drop.svg'
 import noCheckSrc from '~/assets/landing/no_check.svg'
 import { useAPY } from '~/utils/useAPY'
+import { Tooltip } from '~/components/Tooltip'
 
 export const meta: MetaFunction = () => {
   return [
@@ -125,39 +125,43 @@ export default function Marketing() {
           <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-14 md:mt-[105px] flex content-center">
             Earn Triple Rewards
           </div>
-          <div className="w-full flex justify-between mt-8 sm:mt-24 pt-2 px-4">
-            <div className="relative flex flex-col gap-4 sm:gap-8 flex-1">
-              <img
-                alt="ETH Staking"
-                src={EthStakingSrc}
-                className="h-20 sm:h-36"
-              />
+          <div className="w-full flex justify-between mt-8 sm:mt-24 pt-2 sm:px-4">
+            <div className="flex flex-col gap-4 sm:gap-8 flex-1">
+              <div className="relative flex justify-center">
+                <img
+                  alt="ETH Staking"
+                  src={EthStakingSrc}
+                  className="h-20 sm:h-36"
+                />
+                <div className="h-[1ex] flex items-center absolute right-0 bottom-1/2 translate-x-1/2 translate-y-1/2 leading-0 sm:w-8 text-3xl sm:text-8xl font-medium font-heading text-gray-400">
+                  +
+                </div>
+              </div>
               <div className="text-sm sm:text-4xl text-center text-balance leading-snug sm:leading-relaxed sm:mt-5">
                 <span className="font-medium">ETH staking rewards</span>
                 {' (3-5% APY)'}
               </div>
-              <div className="absolute right-0 bottom-1/2 -translate-y-1/2 w-8 text-3xl sm:text-8xl font-medium font-heading text-gray-400">
-                +
-              </div>
             </div>
-            <div className="relative flex flex-col gap-4 sm:gap-8 flex-1">
-              <img
-                alt="ETH Staking"
-                src={EthStakingSrc}
-                className="h-20 sm:h-36"
-              />
+            <div className="flex flex-col gap-4 sm:gap-8 flex-1">
+              <div className="relative flex justify-center">
+                <img
+                  alt="ETH Staking"
+                  src={EigenStar2}
+                  className="h-20 sm:h-36"
+                />
+                <div className="h-[1ex] flex items-center absolute right-0 bottom-1/2 translate-x-1/2 translate-y-1/2 leading-0 sm:w-8 text-3xl sm:text-8xl font-medium font-heading text-gray-400">
+                  +
+                </div>
+              </div>
               <div className="text-sm sm:text-4xl text-center text-balance leading-snug sm:leading-relaxed sm:mt-5">
                 EigenLayer <br />
                 points
               </div>
-              <div className="absolute right-0 bottom-1/2 -translate-y-1/2 w-8 text-3xl sm:text-8xl font-medium font-heading text-gray-400">
-                +
-              </div>
             </div>
             <div className="relative flex flex-col gap-4 sm:gap-8 flex-1">
               <img
                 alt="ETH Staking"
-                src={EthStakingSrc}
+                src={PrimeBonusSrc}
                 className="h-20 sm:h-36"
               />
               <div className="text-sm sm:text-4xl text-center text-balance leading-snug sm:leading-relaxed sm:mt-5">
@@ -318,7 +322,11 @@ export default function Marketing() {
             </div>
             <div className="mt-10 text-gray-500 text-lg sm:text-3xl text-balance font-heading">
               For a limited time only, earn 20% of the XP points accrued by your
-              referrals. Anyone who uses a referral link also earns 20% more XP.
+              referrals. Anyone who uses a referral link also earns 20% more XP.{' '}
+              <Tooltip size={24} className="p-4 text-gray-500">
+                20% referral bonus only applies to base XP earned, not including
+                other points multiplers.
+              </Tooltip>
               <div className="mt-4 sm:mt-10">
                 Launch our app to get the referral link.
               </div>
@@ -332,10 +340,11 @@ export default function Marketing() {
               </Link>
             </div>
           </div>
-          <div className="hidden sm:block sm:w-2/5"></div>
+          <div className="hidden sm:block sm:w-2/5">
+            <img src={LimitedTime} alt="Limited Time" />
+          </div>
         </div>
       </div>
-
 
       <div className="mx-auto w-full max-w-8xl sm:pt-10 pb-24 px-8 lg:px-16 flex flex-col items-center">
         <div className="text-4xl md:text-6xl font-bold text-gray-950 mt-[74px] md:mt-[54px] text-center w-full">
