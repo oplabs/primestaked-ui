@@ -17,7 +17,7 @@ export const DepositsCountdown = () => {
         <>
           <div className="flex-1 flex flex-col sm:flex-row flex-wrap items-center justify-center sm:justify-start sm:gap-x-4">
             <div className="text-lg sm:text-xl font-medium leading-relaxed text-center sm:text-left">
-              EigenLayer Deposits Have Closed
+              ETH Restaking Coming Soon!
             </div>
             <div className="text-sm sm:text-lg text-balance leading-snug text-center sm:text-left">
               Follow us on social media to stay up to date on deposits.
