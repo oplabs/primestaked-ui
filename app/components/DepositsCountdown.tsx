@@ -79,7 +79,7 @@ export const DepositsCountdown = () => {
       )}
       <Link
         to="/app/restake"
-        className="mt-3 sm:mt-0 sm:mr-5 px-20 py-3 text-sm rounded-full leading-tight font-medium hover:bg-white hover:text-black transition-all duration-200 ease-in-out border border-white flex items-center gap-2"
+        className="mt-3 sm:mt-0 sm:mr-5 w-full sm:w-auto sm:px-20 py-3 text-sm rounded-full leading-tight font-medium hover:bg-white hover:text-black transition-all duration-200 ease-in-out border border-white flex items-center gap-2 justify-center"
       >
         Start Earning
       </Link>

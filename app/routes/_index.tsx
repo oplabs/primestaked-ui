@@ -97,26 +97,32 @@ export default function Marketing() {
                   maximumFractionDigits: 2,
                 })}%`}
               </div>
-              <div className="mt-1 sm:mt-2 text-gray-600 font-medium flex items-center gap-3 text-sm sm:text-base">
-                <div className="text-gray-200 text-lg sm:text-2xl font-medium">
-                  +
+              <div className="mt-1 sm:mt-2 text-gray-600 font-medium flex items-center gap-3 text-sm sm:text-base flex-wrap">
+                <div className="flex gap-3 items-center">
+                  <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                    +
+                  </div>
+                  <div>EigenLayer Points</div>
                 </div>
-                <div>EigenLayer Points</div>
-                <div className="text-gray-200 text-lg sm:text-2xl font-medium">
-                  +
+                <div className="flex gap-3 items-center">
+                  <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                    +
+                  </div>
+                  <div>PrimeETH XP</div>
                 </div>
-                <div>PrimeETH XP</div>
-                <div className="text-gray-200 text-lg sm:text-2xl font-medium">
-                  +
+                <div className="flex gap-3 items-center">
+                  <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                    +
+                  </div>
+                  <div>40% SSV Bonus</div>
                 </div>
-                <div>40% SSV Bonus</div>
               </div>
             </div>
           </div>
           <div>
             <Link
               to="/app/restake"
-              className="block sm:inline text-center sm:w-auto btn sm:px-10 py-5 text-2.66xl hover:cursor-pointer"
+              className="block sm:inline text-center sm:w-auto btn sm:px-10 py-5 text-xl sm:text-2.66xl hover:cursor-pointer"
             >
               Restake ETH now
             </Link>
@@ -192,8 +198,8 @@ export default function Marketing() {
         style={{ backgroundImage: `url(${EigenStar})` }}
       >
         <div className="text-balance text-6xl text-center font-bold mb-16">
-          For a limited time, PrimeStaked is giving away up to 1,000,000 EigenLayer
-          points
+          For a limited time, PrimeStaked is giving away up to 1,000,000
+          EigenLayer points
         </div>
         <a
           href="https://www.originprotocol.com/primestaked-eth-restaking"
@@ -212,8 +218,9 @@ export default function Marketing() {
               Native ETH restaking now supported
             </div>
             <div className="text-lg sm:text-2xl mt-7 leading-relaxed text-gray-600 font-heading">
-              To start earning, just deposit ETH and get primeETH in return.
-              The LST deposit window is currently closed but may re-open in the future.
+              To start earning, just deposit ETH and get primeETH in return. The
+              LST deposit window is currently closed but may re-open in the
+              future.
             </div>
           </div>
           <div className="mt-12 sm:mt-0 sm:px-24 min-w-0 flex items-center justify-center">
