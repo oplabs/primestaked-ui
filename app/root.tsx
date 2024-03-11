@@ -13,8 +13,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 
-import './tailwind.css'
 import { config } from '~/utils/wagmi'
+import './tailwind.css'
 import { useReferrerTracker } from './utils/useReferrerTracker'
 import { DepositsCountdown } from '~/components/DepositsCountdown'
 
