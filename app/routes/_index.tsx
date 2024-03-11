@@ -192,7 +192,7 @@ export default function Marketing() {
         style={{ backgroundImage: `url(${EigenStar})` }}
       >
         <div className="text-balance text-6xl text-center font-bold mb-16">
-          For a limited time, PrimeStaked is giving away 1,000,000 EigenLayer
+          For a limited time, PrimeStaked is giving away up to 1,000,000 EigenLayer
           points
         </div>
         <a
@@ -209,12 +209,11 @@ export default function Marketing() {
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="min-w-0 flex-1">
             <div className="text-4xl md:text-6xl font-bold text-gray-950 flex text-balance">
-              Native ETH Restaking is now Supported
+              Native ETH restaking now supported
             </div>
             <div className="text-lg sm:text-2xl mt-7 leading-relaxed text-gray-600 font-heading">
-              primeETH now supports ETH restaking. To restake, just deposit ETH
-              and get primeETH in return. The LST deposit window is currently
-              closed but may re-open in the future.
+              To start earning, just deposit ETH and get primeETH in return.
+              The LST deposit window is currently closed but may re-open in the future.
             </div>
           </div>
           <div className="mt-12 sm:mt-0 sm:px-24 min-w-0 flex items-center justify-center">
