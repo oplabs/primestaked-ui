@@ -24,6 +24,7 @@ export default {
           500: '#ff4e4e',
         },
         green: {
+          200: '#66FE90',
           500: '#07C166',
         },
         'off-black': '#101113',
@@ -46,6 +47,10 @@ export default {
         sans: ['Sailec', ...defaultTheme.fontFamily.sans],
         heading: ['Inter', ...defaultTheme.fontFamily.sans],
       },
+      maxWidth: {
+        '7xl': '86rem',
+        '8xl': '98rem',
+      }
     },
 
     backgroundImage: {

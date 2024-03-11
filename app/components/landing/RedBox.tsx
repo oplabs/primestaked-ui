@@ -1,16 +1,16 @@
-import { ReactNode } from 'react'
-
 export const RedBox = ({
   iconSrc,
-  text
+  text,
 }: {
-  iconSrc: string,
+  iconSrc: string
   text: string
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center md:flex-row bg-red-500 py-[29px] md:py-[62px] px-[37px] md:px-[48px] rounded-[30px] shadow-[0px_2px_5px_0px_#00000012]">
-      <img src={iconSrc}/>
-      <div className="mt-[18px] md:mt-0 md:ml-[22px] font-bold text-2xl md:text-3xl text-white text-center md:text-left">{text}</div>
+    <div className="flex items-center justify-center bg-red-500 rounded-[30px] shadow-[0px_2px_5px_0px_#00000012] h-28 sm:h-[150px]">
+      <div className="w-1/3 flex items-center justify-end pr-6">
+        <img src={iconSrc} alt="Icon" className="h-[45px] sm:h-[62px]" />
+      </div>
+      <div className="flex-1 font-bold text-lg sm:text-2xl text-white pl-3 pr-6">{text}</div>
     </div>
   )
 }

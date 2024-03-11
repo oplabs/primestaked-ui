@@ -76,3 +76,11 @@ export const lrtOraclePriceMethod = 'primeETHPrice'
 export const depositsEndDate = new Date()
 depositsEndDate.setUTCFullYear(2024, 1, 9)
 depositsEndDate.setUTCHours(19, 55, 0, 0)
+
+export const eigenWeekStart = new Date()
+eigenWeekStart.setUTCFullYear(2024, 2, 18)
+eigenWeekStart.setUTCHours(19, 0, 0, 0)
+
+export const eigenWeekEnd = new Date()
+eigenWeekEnd.setUTCFullYear(2024, 2, 25)
+eigenWeekEnd.setUTCHours(19, 0, 0, 0)

@@ -50,11 +50,11 @@ const CountdownCmp = ({ to, onEnd, textOnly, endsSoon }: CountdownProps) => {
       .join(' ')
   }
 
-  const numberClassNames = `text-5xl font-medium leading-none flex justify-center`
+  const numberClassNames = `text-2xl sm:text-5xl font-medium leading-none flex justify-center`
 
   return (
     <div className="flex">
-      <div className={`grid ${gridColsClass} gap-x-6`}>
+      <div className={`grid ${gridColsClass} gap-x-2 sm:gap-x-6`}>
         {days > 0 ? (
           <>
             <div className={numberClassNames}>{days}</div>
@@ -74,15 +74,15 @@ const CountdownCmp = ({ to, onEnd, textOnly, endsSoon }: CountdownProps) => {
         </div>
         {days > 0 ? (
           <>
-            <div className="text-gray-500">{days > 1 ? 'Days' : 'Day'}</div>
+            <div className="text-gray-500 text-sm sm:text-normal">{days > 1 ? 'Days' : 'Day'}</div>
             <div />
           </>
         ) : null}
-        <div className="text-gray-500">Hours</div>
+        <div className="text-gray-500 text-sm sm:text-normal">Hours</div>
         <div />
-        <div className="text-gray-500">Minutes</div>
+        <div className="text-gray-500 text-sm sm:text-normal">Minutes</div>
         <div />
-        <div className="text-gray-500">Seconds</div>
+        <div className="text-gray-500 text-sm sm:text-normal">Seconds</div>
       </div>
     </div>
   )

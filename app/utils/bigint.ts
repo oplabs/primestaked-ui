@@ -17,10 +17,10 @@ export function bigintToFloat(value: ValueType, decimals: number = 18): number {
   }
 }
 
-export function formatEth(value: ValueType, round = false) {
+export function formatEth(value: ValueType, round = false, digits = 4) {
   if (round) {
     return bigintToFloat(value).toLocaleString(undefined, {
-      maximumFractionDigits: 4,
+      maximumFractionDigits: digits,
     })
   }
 
