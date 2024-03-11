@@ -196,7 +196,7 @@ export default function Marketing() {
           points
         </div>
         <a
-          href="https://www.originprotocol.com"
+          href="https://www.originprotocol.com/primestaked-eth-restaking"
           target="_blank"
           rel="noreferrer"
           className="mt-2 rounded-full px-20 py-4 border border-white text-2.66xl font-medium hover:bg-white hover:text-[#586CF8]"
@@ -313,7 +313,9 @@ export default function Marketing() {
         >
           <div style={{ paddingTop: '56.25%' }} />
           <a
-            href="/"
+            href="https://www.originprotocol.com/primestaked-eth-restaking"
+            target="_blank"
+            rel="noreferrer"
             className="absolute bottom-0 right-0 w-[37%] h-[43%] text-transparent"
           >
             Learn More
