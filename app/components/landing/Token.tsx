@@ -14,11 +14,11 @@ export const Token = ({
         {text}
       </div>
       {isActive ? (
-        <div className="rounded bg-green-200 px-4 text-lg sm:text-2xl font-medium leading-normal">
+        <div className="rounded bg-green-200 px-4 text-lg sm:text-2xl font-medium leading-normal mt-4">
           Active
         </div>
       ) : (
-        <div className="rounded bg-gray-200 px-4 text-lg sm:text-2xl font-medium leading-normal">
+        <div className="rounded bg-gray-200 px-4 text-lg sm:text-2xl font-medium leading-normal mt-4">
           Paused
         </div>
       )}

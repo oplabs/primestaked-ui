@@ -1,4 +1,5 @@
 import { Outlet } from '@remix-run/react'
+import { redirect } from '@remix-run/cloudflare'
 
 import { TopNav } from '~/components/nav/TopNav'
 import { SideNav } from '~/components/nav/SideNav'
@@ -20,6 +21,10 @@ export const meta: MetaFunction = () => {
     { title: 'Prime Staked ETH' },
     { name: 'description', content: 'Welcome to Prime Staked ETH!' },
   ]
+}
+
+export const loader = () => {
+  return redirect('https://app.primestaked.com')
 }
 
 export default function Index() {

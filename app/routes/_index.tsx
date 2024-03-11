@@ -106,6 +106,10 @@ export default function Marketing() {
                   +
                 </div>
                 <div>PrimeETH XP</div>
+                <div className="text-gray-200 text-lg sm:text-2xl font-medium">
+                  +
+                </div>
+                <div>40% SSV Bonus</div>
               </div>
             </div>
           </div>
@@ -191,12 +195,17 @@ export default function Marketing() {
           For a limited time, PrimeStaked is giving away 1,000,000 EigenLayer
           points
         </div>
-        <button className="mt-2 rounded-full px-20 py-4 border border-white text-2.66xl font-medium hover:bg-white hover:text-[#586CF8]">
+        <a
+          href="https://www.originprotocol.com"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-2 rounded-full px-20 py-4 border border-white text-2.66xl font-medium hover:bg-white hover:text-[#586CF8]"
+        >
           Learn more
-        </button>
+        </a>
       </div>
 
-      <div className="sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
+      <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="min-w-0 flex-1">
             <div className="text-4xl md:text-6xl font-bold text-gray-950 flex text-balance">
@@ -260,8 +269,8 @@ export default function Marketing() {
                 deposit windows.
               </div>
               <Link
-                to="/"
-                className="btn-outline text-sm mt-auto px-20 py-3 mb-2"
+                to="/app/restake"
+                className="btn-outline text-sm mt-auto w-full sm:w-auto sm:px-20 py-3 mb-2 text-center"
               >
                 Deposit now
               </Link>
@@ -283,7 +292,7 @@ export default function Marketing() {
               </div>
               <a
                 href="https://app.uniswap.org/swap?outputCurrency=0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615&inputCurrency=ETH"
-                className="btn-outline text-sm mt-auto px-20 py-3 mb-2"
+                className="btn-outline text-sm mt-auto w-full sm:w-auto sm:px-20 py-3 mb-2 text-center"
                 target="_blank"
                 rel="noreferrer"
               >

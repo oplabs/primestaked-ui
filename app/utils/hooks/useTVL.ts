@@ -49,7 +49,7 @@ export const useTVL = () => {
   }
 
   return {
-    tvl: tvl ? formatEth(tvl, true, 1) : '-',
-    tvlUsd: tvlUsd ? formatUSD(tvlUsd) : '-'
+    tvl: tvl ? formatEth(tvl, true, 0) : '-',
+    tvlUsd: tvlUsd ? formatUSD(tvlUsd, 0) : '-'
   }
 }
