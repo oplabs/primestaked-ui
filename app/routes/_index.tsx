@@ -10,7 +10,6 @@ import { useTVL } from '~/utils/hooks/useTVL'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
-import EigenStar from '~/assets/landing/eigen-star.svg'
 import Pan from '~/assets/landing/pan.svg'
 import EthStakingSrc from '~/assets/landing/eth-staking.svg'
 
@@ -193,24 +192,6 @@ export default function Marketing() {
         </div>
       </div>
 
-      <div
-        className="hidden bg-[#586CF8] text-white w-full sm:flex flex-col justify-center items-center px-4 md:px-8 lg:px-12 py-24 bg-[bottom_left] sm:bg-[bottom_left] bg-no-repeat"
-        style={{ backgroundImage: `url(${EigenStar})` }}
-      >
-        <div className="text-balance text-6xl text-center font-bold mb-16">
-          For a limited time, PrimeStaked is giving away up to 1,000,000
-          EigenLayer points
-        </div>
-        <a
-          href="https://www.originprotocol.com/primestaked-eth-restaking"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-2 rounded-full px-20 py-4 border border-white text-2.66xl font-medium hover:bg-white hover:text-[#586CF8]"
-        >
-          Learn more
-        </a>
-      </div>
-
       <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="min-w-0 flex-1">
@@ -230,7 +211,7 @@ export default function Marketing() {
       </div>
 
       <div
-        className={`bg-[bottom_-50%_right_0%] bg-[length:50%] sm:bg-[bottom_-93%_right_0%] bg-no-repeat`}
+        className={`bg-[bottom_-40%_right_0%] bg-[length:170px] sm:bg-[length:300px] sm:bg-[bottom_-60%_right_0%] bg-no-repeat`}
         style={{ backgroundImage: `url(${Pan})` }}
       >
         <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
@@ -338,10 +319,10 @@ export default function Marketing() {
               {' XP'}
             </div>
             <div className="mt-10 text-gray-500 text-lg sm:text-3xl text-balance font-heading">
-              For a limited time only, earn 20% of the XP points accrued by your
-              referrals. Anyone who uses a referral link also earns 20% more XP.{' '}
+              For a limited time only, earn 10% of the XP points accrued by your
+              referrals. Anyone who uses a referral link also earns 10% more XP.{' '}
               <Tooltip size={24} className="p-4 text-gray-500">
-                20% referral bonus only applies to base XP earned, not including
+                10% referral bonus only applies to base XP earned, not including
                 other points multiplers.
               </Tooltip>
               <div className="mt-4 sm:mt-10">
