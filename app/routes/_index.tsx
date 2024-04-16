@@ -121,9 +121,9 @@ export default function Marketing() {
           <div>
             <Link
               to="/app/restake"
-              className="block sm:inline text-center sm:w-auto btn sm:px-10 py-5 text-xl sm:text-2.66xl hover:cursor-pointer"
+              className="block sm:inline text-center sm:w-auto btn sm:px-20 py-5 text-xl sm:text-2.66xl hover:cursor-pointer"
             >
-              Restake ETH now
+              Restake now
             </Link>
           </div>
         </div>
@@ -192,7 +192,7 @@ export default function Marketing() {
         </div>
       </div>
 
-      <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
+      {/* <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="min-w-0 flex-1">
             <div className="text-4xl md:text-6xl font-bold text-gray-950 flex text-balance">
@@ -208,14 +208,14 @@ export default function Marketing() {
             <img src={EthSrc} alt="ETH" className="h-64 sm:h-80" />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className={`bg-[bottom_-40%_right_0%] bg-[length:170px] sm:bg-[length:300px] sm:bg-[bottom_-60%_right_0%] bg-no-repeat`}
         style={{ backgroundImage: `url(${Pan})` }}
       >
         <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
-          <div className="text-4xl md:text-6xl font-bold text-gray-950">
+          <div className="text-4xl md:text-6xl font-bold text-gray-950 text-center">
             <span className="text-red-500">primeETH</span>
             {' is backed by hard assets'}
           </div>
@@ -223,7 +223,7 @@ export default function Marketing() {
         <div className="px-8 mx-auto w-full max-w-8xl pb-24 sm:pb-56">
           <div className="grid grid-cols-3 sm:grid-cols-4 mt-8 sm:mt-20 gap-y-8 sm:gap-y-24 gap-x-6">
             <Token iconSrc={EthSrc} text="ETH" isActive={true} />
-            <Token iconSrc={OethSrc} text="OETH" isActive={false} />
+            <Token iconSrc={OethSrc} text="OETH" isActive={true} />
             <Token iconSrc={StethSrc} text="stETH" isActive={false} />
             <Token iconSrc={SwethSrc} text="swETH" isActive={false} />
 
@@ -248,12 +248,12 @@ export default function Marketing() {
                   className="h-12 sm:h-[74px] sm:w-[74px]"
                 />
               </div>
-              <div className="text-2xl sm:text-4xl font-medium leading-relaxed text-center">
-                Deposit ETH on PrimeStaked
+              <div className="sm:mt-2 text-2xl sm:text-4xl font-medium leading-relaxed text-center">
+                Deposit ETH or OETH
               </div>
-              <div className="text-lg sm:text-2xl leading-normal text-balance text-center mb-3">
-                Stay tuned to our Twitter for information on any future LST
-                deposit windows.
+              <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
+                All deposits earn the same three layers of rewards from SSV,
+                EigenLayer, and XP.
               </div>
               <Link
                 to="/app/restake"
@@ -270,12 +270,12 @@ export default function Marketing() {
                   className="h-12 sm:h-[74px] sm:w-[74px]"
                 />
               </div>
-              <div className="text-2xl sm:text-4xl font-medium leading-relaxed text-center">
+              <div className="sm:mt-2 text-2xl sm:text-4xl font-medium leading-relaxed text-center">
                 Buy it on Uniswap
               </div>
-              <div className="text-lg sm:text-2xl leading-normal text-balance text-center mb-3">
-                Our platform will handle the rest, providing you with three
-                types of yield as your assets are restaked.
+              <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
+                You primeETH will earn at the same rate whether you buy or
+                deposit.
               </div>
               <a
                 href="https://app.uniswap.org/swap?outputCurrency=0x6ef3D766Dfe02Dc4bF04aAe9122EB9A0Ded25615&inputCurrency=ETH"
@@ -290,7 +290,7 @@ export default function Marketing() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-8xl pt-10 sm:pt-12 pb-16 sm:pb-40 px-8 lg:px-16 flex flex-col items-center">
+      <div className="mx-auto w-full max-w-8xl pt-10 sm:pt-20 pb-16 sm:pb-40 px-8 lg:px-16 flex flex-col items-center">
         <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-center mb-20">
           How it works
         </div>
