@@ -113,7 +113,7 @@ export default function Marketing() {
                   <div className="text-gray-200 text-lg sm:text-2xl font-medium">
                     +
                   </div>
-                  <div>40% SSV Bonus</div>
+                  <div>10% SSV Bonus</div>
                 </div>
               </div>
             </div>
