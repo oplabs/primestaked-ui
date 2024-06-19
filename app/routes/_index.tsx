@@ -1,12 +1,10 @@
 import type { MetaFunction } from '@remix-run/cloudflare'
-import { Link } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 
 import { RedBox } from '~/components/landing/RedBox'
 import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
 import { Footer } from '~/components/landing/Footer'
-
-import { useTVL } from '~/utils/hooks/useTVL'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
@@ -30,7 +28,6 @@ import PrimeBonusSrc from '~/assets/landing/prime-bonus.svg'
 import currencyExchangeSrc from '~/assets/landing/currency_exchange.svg'
 import waterDropSrc from '~/assets/landing/water_drop.svg'
 import noCheckSrc from '~/assets/landing/no_check.svg'
-import { useAPY } from '~/utils/useAPY'
 import { Tooltip } from '~/components/Tooltip'
 
 export const meta: MetaFunction = () => {
@@ -40,9 +37,20 @@ export const meta: MetaFunction = () => {
   ]
 }
 
+export const loader = async () => {
+  const dataRaw = await fetch(
+    'https://api.originprotocol.com/api/v2/primestaked',
+  )
+  const data = await dataRaw.json()
+  return {
+    tvl: data.tvl.toLocaleString(undefined, { maximumFractionDigits: 0 }),
+    tvlUsd: data.tvlUsd.toLocaleString(undefined, { maximumFractionDigits: 0 }),
+    apy: data.apy,
+  }
+}
+
 export default function Marketing() {
-  const { tvl, tvlUsd } = useTVL()
-  const apy = useAPY()
+  const { tvl, tvlUsd, apy } = useLoaderData<typeof loader>()
 
   return (
     <>

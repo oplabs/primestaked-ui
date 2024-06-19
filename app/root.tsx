@@ -8,12 +8,9 @@ import {
   ScrollRestoration,
   useRouteError,
 } from '@remix-run/react'
-import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 
-import { config } from '~/utils/wagmi'
 import './tailwind.css'
 import { useReferrerTracker } from './utils/useReferrerTracker'
 import { DepositsCountdown } from '~/components/DepositsCountdown'
@@ -42,14 +39,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
-              <DepositsCountdown />
-              <Outlet />
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
+        <QueryClientProvider client={queryClient}>
+          <DepositsCountdown />
+          <Outlet />
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
