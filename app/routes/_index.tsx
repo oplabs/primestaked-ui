@@ -219,8 +219,7 @@ export default function Marketing() {
           </div>
         </div>
       </div> */}
-
-      <div
+      {/* <div
         className={`bg-[bottom_-40%_right_0%] bg-[length:170px] sm:bg-[length:300px] sm:bg-[bottom_-60%_right_0%] bg-no-repeat`}
         style={{ backgroundImage: `url(${Pan})` }}
       >
@@ -243,7 +242,30 @@ export default function Marketing() {
             <Token iconSrc={SfrxSrc} text="sfrxETH" isActive={false} />
           </div>
         </div>
+      </div> */}
+
+      <div className="p-8 sm:p-28 flex flex-col md:flex-row md:align-middle gap-8">
+        <div className="w-full md:w-1/2">
+          <div className="text-4xl font-bold pb-8">
+            <span className="text-red-500">primeETH</span>&nbsp;is backed by
+            OETH
+          </div>
+          <div className="pb-8">
+            Stake ETH, Stay Liquid, Earn Superior Yield
+          </div>
+          <p className="w-full">
+            Stake any amount of ETH and receive equivalent Origin Ether. Use
+            OETH cross-chain across DeFi to compound returns, while still
+            earning staking yield.
+          </p>
+        </div>
+        <img
+          src={OethSrc}
+          alt="oeth"
+          className="w-[150px] md:w-[300px] mx-auto"
+        />
       </div>
+
       <div className="bg-white pt-16 sm:pt-28 pb-10 sm:pb-32">
         <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
           <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-center">
@@ -300,24 +322,14 @@ export default function Marketing() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-8xl pt-10 sm:pt-20 pb-16 sm:pb-40 px-8 lg:px-16 flex flex-col items-center">
+      <div className="mx-auto w-full max-w-8xl py-10 sm:py-20 px-8 lg:px-16 flex flex-col items-center">
         <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-center mb-20">
           How it works
         </div>
         <div
           style={{ backgroundImage: `url(${HowItWorksSrc})` }}
-          className="w-full max-w-[1122px] bg-contain bg-no-repeat sm:ml-20 relative"
-        >
-          <div style={{ paddingTop: '56.25%' }} />
-          <a
-            href="https://www.originprotocol.com/primestaked-eth-restaking"
-            target="_blank"
-            rel="noreferrer"
-            className="absolute bottom-0 right-0 w-[37%] h-[43%] text-transparent"
-          >
-            Learn More
-          </a>
-        </div>
+          className="w-full h-[300px] max-w-[1122px] bg-contain bg-no-repeat bg-center relative"
+        />
       </div>
 
       <div className="bg-white pt-12 sm:pt-28 pb-12 sm:pb-32">
@@ -366,10 +378,10 @@ export default function Marketing() {
           question="What type of fees do you charge?"
           answer="PrimeStaked does not charge any fees for now on EigenLayer Restaked points or XP. 100% of these rewards are passed onto the holder. More details on the fee model will be shared in the future. Rest assured, redemptions will be enabled before fees are turned on."
         />
-        <FaqQuestion
+        {/* <FaqQuestion
           question="Can I withdraw my funds?"
           answer="Withdrawals will be enabled in the near future. Liquidity is available on Uniswap enabling conversion of primeETH to ETH for those needing to exit."
-        />
+        /> */}
       </div>
       <Footer />
     </>
