@@ -29,6 +29,7 @@ import currencyExchangeSrc from '~/assets/landing/currency_exchange.svg'
 import waterDropSrc from '~/assets/landing/water_drop.svg'
 import noCheckSrc from '~/assets/landing/no_check.svg'
 import { Tooltip } from '~/components/Tooltip'
+import { YieldNestBanner } from '~/components/YieldNestBanner'
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,6 +55,7 @@ export default function Marketing() {
 
   return (
     <>
+      <YieldNestBanner />
       <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-8 lg:px-12 py-8">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-[147px]" />
