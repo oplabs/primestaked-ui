@@ -2,24 +2,15 @@ import type { MetaFunction } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 
 import { RedBox } from '~/components/landing/RedBox'
-import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
 import { Footer } from '~/components/landing/Footer'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
-import Pan from '~/assets/landing/pan.svg'
 import EthStakingSrc from '~/assets/landing/eth-staking.svg'
 
 import HowItWorksSrc from '~/assets/landing/how-it-works.png'
 import OethSrc from '~/assets/landing/tokens/oeth_token.svg'
-import StethSrc from '~/assets/landing/tokens/steth_token.svg'
-import SfrxSrc from '~/assets/landing/tokens/frxeth_token.svg'
-import MethSrc from '~/assets/landing/tokens/meth_token.svg'
-import EthxSrc from '~/assets/landing/tokens/ethx_token.svg'
-import RethSrc from '~/assets/landing/tokens/reth_token.svg'
-import SwethSrc from '~/assets/landing/tokens/sweth_token.svg'
-import EthSrc from '~/assets/landing/tokens/eth_token.svg'
 import EthSimpleSrc from '~/assets/landing/eth-simple.svg'
 import LimitedTime from '~/assets/landing/limited-time.svg'
 import EigenStar2 from '~/assets/landing/eigen-star2.svg'
@@ -202,58 +193,16 @@ export default function Marketing() {
         </div>
       </div>
 
-      {/* <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
-        <div className="flex flex-col sm:flex-row justify-between">
-          <div className="min-w-0 flex-1">
-            <div className="text-4xl md:text-6xl font-bold text-gray-950 flex text-balance">
-              Native ETH restaking now supported
-            </div>
-            <div className="text-lg sm:text-2xl mt-7 leading-relaxed text-gray-600 font-heading">
-              To start earning, just deposit ETH and get primeETH in return. The
-              LST deposit window is currently closed but may re-open in the
-              future.
-            </div>
-          </div>
-          <div className="mt-12 sm:mt-0 sm:px-24 min-w-0 flex items-center justify-center">
-            <img src={EthSrc} alt="ETH" className="h-64 sm:h-80" />
-          </div>
-        </div>
-      </div> */}
-      {/* <div
-        className={`bg-[bottom_-40%_right_0%] bg-[length:170px] sm:bg-[length:300px] sm:bg-[bottom_-60%_right_0%] bg-no-repeat`}
-        style={{ backgroundImage: `url(${Pan})` }}
-      >
-        <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
-          <div className="text-4xl md:text-6xl font-bold text-gray-950 text-center">
-            <span className="text-red-500">primeETH</span>
-            {' is backed by hard assets'}
-          </div>
-        </div>
-        <div className="px-8 mx-auto w-full max-w-8xl pb-24 sm:pb-56">
-          <div className="grid grid-cols-3 sm:grid-cols-4 mt-8 sm:mt-20 gap-y-8 sm:gap-y-24 gap-x-6">
-            <Token iconSrc={EthSrc} text="ETH" isActive={true} />
-            <Token iconSrc={OethSrc} text="OETH" isActive={true} />
-            <Token iconSrc={StethSrc} text="stETH" isActive={false} />
-            <Token iconSrc={SwethSrc} text="swETH" isActive={false} />
-
-            <Token iconSrc={EthxSrc} text="ETHx" isActive={false} />
-            <Token iconSrc={MethSrc} text="mEth" isActive={false} />
-            <Token iconSrc={RethSrc} text="rEth" isActive={false} />
-            <Token iconSrc={SfrxSrc} text="sfrxETH" isActive={false} />
-          </div>
-        </div>
-      </div> */}
-
-      <div className="p-8 sm:p-28 flex flex-col md:flex-row md:align-middle gap-8">
-        <div className="w-full md:w-1/2">
-          <div className="text-4xl font-bold pb-8">
+      <div className="mx-auto w-full max-w-8xl py-10 sm:py-20 px-8 lg:px-16 flex flex-col md:flex-row md:align-middle gap-8">
+        <div className="w-full md:w-2/3">
+          <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-balance pb-8">
             <span className="text-red-500">primeETH</span>&nbsp;is backed by
             OETH
           </div>
-          <div className="pb-8">
+          <div className="text-gray-500 text-lg sm:text-3xl text-balance font-heading pb-3">
             Stake ETH, Stay Liquid, Earn Superior Yield
           </div>
-          <p className="w-full">
+          <p className="w-full text-lg sm:text-3xl">
             Stake any amount of ETH and receive equivalent Origin Ether. Use
             OETH cross-chain across DeFi to compound returns, while still
             earning staking yield.
@@ -378,10 +327,6 @@ export default function Marketing() {
           question="What type of fees do you charge?"
           answer="PrimeStaked does not charge any fees for now on EigenLayer Restaked points or XP. 100% of these rewards are passed onto the holder. More details on the fee model will be shared in the future. Rest assured, redemptions will be enabled before fees are turned on."
         />
-        {/* <FaqQuestion
-          question="Can I withdraw my funds?"
-          answer="Withdrawals will be enabled in the near future. Liquidity is available on Uniswap enabling conversion of primeETH to ETH for those needing to exit."
-        /> */}
       </div>
       <Footer />
     </>
