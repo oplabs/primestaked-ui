@@ -230,7 +230,7 @@ export default function Marketing() {
                 />
               </div>
               <div className="sm:mt-2 text-2xl sm:text-4xl font-medium leading-relaxed text-center">
-                Deposit ETH or OETH
+                Deposit OETH
               </div>
               <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
                 All deposits earn the same three layers of rewards from SSV,
@@ -255,7 +255,7 @@ export default function Marketing() {
                 Buy it on Uniswap
               </div>
               <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
-                You primeETH will earn at the same rate whether you buy or
+                Your primeETH will earn at the same rate whether you buy or
                 deposit.
               </div>
               <a

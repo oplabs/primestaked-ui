@@ -4,6 +4,7 @@ import YNSeed from '~/assets/yn-seed.svg'
 import Airdrop from '~/assets/airdrop.svg'
 import YNToken from '~/assets/yn-token.svg'
 import ExternalArrow from '~/assets/external-arrow.svg'
+import ExternalArrowBlack from '~/assets/external-arrow-black.svg'
 
 const cards = [
   {
@@ -37,7 +38,7 @@ export const YieldNestBanner = () => {
           src={YieldNest}
         />
       </div>
-      <span className="text-white text-5xl text-center font-medium pb-8">
+      <span className="text-white text-5xl text-center font-medium pb-8 leading-snug">
         PrimeStaked is merging with YieldNest!
         <br />
         Migration coming soon.
@@ -67,7 +68,7 @@ export const YieldNestBanner = () => {
           className="flex flex-row flex-flex-nowrap items-center gap-1 btn-alert px-20 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
         >
           Visit YieldNest&nbsp;
-          <img src={ExternalArrow} alt="external" className="w-4" />
+          <img src={ExternalArrowBlack} alt="external" className="w-4" />
         </a>
       </div>
     </div>
@@ -83,7 +84,11 @@ type CardProps = {
 const Card = ({ icon, description, title }: CardProps) => {
   return (
     <div className="flex flex-col align-middle p-5 border border-gray-750 rounded-xl bg-gray-850 bg-opacity-50 gap-2 w-full md:w-[300px]">
-      <img className="w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] mx-auto" alt={title} src={icon} />
+      <img
+        className="w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] mx-auto mb-4"
+        alt={title}
+        src={icon}
+      />
       <span className="text-white text-center text-2xl">{title}</span>
       <span className="text-white text-center">{description}</span>
     </div>

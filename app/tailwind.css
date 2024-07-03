@@ -26,10 +26,7 @@ body {
   @apply rounded-full leading-tight font-medium border-red-500/50 border text-off-white/30;
 }
 .btn-alert {
-  @apply rounded-full leading-tight font-medium text-white bg-orange-400 hover:bg-orange-400/75;
-}
-.btn-alert-disabled {
-  @apply rounded-full leading-tight font-medium text-white bg-orange-400/60 pointer-events-none;
+  @apply rounded-full leading-tight font-medium text-black bg-[#E8C787] hover:bg-[#E8C787]/75;
 }
 
 @font-face {
