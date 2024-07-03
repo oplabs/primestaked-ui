@@ -52,7 +52,7 @@ export const YieldNestBanner = () => {
       </div>
       <div className="flex flex-row flex-wrap items-center justify-center gap-8 px-28">
         <a
-          href="https://www.yieldnest.finance/"
+          href="https://www.originprotocol.com/primestaked-yieldnest-airdrop"
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-row flex-flex-nowrap items-center gap-1 btn px-20 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
@@ -61,7 +61,7 @@ export const YieldNestBanner = () => {
           <img src={ExternalArrow} alt="external" className="w-4" />
         </a>
         <a
-          href="https://www.yieldnest.finance/"
+          href="https://yieldnest.finance/primestaked"
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-row flex-flex-nowrap items-center gap-1 btn-alert px-20 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
