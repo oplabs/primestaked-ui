@@ -15,15 +15,15 @@ const cards = [
   },
   {
     icon: YNSeed,
-    title: '5% bonus on YieldNest Seeds',
+    title: '60% YND Allocation',
     description:
-      'primeETH holders who migrate to ynLSD will receive a 5% Seeds (points) boost for Season 1 airdrop',
+      'YieldNest plans to distribute at least 60% of the total YND token supply to its community.',
   },
   {
     icon: YNToken,
-    title: 'YieldNest Pioneer NFT',
+    title: 'Exclusive Boosts',
     description:
-      'Migrate at least 5 primeETH to receive the Pioneer NFT which gives you a permanent 15% Seeds (points) boost for all airdrop seasons',
+      'Earn 5% to 15% boosts on YieldNest Seeds for being part of the PrimeStaked community.',
   },
 ]
 
