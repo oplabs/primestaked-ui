@@ -2,24 +2,15 @@ import type { MetaFunction } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 
 import { RedBox } from '~/components/landing/RedBox'
-import { Token } from '~/components/landing/Token'
 import { FaqQuestion } from '~/components/landing/FaqQuestion'
 import { Footer } from '~/components/landing/Footer'
 
 import Logo from '~/assets/prime-staked.svg'
 import Cow from '~/assets/landing/cow.svg'
-import Pan from '~/assets/landing/pan.svg'
 import EthStakingSrc from '~/assets/landing/eth-staking.svg'
 
 import HowItWorksSrc from '~/assets/landing/how-it-works.png'
 import OethSrc from '~/assets/landing/tokens/oeth_token.svg'
-import StethSrc from '~/assets/landing/tokens/steth_token.svg'
-import SfrxSrc from '~/assets/landing/tokens/frxeth_token.svg'
-import MethSrc from '~/assets/landing/tokens/meth_token.svg'
-import EthxSrc from '~/assets/landing/tokens/ethx_token.svg'
-import RethSrc from '~/assets/landing/tokens/reth_token.svg'
-import SwethSrc from '~/assets/landing/tokens/sweth_token.svg'
-import EthSrc from '~/assets/landing/tokens/eth_token.svg'
 import EthSimpleSrc from '~/assets/landing/eth-simple.svg'
 import LimitedTime from '~/assets/landing/limited-time.svg'
 import EigenStar2 from '~/assets/landing/eigen-star2.svg'
@@ -29,6 +20,7 @@ import currencyExchangeSrc from '~/assets/landing/currency_exchange.svg'
 import waterDropSrc from '~/assets/landing/water_drop.svg'
 import noCheckSrc from '~/assets/landing/no_check.svg'
 import { Tooltip } from '~/components/Tooltip'
+import { YieldNestBanner } from '~/components/YieldNestBanner'
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,6 +46,7 @@ export default function Marketing() {
 
   return (
     <>
+      <YieldNestBanner />
       <div className="max-w-7xl mx-auto w-full flex justify-between items-center px-8 lg:px-12 py-8">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-[147px]" />
@@ -200,48 +193,28 @@ export default function Marketing() {
         </div>
       </div>
 
-      {/* <div className="mt-14 sm:mt-28 pt-2 mx-auto w-full max-w-8xl pb-20 sm:pb-24 px-8 lg:px-16">
-        <div className="flex flex-col sm:flex-row justify-between">
-          <div className="min-w-0 flex-1">
-            <div className="text-4xl md:text-6xl font-bold text-gray-950 flex text-balance">
-              Native ETH restaking now supported
-            </div>
-            <div className="text-lg sm:text-2xl mt-7 leading-relaxed text-gray-600 font-heading">
-              To start earning, just deposit ETH and get primeETH in return. The
-              LST deposit window is currently closed but may re-open in the
-              future.
-            </div>
+      <div className="mx-auto w-full max-w-8xl py-10 sm:py-20 px-8 lg:px-16 flex flex-col md:flex-row md:align-middle gap-8">
+        <div className="w-full md:w-2/3">
+          <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-balance pb-8">
+            <span className="text-red-500">primeETH</span>&nbsp;is backed by
+            OETH
           </div>
-          <div className="mt-12 sm:mt-0 sm:px-24 min-w-0 flex items-center justify-center">
-            <img src={EthSrc} alt="ETH" className="h-64 sm:h-80" />
+          <div className="text-gray-500 text-lg sm:text-3xl text-balance font-heading pb-3">
+            Stake ETH, Stay Liquid, Earn Superior Yield
           </div>
+          <p className="w-full text-lg sm:text-3xl">
+            Stake any amount of ETH and receive equivalent Origin Ether. Use
+            OETH cross-chain across DeFi to compound returns, while still
+            earning staking yield.
+          </p>
         </div>
-      </div> */}
-
-      <div
-        className={`bg-[bottom_-40%_right_0%] bg-[length:170px] sm:bg-[length:300px] sm:bg-[bottom_-60%_right_0%] bg-no-repeat`}
-        style={{ backgroundImage: `url(${Pan})` }}
-      >
-        <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
-          <div className="text-4xl md:text-6xl font-bold text-gray-950 text-center">
-            <span className="text-red-500">primeETH</span>
-            {' is backed by hard assets'}
-          </div>
-        </div>
-        <div className="px-8 mx-auto w-full max-w-8xl pb-24 sm:pb-56">
-          <div className="grid grid-cols-3 sm:grid-cols-4 mt-8 sm:mt-20 gap-y-8 sm:gap-y-24 gap-x-6">
-            <Token iconSrc={EthSrc} text="ETH" isActive={true} />
-            <Token iconSrc={OethSrc} text="OETH" isActive={true} />
-            <Token iconSrc={StethSrc} text="stETH" isActive={false} />
-            <Token iconSrc={SwethSrc} text="swETH" isActive={false} />
-
-            <Token iconSrc={EthxSrc} text="ETHx" isActive={false} />
-            <Token iconSrc={MethSrc} text="mEth" isActive={false} />
-            <Token iconSrc={RethSrc} text="rEth" isActive={false} />
-            <Token iconSrc={SfrxSrc} text="sfrxETH" isActive={false} />
-          </div>
-        </div>
+        <img
+          src={OethSrc}
+          alt="oeth"
+          className="w-[150px] md:w-[300px] mx-auto"
+        />
       </div>
+
       <div className="bg-white pt-16 sm:pt-28 pb-10 sm:pb-32">
         <div className="mx-auto w-full max-w-8xl px-8 lg:px-16">
           <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-center">
@@ -257,7 +230,7 @@ export default function Marketing() {
                 />
               </div>
               <div className="sm:mt-2 text-2xl sm:text-4xl font-medium leading-relaxed text-center">
-                Deposit ETH or OETH
+                Deposit OETH
               </div>
               <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
                 All deposits earn the same three layers of rewards from SSV,
@@ -282,7 +255,7 @@ export default function Marketing() {
                 Buy it on Uniswap
               </div>
               <div className="sm:mt-3 text-lg sm:text-2xl leading-normal text-balance text-center mb-5">
-                You primeETH will earn at the same rate whether you buy or
+                Your primeETH will earn at the same rate whether you buy or
                 deposit.
               </div>
               <a
@@ -298,24 +271,14 @@ export default function Marketing() {
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-8xl pt-10 sm:pt-20 pb-16 sm:pb-40 px-8 lg:px-16 flex flex-col items-center">
+      <div className="mx-auto w-full max-w-8xl py-10 sm:py-20 px-8 lg:px-16 flex flex-col items-center">
         <div className="text-4xl sm:text-6xl font-bold text-gray-950 text-center mb-20">
           How it works
         </div>
         <div
           style={{ backgroundImage: `url(${HowItWorksSrc})` }}
-          className="w-full max-w-[1122px] bg-contain bg-no-repeat sm:ml-20 relative"
-        >
-          <div style={{ paddingTop: '56.25%' }} />
-          <a
-            href="https://www.originprotocol.com/primestaked-eth-restaking"
-            target="_blank"
-            rel="noreferrer"
-            className="absolute bottom-0 right-0 w-[37%] h-[43%] text-transparent"
-          >
-            Learn More
-          </a>
-        </div>
+          className="w-full h-[300px] max-w-[1122px] bg-contain bg-no-repeat bg-center relative"
+        />
       </div>
 
       <div className="bg-white pt-12 sm:pt-28 pb-12 sm:pb-32">
@@ -363,10 +326,6 @@ export default function Marketing() {
         <FaqQuestion
           question="What type of fees do you charge?"
           answer="PrimeStaked does not charge any fees for now on EigenLayer Restaked points or XP. 100% of these rewards are passed onto the holder. More details on the fee model will be shared in the future. Rest assured, redemptions will be enabled before fees are turned on."
-        />
-        <FaqQuestion
-          question="Can I withdraw my funds?"
-          answer="Withdrawals will be enabled in the near future. Liquidity is available on Uniswap enabling conversion of primeETH to ETH for those needing to exit."
         />
       </div>
       <Footer />
