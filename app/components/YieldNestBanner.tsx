@@ -42,7 +42,7 @@ export const YieldNestBanner = () => {
       <span className="text-white text-2xl sm:text-5xl text-center font-medium pb-8 leading-snug">
         PrimeStaked is merging with YieldNest!
         <br />
-        Migration coming soon.
+        Migration is live!
       </span>
       <span className="text-white text-2xl text-center font-medium pb-8">
         PrimeStaked XP holders are eligible for an exclusive YND airdrop.
