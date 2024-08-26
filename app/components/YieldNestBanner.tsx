@@ -5,13 +5,14 @@ import Airdrop from '~/assets/airdrop.svg'
 import YNToken from '~/assets/yn-token.svg'
 import ExternalArrow from '~/assets/external-arrow.svg'
 import ExternalArrowBlack from '~/assets/external-arrow-black.svg'
+import { ExternalLink } from './Icons'
 
 const cards = [
   {
     icon: Airdrop,
     title: 'Participate in the YieldNest Airdrop',
     description:
-      'Mint primeETH with OETH and get whitelisted for the upcoming YieldNest Airdrop.',
+      'Migrate primeETH to ynSLDe and get whitelisted for the upcoming YND airdrop.',
   },
   {
     icon: YNSeed,
@@ -38,7 +39,7 @@ export const YieldNestBanner = () => {
           src={YieldNest}
         />
       </div>
-      <span className="text-white text-5xl text-center font-medium pb-8 leading-snug">
+      <span className="text-white text-2xl sm:text-5xl text-center font-medium pb-8 leading-snug">
         PrimeStaked is merging with YieldNest!
         <br />
         Migration coming soon.
@@ -51,24 +52,34 @@ export const YieldNestBanner = () => {
           <Card key={c.title} {...c} />
         ))}
       </div>
+      <div className="flex items-center justify-center gap-8 px-28 mb-8">
+        <a
+          href="https://app.primestaked.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-row flex-flex-nowrap items-center gap-1 btn px-16 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
+        >
+          Migrate to ynLSDe Now
+        </a>
+      </div>
       <div className="flex flex-row flex-wrap items-center justify-center gap-8 px-28">
         <a
           href="https://www.originprotocol.com/primestaked-yieldnest-airdrop"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-row flex-flex-nowrap items-center gap-1 btn px-20 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
+          className="flex flex-row flex-flex-nowrap items-center gap-1 btn-outline px-12 py-3 text-lg hover:cursor-pointer whitespace-nowrap"
         >
-          Learn more&nbsp;
-          <img src={ExternalArrow} alt="external" className="w-4" />
+          Learn more
+          <ExternalLink />
         </a>
         <a
           href="https://yieldnest.finance/primestaked"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-row flex-flex-nowrap items-center gap-1 btn-alert px-20 py-5 text-lg hover:cursor-pointer whitespace-nowrap"
+          className="flex flex-row flex-flex-nowrap items-center gap-1 btn-alert px-12 py-3 text-lg hover:cursor-pointer whitespace-nowrap"
         >
           Visit YieldNest&nbsp;
-          <img src={ExternalArrowBlack} alt="external" className="w-4" />
+          <ExternalLink />
         </a>
       </div>
     </div>
