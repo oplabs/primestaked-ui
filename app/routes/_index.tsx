@@ -14,7 +14,6 @@ export default function Marketing() {
   return (
     <>
       <YieldNestBanner />
-
       <Footer />
     </>
   )
