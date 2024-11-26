@@ -30,7 +30,7 @@ const cards = [
 export const YieldNestBanner = () => {
   return (
     <>
-      <div className="w-full flex flex-col items-center py-8 bg-red-500 gap-2">
+      <div className="w-full flex flex-col items-center px-8 py-8 bg-red-500 gap-2">
         <img src={Parastar} alt="YN-icon" className="w-[80px] sm:w-[120px]" />
         <span className="text-center text-balance text-xl sm:text-3xl text-white">
           Migrate your primeETH to ynLSDe <b>before December 15</b> to be
